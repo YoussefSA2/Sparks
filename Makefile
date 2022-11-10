@@ -1,6 +1,6 @@
 FLAGS= -Wall -Wextra -pedantic
 
-all: main
+all: run-game
 
 clean: 
 	rm -f game
