@@ -8,5 +8,5 @@ clean:
 compile-game:
 	gcc $(FLAGS) -o game src/main.c
 
-run-game: game
+run-game: compile-game
 	./game
