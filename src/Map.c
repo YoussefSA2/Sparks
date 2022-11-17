@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-int **genererMat(int N, int M){
+int **genererMatrice(int N, int M){
     // m est un pointeur sur un liste de pointeur, d'où int**
     int** m;
     // alloué N pointeurs, N étant le nb de lignes
@@ -21,22 +21,6 @@ int **genererMat(int N, int M){
                  printf("%d", m[i][j]);};
             printf("\n");
         }
-}
 
-
-
- 
-            
-
-            
-   
-
-int main()
-{   
-    srand(time(NULL)) ;
-    int N= rand() %2+ 5;
-    int M=N;
-    int** mat=genererMat(N,M);
-    //verifGrille(mat,N,M);
-    return 0;
+    return m;
 }
