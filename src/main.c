@@ -4,8 +4,6 @@
 
 int main(void)
 {
-    printf("Hello World!\n");
-
     int gameFinished = 0;
 
     int N=3;
@@ -13,7 +11,8 @@ int main(void)
 
     while(!gameFinished)
     {
-        int** map = genererMatrice(N, M);
+        int** map = generateMap(N, M);
+        showMap(map, N);
         gameFinished = 1;
     }
 

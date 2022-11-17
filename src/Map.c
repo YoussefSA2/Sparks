@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-int **genererMatrice(int N, int M){
+int **generateMap(int N, int M){
     // m est un pointeur sur un liste de pointeur, d'où int**
     int** m;
     // alloué N pointeurs, N étant le nb de lignes
@@ -18,9 +18,21 @@ int **genererMatrice(int N, int M){
                 m[0][0]=0;                                            //fonction qui dit si y'a un chamin ou pas 
                                                                     // 2 et 3 pour case e
                 m[M-1][N-1]=0;
-                 printf("%d", m[i][j]);};
-            printf("\n");
+            }
         }
 
     return m;
+}
+
+void showMap(int **map, int map_size)
+{
+    for(int i=0; i < map_size; ++i)
+    {   
+        for(int j=0;j < map_size; ++j)
+        {
+            printf("%c", (map[i][j]==0) ? '+':'*');
+        }
+        printf("\n");
+
+    }
 }
