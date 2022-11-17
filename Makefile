@@ -6,7 +6,7 @@ clean:
 	rm -f game
 
 compile-game:
-	gcc $(FLAGS) -o game src/main.c
+	gcc $(FLAGS) src/*c -o game
 
 run-game: compile-game
 	./game
