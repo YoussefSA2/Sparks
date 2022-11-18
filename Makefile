@@ -15,7 +15,7 @@ compile-tests:
 	gcc $(FLAGS) -lrt -lm tests/test_*.c $(SOURCES_WITOUT_MAIN) -o tests.o
 
 run-game: compile-game
-	./game
+	./game.o
 
 run-tests: compile-tests
 	./tests.o
