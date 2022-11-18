@@ -4,21 +4,31 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "./include/Game.h"
 #include "./include/Map.h"
 
 #define MAP_SIZE 10
 
+#define false 0
+#define true 1
+
+/*
+* Main function, contains the game loop.
+*/
 int main(void)
 {
-    int gameFinished = 0;
+    int gameIsFinished = false;
 
+    int** map = generateMap(MAP_SIZE);
 
-    while(!gameFinished)
+    while(!gameIsFinished)
     {
-        int** map = generateMap(MAP_SIZE);
         showMap(map, MAP_SIZE);
-        gameFinished = 1;
+        gameIsFinished = handlePlayerInput(getPlayerInput());
     }
 
-    return 0;
+    clearScreen();
+    printf("Thanks for playing!\n");
+
+    return EXIT_SUCCESS;
 }
