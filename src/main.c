@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include "./include/Map.h"
 
+#define MAP_SIZE 10
+
 int main(void)
 {
     int gameFinished = 0;
 
-    int N=3;
-    int M=3;
 
     while(!gameFinished)
     {
-        int** map = generateMap(N, M);
-        showMap(map, N);
+        int** map = generateMap(MAP_SIZE);
+        showMap(map, MAP_SIZE);
         gameFinished = 1;
     }
 

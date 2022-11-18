@@ -6,7 +6,7 @@ int **map = NULL;
 
 void test_setup(void) {
 	map_size = 10;
-    map = generateMap(map_size, map_size);
+    map = generateMap(map_size);
 
 }
 
