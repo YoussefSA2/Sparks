@@ -1,5 +1,5 @@
 #include "./include/minunit.h"
-#include "../src/Map.h"
+#include "../src/include/Map.h"
 
 static int map_size = 10;
 int **map = NULL;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./Map.h"
+#include "./include/Map.h"
 
 int main(void)
 {
