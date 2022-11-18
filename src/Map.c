@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h> 
 
+#define OBSTACLE "🚧"
+#define TREE "🌲"
+
 int **generateMap(int N, int M){
     // m est un pointeur sur un liste de pointeur, d'où int**
     int** m;
@@ -30,7 +33,7 @@ void showMap(int **map, int map_size)
     {   
         for(int j=0;j < map_size; ++j)
         {
-            printf("%c", (map[i][j]==0) ? '+':'*');
+            printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
         }
         printf("\n");
 
