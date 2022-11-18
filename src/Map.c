@@ -13,8 +13,8 @@ int **generateMap(int MAP_SIZE){
     for (int i=0; i< MAP_SIZE; i++){
         //pour chaque ligne de la matrice map[i] allouez m entiers, m étant le nb colones
         map[i]=malloc(MAP_SIZE * sizeof(int));}
-        //ici la mapatrice map est construite en mémoire, donc on peut la remplir
-        //remapplissage de la generermapat
+        //ici la matrice map est construite en mémoire, donc on peut la remplir
+        //remplissage de la matrice
         for(int i=0; i<MAP_SIZE; i++){
             for(int j=0 ; j<MAP_SIZE; j++){
                 map[i][j]=rand() %2;                                    
