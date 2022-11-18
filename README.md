@@ -35,3 +35,9 @@ To do
 ```bash
 make run-game
 ```
+
+# Launch the tests
+
+```bash
+make run-tests
+```
