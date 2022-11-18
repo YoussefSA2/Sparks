@@ -26,15 +26,10 @@ MU_TEST(test_generate_map) {
     }
 }
 
-MU_TEST(test_fail) {
-    mu_fail("Fail now!");
-}
-
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
 	MU_RUN_TEST(test_generate_map);
-    MU_RUN_TEST(test_fail);
 
 }
 
