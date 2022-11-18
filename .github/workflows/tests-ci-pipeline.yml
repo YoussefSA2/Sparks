@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Continuous Integration Pipeline
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  tests:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: run-tests
+    - name: run
       run: make run-tests
