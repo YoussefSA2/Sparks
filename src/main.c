@@ -1,3 +1,7 @@
+/*
+* Main file, contains the game loop.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Map.h"

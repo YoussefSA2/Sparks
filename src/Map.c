@@ -1,3 +1,7 @@
+/**
+* File which handles the Map structure and functions.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
@@ -5,6 +9,9 @@
 #define OBSTACLE "🚧"
 #define TREE "🌲"
 
+/*
+* Generates a MAP_SIZE x MAP_SIZE map.
+*/
 int **generateMap(int MAP_SIZE){
     // map est un pointeur sur un liste de pointeurs, d'où int**
     int** map;
@@ -27,6 +34,9 @@ int **generateMap(int MAP_SIZE){
     return map;
 }
 
+/*
+* Displays the map.
+*/
 void showMap(int **map, int map_size)
 {
     for(int i=0; i < map_size; ++i)
