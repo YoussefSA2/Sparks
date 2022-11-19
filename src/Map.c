@@ -8,10 +8,12 @@
 
 #ifdef _WIN32
     #include <conio.h>
+    #define OBSTACLE "x"
+    #define TREE "*"
+#else
+    #define OBSTACLE "🚧"
+    #define TREE "🌲"
 #endif
-
-#define OBSTACLE "🚧"
-#define TREE "🌲"
 
 /*
 * Clears the console.
