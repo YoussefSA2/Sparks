@@ -6,8 +6,24 @@
 #include <stdlib.h>
 #include <time.h> 
 
+#ifdef _WIN32
+    #include <conio.h>
+#endif
+
 #define OBSTACLE "🚧"
 #define TREE "🌲"
+
+/*
+* Clears the console.
+*/
+void clearScreen()
+{
+    #ifdef _WIN32 // Windows
+        clrscr();
+    #else // Linux
+        system("clear");
+    #endif
+}
 
 /*
 * Generates a MAP_SIZE x MAP_SIZE map.
@@ -38,7 +54,10 @@ int **generateMap(int MAP_SIZE){
 * Displays the map.
 */
 void showMap(int **map, int map_size)
-{
+{   
+    // Clear the console to avoid having the map displayed multiple times.
+    clearScreen();
+
     for(int i=0; i < map_size; ++i)
     {   
         for(int j=0;j < map_size; ++j)

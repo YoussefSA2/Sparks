@@ -6,16 +6,18 @@ SOURCES_WITOUT_MAIN= $(filter-out $(MAIN), $(wildcard src/*.c))
 all: run-game
 
 clean: 
-	rm -f *.o
+	rm -f game tests_*
 
 compile-game:
-	gcc $(FLAGS) src/*.c -o game.o
+	gcc $(FLAGS) src/*.c -o game
 
 compile-tests:
-	gcc $(FLAGS) -lrt -lm tests/test_*.c $(SOURCES_WITOUT_MAIN) -o tests.o
+	gcc $(FLAGS) -lrt -lm test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_game
+	gcc $(FLAGS) -lrt -lm test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_map
 
 run-game: compile-game
-	./game.o
+	./game
 
 run-tests: compile-tests
-	./tests.o
+	./tests_game
+	./tests_map
