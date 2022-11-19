@@ -6,8 +6,13 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define OBSTACLE "🚧"
-#define TREE "🌲"
+#ifdef _WIN32
+    #define OBSTACLE "x"
+    #define TREE "*"
+#else
+    #define OBSTACLE "🚧"
+    #define TREE "🌲"
+#endif
 
 /*
 * Generates a MAP_SIZE x MAP_SIZE map.
