@@ -2,6 +2,9 @@
 #define _GAME_H
 
 #include "./Player.h"
+#ifndef _WIN_32
+    #include <conio.h>
+#endif
 
 /*
 * Game states
