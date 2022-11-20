@@ -3,7 +3,7 @@ FLAGS= -Wall -Wextra -pedantic
 MAIN= src/main.c
 SOURCES_WITOUT_MAIN= $(filter-out $(MAIN), $(wildcard src/*.c))
 
-all: run-game
+all: run-game clean
 
 clean: 
 	rm -f game tests_*
