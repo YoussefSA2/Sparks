@@ -8,6 +8,9 @@
 */
 #define GAME_IS_FINISHED -1
 #define GAME_IS_RUNNING 0
+#define MOVE_SUCCESS 1
+#define FOOD_FOUND 2
+#define OBSTACLE_HIT 3
 
 /*
 * Player inputs

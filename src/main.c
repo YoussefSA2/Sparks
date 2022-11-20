@@ -23,7 +23,7 @@ int main(void)
   
     while(gameState != GAME_IS_FINISHED)
     {   
-        gameState = handlePlayerInput(getPlayerInput(), &player);
+        gameState = handlePlayerInput(getPlayerInput(), &player, map);
         clearScreen();
         showMap(map, MAP_SIZE, player);
         printLastAction(gameState);
