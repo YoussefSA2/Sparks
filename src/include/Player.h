@@ -23,6 +23,6 @@ struct Player{
 
 Player initPlayer();
 
-void move(Player* player, int direction);
+char move(Player* player, char direction);
 void modifyEnergy(Player* player, int value);
 #endif

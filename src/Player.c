@@ -1,11 +1,9 @@
 /**
 * File which handles the Player structure and functions.
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Player.h"
-#define INIT_ENERGY 100
 
 /*
 * Function which initializes the player.
@@ -22,22 +20,51 @@ Player initPlayer(){
     
     return player;
 }
-void move(Player* player, int direction){
+
+/*
+* Function which moves the player.
+* It only changes the player position (the display will be handled in the showMap() function).
+* It returns the new player position.
+*/
+
+char move(Player* player, char direction){
     switch(direction){
-        case 1://A faire quand les fonction de map seront prets
-            printf("UP\n");
+        case MOVE_NORTH_INPUT:
+            player->position.y++;
             break;
-        case 2:
-            printf("DOWN\n");
+        case MOVE_NORTH_EAST_INPUT:
+            player->position.x++;
+            player->position.y++;
             break;
-        case 3:
-            printf("LEFT\n");
+        case MOVE_EAST_INPUT:
+            player->position.x++;
             break;
-        case 4:
-            printf("RIGHT\n");
+        case MOVE_SOUTH_EAST_INPUT:
+            player->position.x--;
+            player->position.y++;
+            break;
+        case MOVE_SOUTH_INPUT:
+            player->position.y--;
+            break;
+        case MOVE_SOUTH_WEST_INPUT:
+            player->position.x--;
+            player->position.y--;
+            break;
+        case MOVE_WEST_INPUT:
+            player->position.x--;
+            break;
+        case MOVE_NORTH_WEST_INPUT:
+            player->position.x--;
+            player->position.y++;
             break;
     }
+
+    return direction;
 }
+
+/*
+* Function which modifies the player energy.
+*/
 void modifyEnergy(Player* player, int value){
-    player->energy=value;
+    player->energy = value;
 }
