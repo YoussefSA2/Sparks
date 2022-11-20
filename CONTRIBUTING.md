@@ -12,12 +12,12 @@ git checkout -b feat-12-add-map-generation
 2) Add your changes to the branch, and commit them. 
 
 ```bash
-git add first_file.c first_file.h
+git add src/first_file.c src/include/first_file.h
 ``` 
 or 
 
 ```bash
-git add .
+git add src/.
 ```
 (only if you are sure that you want to add all the changes)
 
