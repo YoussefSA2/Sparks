@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 typedef struct Coordinates Coordinates;
 struct Coordinates{
     int x;
@@ -7,12 +5,14 @@ struct Coordinates{
 
 };
 
-void showCoordinates(Coordinates position){
-    printf("(x,y) : %d  %d", position.x, position.y);
+void showCoordinates(Coordinates coordinates){
+    printf("(%d, %d)", coordinates.x, coordinates.y);
+
 }
+
+#include <stdio.h>
 
 int main(void){
    Coordinates position = {2,2};
    showCoordinates(position);
-   
 }
