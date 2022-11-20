@@ -40,8 +40,8 @@ char move(Player* player, char direction){
             player->position.x++;
             break;
         case MOVE_SOUTH_EAST_INPUT:
-            player->position.x--;
-            player->position.y++;
+            player->position.x++;
+            player->position.y--;
             break;
         case MOVE_SOUTH_INPUT:
             player->position.y--;
@@ -66,5 +66,5 @@ char move(Player* player, char direction){
 * Function which modifies the player energy.
 */
 void modifyEnergy(Player* player, int value){
-    player->energy = value;
+    player->energy += value;
 }
