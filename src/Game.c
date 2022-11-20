@@ -42,6 +42,33 @@ char getPlayerInput() {
 }
 
 /*
+* Fonction which checks if the player is still on the map after moving. 
+*/
+int isPlayerInTheMap(Player* player, int mapSize) {
+    if (player->position.x < 0 || player->position.x >= mapSize || player->position.y < 0 || player->position.y >= mapSize) {
+        return false;
+    }
+    return true;
+}
+
+/*
+* Fonction which handles player movement.
+* It checks if the player is still on the map after moving
+* and change player energy given the destination square (tree, food, obstacle).
+*/
+char handlePlayerMove(Player* player, char direction) {
+    move(player, direction);
+    if (!isPlayerInTheMap(player, MAP_SIZE)) {
+        move(player, getOppositeDirection(direction)); // TODO : in the future, use moveHistory to go back to the previous position.
+        return INVALID_DIRECTION_INPUT;
+    }
+
+    // TODO : change player energy given the destination square (tree, food, obstacle).
+
+    return direction;
+}
+
+/*
 * Function which handles all player inputs.
 * It calls the functions corresponding to the player input.
 * For example, if the player inputs 'q', it will call the saveGame function, etc.
@@ -58,7 +85,7 @@ int handlePlayerInput(char input, Player* player) {
         case MOVE_SOUTH_WEST_INPUT:
         case MOVE_WEST_INPUT:
         case MOVE_NORTH_WEST_INPUT:
-            return move(player, input); // TODO : call handlePlayerMove() here instead (to check if move is possible, handle collisions, etc.)
+            return handlePlayerMove(player, input);
             break;
         default:
             return GAME_IS_RUNNING;
@@ -97,6 +124,9 @@ void printLastAction(char gameState) {
             break;
         case GAME_IS_FINISHED:
             printf("You saved the game.\n");
+            break;
+        case INVALID_DIRECTION_INPUT:
+            printf("You can't go there!\n");
             break;
         default:
             printf("Invalid input.\n");
