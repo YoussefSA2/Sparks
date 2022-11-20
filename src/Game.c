@@ -4,12 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#define EXIT_INPUT 'q'
-#define EXIT_SIGNAL 1
-
-#define false 0
-#define true 1
+#include "./include/Game.h"
 
 /*
 * Saves the game.

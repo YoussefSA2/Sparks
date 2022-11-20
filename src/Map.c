@@ -2,30 +2,7 @@
 * File which handles the Map structure and functions.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h> 
-
-#ifdef _WIN32
-    #include <conio.h>
-    #define OBSTACLE "x"
-    #define TREE "*"
-#else
-    #define OBSTACLE "🚧"
-    #define TREE "🌲"
-#endif
-
-/*
-* Clears the console.
-*/
-void clearScreen()
-{
-    #ifdef _WIN32 // Windows
-        //clrscr();//Marche pas
-    #else // Linux
-        system("clear");
-    #endif
-}
+#include "./include/Map.h"
 
 /*
 * Generates a MAP_SIZE x MAP_SIZE map.
