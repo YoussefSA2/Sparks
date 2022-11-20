@@ -29,7 +29,7 @@ MU_TEST(test_save_game) {
 
 MU_TEST(test_handle_player_input) {
     mu_assert(handlePlayerInput(EXIT_INPUT, &player) == GAME_IS_FINISHED, "handlePlayerInput should return GAME_IS_FINISHED");
-	mu_assert(handlePlayerInput(RANDOM_INPUT, &player) == false, "handlePlayerInput should return false");
+	mu_assert(handlePlayerInput(RANDOM_INPUT, &player) == GAME_IS_RUNNING, "handlePlayerInput should return GAME_IS_RUNNING");
 }
 
 MU_TEST_SUITE(test_suite) {
