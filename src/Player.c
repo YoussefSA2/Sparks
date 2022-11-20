@@ -24,7 +24,7 @@ Player initPlayer(){
 /*
 * Function which moves the player.
 * It only changes the player position (the display will be handled in the showMap() function).
-* It returns the new player position.
+* It returns the direction input given by the user (see the Player.h file for the constants).
 */
 
 char move(Player* player, char direction){
