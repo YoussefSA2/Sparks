@@ -19,10 +19,10 @@ int **generateMap(int mapSize){
         //remplissage de la matrice
         for(int i=0; i<mapSize; i++){
             for(int j=0 ; j<mapSize; j++){
-                map[i][j]=rand() %2;                                    
-                map[0][0]=0;                                            
+                map[i][j]=rand()%3;                                    
+                map[0][0]=TREE;                                            
                                                                     
-                map[mapSize-1][mapSize-1]=0;
+                map[mapSize-1][mapSize-1]=TREE;
             }
         }
 
@@ -40,11 +40,11 @@ void showMap(int **map, int mapSize, Player player)
         {
             if (i == player.position.y && j == player.position.x)
             {
-                printf(" %s ", PLAYER);
+                printf(" %s ", PLAYER_EMOJI);
             }
             else
             {
-                printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
+                printf(" %s ", (map[i][j]==TREE) ? TREE_EMOJI: (map[i][j]==OBSTACLE) ? OBSTACLE_EMOJI : FOOD_EMOJI);
             }
             
         }
