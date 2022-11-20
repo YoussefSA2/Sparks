@@ -34,8 +34,6 @@ int **generateMap(int MAP_SIZE){
 */
 void showMap(int **map, int map_size)
 {   
-    // Clear the console to avoid having the map displayed multiple times.
-    clearScreen();
 
     for(int i=0; i < map_size; ++i)
     {   
