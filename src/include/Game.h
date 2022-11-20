@@ -2,7 +2,7 @@
 #define _GAME_H
 
 #include "./Player.h"
-#ifndef _WIN_32
+#ifdef _WIN32
     #include <conio.h>
 #endif
 
