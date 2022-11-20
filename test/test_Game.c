@@ -27,9 +27,15 @@ MU_TEST(test_handle_player_input_exit) {
     mu_assert(handlePlayerInput(EXIT_INPUT, &player) == GAME_IS_FINISHED, "handlePlayerInput should return GAME_IS_FINISHED");
 }
 
-MU_TEST(test_handle_player_input_move) {
-	mu_assert(handlePlayerInput(MOVE_WEST_INPUT, &player) == MOVE_WEST_INPUT, "handlePlayerInput should return MOVE_WEST_INPUT");
+MU_TEST(test_handle_player_input_unvalid_move) {
+	// Player is initialized at (0, 0) so they shouldn't be able go west
+	mu_assert(handlePlayerInput(MOVE_WEST_INPUT, &player) == INVALID_DIRECTION_INPUT, "handlePlayerInput should return INVALID_DIRECTION_INPUT");
 }
+
+MU_TEST(test_handle_player_input_valid_move) {
+	mu_assert(handlePlayerInput(MOVE_EAST_INPUT, &player) == MOVE_EAST_INPUT, "handlePlayerInput should return MOVE_EAST_INPUT");
+}
+
 
 MU_TEST(test_handle_player_input_random) {
 	mu_assert(handlePlayerInput(RANDOM_INPUT, &player) == GAME_IS_RUNNING, "handlePlayerInput should return GAME_IS_RUNNING");
@@ -40,7 +46,8 @@ MU_TEST_SUITE(test_suite) {
 
 	MU_RUN_TEST(test_save_game);
     MU_RUN_TEST(test_handle_player_input_exit);
-	MU_RUN_TEST(test_handle_player_input_move);
+	MU_RUN_TEST(test_handle_player_input_unvalid_move);
+	MU_RUN_TEST(test_handle_player_input_valid_move);
 	MU_RUN_TEST(test_handle_player_input_random);
 
 }
