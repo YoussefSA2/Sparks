@@ -1,15 +1,22 @@
 #include <stdlib.h>
 #include "./include/minunit.h"
 #include "../src/include/Game.h"
+#include "../src/include/Player.h"
+
+/*
+* Game states
+*/
+
+#define GAME_IS_RUNNING 0
+#define GAME_IS_FINISHED 99
 
 #define EXIT_INPUT 'q'
-#define EXIT_SIGNAL 1
 #define RANDOM_INPUT 'r'
 
-#define false 0
-#define true 1
+Player player;
 
 void test_setup(void) {
+	player = initPlayer();
 }
 
 void test_teardown(void) {
@@ -17,12 +24,12 @@ void test_teardown(void) {
 }
 
 MU_TEST(test_save_game) {
-    mu_assert(saveGame() == EXIT_SIGNAL, "saveGame should return EXIT_SIGNAL");
+    mu_assert(saveGame() == GAME_IS_FINISHED, "saveGame should return GAME_IS_FINISHED");
 }
 
 MU_TEST(test_handle_player_input) {
-    mu_assert(handlePlayerInput(EXIT_INPUT) == EXIT_SIGNAL, "handlePlayerInput should return EXIT_SIGNAL");
-	mu_assert(handlePlayerInput(RANDOM_INPUT) == false, "handlePlayerInput should return false");
+    mu_assert(handlePlayerInput(EXIT_INPUT, &player) == GAME_IS_FINISHED, "handlePlayerInput should return GAME_IS_FINISHED");
+	mu_assert(handlePlayerInput(RANDOM_INPUT, &player) == false, "handlePlayerInput should return false");
 }
 
 MU_TEST_SUITE(test_suite) {
