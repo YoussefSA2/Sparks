@@ -26,6 +26,7 @@
 
 int saveGame();
 void clearScreen();
+char getPlayerInput();
 int handlePlayerInput(char input, Player* player);
 void printLastAction(char gameState);
 

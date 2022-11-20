@@ -4,15 +4,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "./include/Game.h"
 #include "./include/Map.h"
 #include "./include/Player.h"
-#ifdef _WIN32
-    #include <conio.h>
-#else
-    #include <./include/conio.h>
-#endif
 
 #define MAP_SIZE 10
 
@@ -30,12 +24,10 @@ int main(void)
   
     while(gameState != GAME_IS_FINISHED)
     {   
-        if(kbhit()){
-            gameState = handlePlayerInput(getch(), &player);
-            clearScreen();
-            showMap(map, MAP_SIZE);
-            printLastAction(gameState);
-        }
+        gameState = handlePlayerInput(getPlayerInput(), &player);
+        clearScreen();
+        showMap(map, MAP_SIZE);
+        printLastAction(gameState);
     }
 
     clearScreen();
