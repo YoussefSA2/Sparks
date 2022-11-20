@@ -4,10 +4,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+
 #include "./include/Game.h"
 #include "./include/Map.h"
 #include "./include/Player.h"
+#ifdef _WIN32
+    #include <conio.h>
+#else
+    #include <./include/conio.h>
+#endif
 
 #define MAP_SIZE 10
 
