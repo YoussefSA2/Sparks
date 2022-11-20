@@ -8,23 +8,25 @@
 * Generates a mapSize x mapSize map.
 */
 int **generateMap(int mapSize){
-    // map est un pointeur sur un liste de pointeurs, d'où int**
     int** map;
-    // alloué N pointeurs, N étant le nb de lignes
+
     map=malloc(mapSize * sizeof(int*));
-    for (int i=0; i< mapSize; i++){
-        //pour chaque ligne de la matrice map[i] allouez m entiers, m étant le nb colones
-        map[i]=malloc(mapSize * sizeof(int));}
-        //ici la matrice map est construite en mémoire, donc on peut la remplir
-        //remplissage de la matrice
-        for(int i=0; i<mapSize; i++){
-            for(int j=0 ; j<mapSize; j++){
-                map[i][j]=rand()%3;                                    
-                map[0][0]=TREE;                                            
-                                                                    
-                map[mapSize-1][mapSize-1]=TREE;
-            }
+
+    for (int i=0; i< mapSize; i++)
+    {
+        map[i]=malloc(mapSize * sizeof(int));
+    }
+        
+    for(int i=0; i<mapSize; i++)
+    {
+        for(int j=0 ; j<mapSize; j++)
+        {
+            map[i][j]=rand()%3;                                    
+            map[0][0]=TREE;                                            
+                                                                
+            map[mapSize-1][mapSize-1]=TREE;
         }
+    }
 
     return map;
 }
