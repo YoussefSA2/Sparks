@@ -14,6 +14,7 @@ compile-game:
 compile-tests:
 	gcc $(FLAGS) -lrt -lm test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_game
 	gcc $(FLAGS) -lrt -lm test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_map
+	gcc $(FLAGS) -lrt -lm test/test_Player.c $(SOURCES_WITOUT_MAIN) -o tests_player
 
 run-game: compile-game
 	./game
@@ -21,3 +22,4 @@ run-game: compile-game
 run-tests: compile-tests
 	./tests_game
 	./tests_map
+	./tests_player
