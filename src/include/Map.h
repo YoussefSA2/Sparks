@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
+#include "./Constants.h"
 #include "./Player.h"
 
 #ifdef _WIN32
@@ -18,7 +19,8 @@
 #endif
 
 
-int **generateMap(int MAP_SIZE);
-void showMap(int** map, int map_size, Player player);   
+int **generateMap(int mapSize);
+char getOppositeDirection(char direction);
+void showMap(int** map, int mapSize, Player player);   
 
 #endif
