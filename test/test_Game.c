@@ -28,7 +28,7 @@ MU_TEST(test_handle_player_input_exit) {
 }
 
 MU_TEST(test_handle_player_input_move) {
-	mu_assert(handlePlayerInput(MOVE_WEST_INPUT, &player) == MOVE_EAST_INPUT, "handlePlayerInput should return MOVE_EAST_INPUT");
+	mu_assert(handlePlayerInput(MOVE_WEST_INPUT, &player) == MOVE_WEST_INPUT, "handlePlayerInput should return MOVE_WEST_INPUT");
 }
 
 MU_TEST(test_handle_player_input_random) {
