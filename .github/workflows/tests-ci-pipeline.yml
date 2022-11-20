@@ -30,8 +30,8 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v2
         with:
           args: install make mingw
-    - name: compile game
-      run: make compile-game
-    - name: run unit tests
-      run: make run-tests
+      - name: compile game
+        run: make compile-game
+      - name: run unit tests
+        run: make run-tests
 
