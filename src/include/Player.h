@@ -17,7 +17,7 @@
 typedef struct Player Player;
 struct Player{
     float energy;
-    int position[2];// Quand la struct coord seras pretes il faudras remplacé
+    Coordinates position;
     int nbRewinds;
 };
 

@@ -7,13 +7,19 @@
 #include "./include/Player.h"
 #define INIT_ENERGY 100
 
+/*
+* Function which initializes the player.
+*
+*/
 Player initPlayer(){
-    Player player;// Je créer un nouveau player et je lui initialise ces valeurs
-    player.position[0]=0;// Quand la struct coord seras pretes il faudras remplacé
-    player.position[1]=0;
-    player.energy=INIT_ENERGY;
-    player.nbRewinds=20;
-    printf("Player initialised\n");
+    
+    Player player;
+    
+    player.position.x = 0;
+    player.position.y = 0;
+    player.energy = 100;
+    player.nbRewinds = 6;
+    
     return player;
 }
 void move(Player* player, int direction){
