@@ -8,8 +8,6 @@
 #include "./include/Map.h"
 #include "./include/Player.h"
 
-#define MAP_SIZE 10
-
 /*
 * Main function, contains the game loop.
 */
