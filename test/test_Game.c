@@ -7,10 +7,6 @@
 * Game states
 */
 
-#define GAME_IS_RUNNING 0
-#define GAME_IS_FINISHED 99
-
-#define EXIT_INPUT 'q'
 #define RANDOM_INPUT 'r'
 
 Player player;
