@@ -29,11 +29,7 @@ void clearScreen()
 /*
 * Returns the player input.
 */
-char getPlayerInput() {
-    char input = getchar();
-    getchar(); // To remove the \n character you get when you press enter.
-    return input;
-}
+
 
 /*
 * Function which handles all player inputs.

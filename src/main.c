@@ -24,10 +24,12 @@ int main(void)
   
     while(gameState != GAME_IS_FINISHED)
     {   
-        gameState = handlePlayerInput(getPlayerInput(), &player);
-        clearScreen();
-        showMap(map, MAP_SIZE);
-        printLastAction(gameState);
+        if(kbhit()){
+            gameState = handlePlayerInput(getch(), &player);
+            clearScreen();
+            showMap(map, MAP_SIZE);
+            printLastAction(gameState);
+        }
     }
 
     clearScreen();
