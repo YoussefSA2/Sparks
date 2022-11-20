@@ -1,39 +1,34 @@
 /**
-* File which handles the Map structure and functions.
+* File which handles the Player structure and functions.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> 
+#include "./include/Player.h"
+#define INIT_ENERGY 100
 
-typedef struct Player Player;
-struct Player{
-    float energy;
-    int position[2];// Quand la struct coord seras pretes il faudras remplacé
-    int nbRewinds;
-};
 Player initPlayer(){
-   Player p;// Je créer un nouveau player et je lui initialise ces valeurs
-   p.position[0]=0;// Quand la struct coord seras pretes il faudras remplacé
-   p.position[1]=0;
-   p.energy=100;
-   p.nbRewinds=20;
-
-   return p;
+    Player player;// Je créer un nouveau player et je lui initialise ces valeurs
+    player.position[0]=0;// Quand la struct coord seras pretes il faudras remplacé
+    player.position[1]=0;
+    player.energy=INIT_ENERGY;
+    player.nbRewinds=20;
+    printf("Player initialised\n");
+    return player;
 }
 void move(Player* player, int direction){
     switch(direction){
         case 1://A faire quand les fonction de map seront prets
-            printf("UP");
+            printf("UP\n");
             break;
         case 2:
-            printf("DOWN");
+            printf("DOWN\n");
             break;
         case 3:
-            printf("LEFT");
+            printf("LEFT\n");
             break;
         case 4:
-            printf("RIGHT");
+            printf("RIGHT\n");
             break;
     }
 }

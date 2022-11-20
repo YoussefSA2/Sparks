@@ -21,7 +21,7 @@
 void clearScreen()
 {
     #ifdef _WIN32 // Windows
-        clrscr();
+        //clrscr();//Marche pas
     #else // Linux
         system("clear");
     #endif
