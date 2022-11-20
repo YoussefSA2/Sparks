@@ -30,32 +30,32 @@ Player initPlayer(){
 char move(Player* player, char direction){
     switch(direction){
         case MOVE_NORTH_INPUT:
-            player->position.y++;
+            player->position.y--;
             break;
         case MOVE_NORTH_EAST_INPUT:
             player->position.x++;
-            player->position.y++;
+            player->position.y--;
             break;
         case MOVE_EAST_INPUT:
             player->position.x++;
             break;
         case MOVE_SOUTH_EAST_INPUT:
             player->position.x++;
-            player->position.y--;
+            player->position.y++;
             break;
         case MOVE_SOUTH_INPUT:
-            player->position.y--;
+            player->position.y++;
             break;
         case MOVE_SOUTH_WEST_INPUT:
             player->position.x--;
-            player->position.y--;
+            player->position.y++;
             break;
         case MOVE_WEST_INPUT:
             player->position.x--;
             break;
         case MOVE_NORTH_WEST_INPUT:
             player->position.x--;
-            player->position.y++;
+            player->position.y--;
             break;
     }
 
