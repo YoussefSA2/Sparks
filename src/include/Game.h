@@ -25,6 +25,7 @@
 #define MOVE_NORTH_WEST_INPUT '7'
 
 int saveGame();
+void clearScreen();
 char getPlayerInput();
 int handlePlayerInput(char input);
 

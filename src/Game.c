@@ -11,7 +11,19 @@
 * TODO : save the map, the player position, etc. into a file (JSON? .txt?)
 */
 int saveGame() {
-    return EXIT_SIGNAL;
+    return GAME_IS_FINISHED;
+}
+
+/*
+* Clears the console.
+*/
+void clearScreen()
+{
+    #ifdef _WIN32 // Windows
+        system("cls");
+    #else // Linux
+        system("clear");
+    #endif
 }
 
 /*
