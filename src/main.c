@@ -20,6 +20,7 @@ int main(void)
     int gameIsFinished = false;
 
     int** map = generateMap(MAP_SIZE);
+    generateBonusMalus(map,MAP_SIZE);
 
     while(!gameIsFinished)
     {
