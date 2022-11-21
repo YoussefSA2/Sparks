@@ -55,6 +55,8 @@ git clone git@github.com:YoussefSA2/Sparks.git
 cd Sparks
 ```
 
+That's it ! You are ready to [contribute](https://github.com/YoussefSA2/Sparks/blob/main/CONTRIBUTING.md).
+
 # Launch the game
 
 ```bash

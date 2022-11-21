@@ -21,6 +21,7 @@ int main(void)
     Player player = initPlayer();
 
     showMap(map, MAP_SIZE, player);
+
   
     while(gameState != GAME_IS_FINISHED)
     {   
