@@ -32,14 +32,21 @@ int **generateMap(int MAP_SIZE){
 /*
 * Displays the map.
 */
-void showMap(int **map, int map_size)
+void showMap(int **map, int map_size, Player player)
 {   
-
     for(int i=0; i < map_size; ++i)
     {   
         for(int j=0;j < map_size; ++j)
         {
-            printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
+            if (i == player.position.y && j == player.position.x)
+            {
+                printf(" %s ", PLAYER);
+            }
+            else
+            {
+                printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
+            }
+            
         }
         printf("\n");
 
