@@ -2,30 +2,7 @@
 * File which handles the Map structure and functions.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h> 
-
-#ifdef _WIN32
-    #include <conio.h>
-    #define OBSTACLE "x"
-    #define TREE "*"
-#else
-    #define OBSTACLE "🚧"
-    #define TREE "🌲"
-#endif
-
-/*
-* Clears the console.
-*/
-void clearScreen()
-{
-    #ifdef _WIN32 // Windows
-        clrscr();
-    #else // Linux
-        system("clear");
-    #endif
-}
+#include "./include/Map.h"
 
 /*
 * Generates a MAP_SIZE x MAP_SIZE map.
@@ -57,8 +34,6 @@ int **generateMap(int MAP_SIZE){
 */
 void showMap(int **map, int map_size)
 {   
-    // Clear the console to avoid having the map displayed multiple times.
-    clearScreen();
 
     for(int i=0; i < map_size; ++i)
     {   

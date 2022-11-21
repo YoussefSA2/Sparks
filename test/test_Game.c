@@ -1,15 +1,18 @@
 #include <stdlib.h>
 #include "./include/minunit.h"
 #include "../src/include/Game.h"
+#include "../src/include/Player.h"
 
-#define EXIT_INPUT 'q'
-#define EXIT_SIGNAL 1
+/*
+* Game states
+*/
+
 #define RANDOM_INPUT 'r'
 
-#define false 0
-#define true 1
+Player player;
 
 void test_setup(void) {
+	player = initPlayer();
 }
 
 void test_teardown(void) {
@@ -17,19 +20,28 @@ void test_teardown(void) {
 }
 
 MU_TEST(test_save_game) {
-    mu_assert(saveGame() == EXIT_SIGNAL, "saveGame should return EXIT_SIGNAL");
+    mu_assert(saveGame() == GAME_IS_FINISHED, "saveGame should return GAME_IS_FINISHED");
 }
 
-MU_TEST(test_handle_player_input) {
-    mu_assert(handlePlayerInput(EXIT_INPUT) == EXIT_SIGNAL, "handlePlayerInput should return EXIT_SIGNAL");
-	mu_assert(handlePlayerInput(RANDOM_INPUT) == false, "handlePlayerInput should return false");
+MU_TEST(test_handle_player_input_exit) {
+    mu_assert(handlePlayerInput(EXIT_INPUT, &player) == GAME_IS_FINISHED, "handlePlayerInput should return GAME_IS_FINISHED");
+}
+
+MU_TEST(test_handle_player_input_move) {
+	mu_assert(handlePlayerInput(MOVE_WEST_INPUT, &player) == MOVE_WEST_INPUT, "handlePlayerInput should return MOVE_WEST_INPUT");
+}
+
+MU_TEST(test_handle_player_input_random) {
+	mu_assert(handlePlayerInput(RANDOM_INPUT, &player) == GAME_IS_RUNNING, "handlePlayerInput should return GAME_IS_RUNNING");
 }
 
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
 	MU_RUN_TEST(test_save_game);
-    MU_RUN_TEST(test_handle_player_input);
+    MU_RUN_TEST(test_handle_player_input_exit);
+	MU_RUN_TEST(test_handle_player_input_move);
+	MU_RUN_TEST(test_handle_player_input_random);
 
 }
 
