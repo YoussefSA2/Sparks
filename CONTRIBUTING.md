@@ -2,6 +2,12 @@
 
 # How to make a pull request ?
 
+0) Go back to main branch and update it :
+```bash
+git checkout main
+git pull --rebase
+```
+
 1) Create a branch with a name which describe the feature you add, or the bug you want to fix.
 Ideally, the name should also include the issue number. Example for a branch which adds map generation :
 
