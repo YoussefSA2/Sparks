@@ -31,9 +31,7 @@ void clearScreen()
 */
 char getPlayerInput() {
     #ifdef _WIN32 // Windows
-        if (kbhit()) {
-            return getch();
-        }
+        return getch();
     #else // Linux
         char input = getchar();
         getchar(); // To remove the \n character you get when you press enter.
