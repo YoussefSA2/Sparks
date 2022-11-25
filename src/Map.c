@@ -2,33 +2,7 @@
 * File which handles the Map structure and functions.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h> 
-
-
-#ifdef _WIN32
-    #include <conio.h>
-    #define OBSTACLE "x"
-    #define TREE "*"
-#else
-    #define OBSTACLE "🚧"
-    #define TREE "🌲"
-    #define BONUS "🍎"
-    #define MALUS "🦴"
-#endif
-
-/*
-* Clears the console.
-*/
-void clearScreen()
-{
-    #ifdef _WIN32 // Windows
-        clrscr();
-    #else // Linux
-        system("clear");
-    #endif
-}
+#include "./include/Map.h"
 
 /*
 * Generates a MAP_SIZE x MAP_SIZE map.
@@ -58,31 +32,21 @@ int **generateMap(int MAP_SIZE){
 /*
 * Displays the map.
 */
-void showMap(int **map, int map_size)
+void showMap(int **map, int map_size, Player player)
 {   
-    char* c;
-    // Clear the console to avoid having the map displayed multiple times.
-    clearScreen();
-
     for(int i=0; i < map_size; ++i)
     {   
-        for(int j=0;j < map_size; ++j){ 
-             switch(map[i][j]){
-                case 0:
-                    c= TREE;
-                    break;
-                case 1:
-                    c=OBSTACLE;
-                     break;
-                case 2:
-                    c=BONUS;
-                     break;
-                case 3:
-                    c=MALUS;
-                     break;
-             }
-             printf("%s",c);
-                
+        for(int j=0;j < map_size; ++j)
+        {
+            if (i == player.position.y && j == player.position.x)
+            {
+                printf(" %s ", PLAYER);
+            }
+            else
+            {
+                printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
+            }
+            
         }
             //printf(" %s ", (map[i][j]==0) ? TREE:OBSTACLE);
         

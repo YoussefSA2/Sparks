@@ -6,29 +6,33 @@
 #include <stdlib.h>
 #include "./include/Game.h"
 #include "./include/Map.h"
+#include "./include/Player.h"
 
 #define MAP_SIZE 10
-
-#define false 0
-#define true 1
 
 /*
 * Main function, contains the game loop.
 */
 int main(void)
 {
-    int gameIsFinished = false;
+    int gameState = GAME_IS_RUNNING;
 
     int** map = generateMap(MAP_SIZE);
-    generateBonusMalus(map,MAP_SIZE);
+    Player player = initPlayer();
 
-    while(!gameIsFinished)
-    {
-        showMap(map, MAP_SIZE);
-        gameIsFinished = handlePlayerInput(getPlayerInput());
+    showMap(map, MAP_SIZE, player);
+
+  
+    while(gameState != GAME_IS_FINISHED)
+    {   
+        gameState = handlePlayerInput(getPlayerInput(), &player);
+        clearScreen();
+        showMap(map, MAP_SIZE, player);
+        printLastAction(gameState);
     }
 
     clearScreen();
+    printLastAction(gameState);
     printf("Thanks for playing!\n");
 
     return EXIT_SUCCESS;
