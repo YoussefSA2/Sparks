@@ -8,8 +8,6 @@
 #include "./include/Map.h"
 #include "./include/Player.h"
 
-#define MAP_SIZE 10
-
 /*
 * Main function, contains the game loop.
 */
@@ -25,10 +23,19 @@ int main(void)
   
     while(gameState != GAME_IS_FINISHED)
     {   
-        gameState = handlePlayerInput(getPlayerInput(), &player);
-        clearScreen();
-        showMap(map, MAP_SIZE, player);
-        printLastAction(gameState);
+        #ifdef _WIN32 // Windows
+            if (kbhit()) {
+                gameState = handlePlayerInput(getPlayerInput(), &player, map);
+                clearScreen();
+                showMap(map, MAP_SIZE, player);
+                printLastAction(gameState);
+            }
+        #else
+            gameState = handlePlayerInput(getPlayerInput(), &player, map);
+            clearScreen();
+            showMap(map, MAP_SIZE, player);
+            printLastAction(gameState);
+        #endif
     }
 
     clearScreen();
