@@ -17,6 +17,7 @@ Player initPlayer(){
     player.position.y = 0;
     player.energy = 100;
     player.nbRewinds = 6;
+    player.movesHistory = NULL;
     
     return player;
 }
