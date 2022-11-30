@@ -3,12 +3,14 @@
 
 #include "./Constants.h"
 #include "./Coordinates.h"
+#include "./cvector.h"
 
 typedef struct Player Player;
 struct Player{
     float energy;
     Coordinates position;
     int nbRewinds;
+    cvector_vector_type(Coordinates) movesHistory;
 };
 
 Player initPlayer();
