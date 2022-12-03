@@ -131,5 +131,17 @@ void printLastAction(char gameState) {
     }
 }
 
+int checkGameState(Player player, int lastPlayerAction)
+{
+    int playerWon = player.position.x == MAP_SIZE-1
+     && player.position.y == MAP_SIZE-1;
 
-
+    if (playerWon)
+    {
+        return PLAYER_WON;
+    }
+    else
+    {
+        return lastPlayerAction;
+    }
+}

@@ -11,6 +11,7 @@
 #define MOVE_SUCCESS 1
 #define FOOD_FOUND 2
 #define OBSTACLE_HIT 3
+#define PLAYER_WON 1
 
 /*
 * Player inputs
