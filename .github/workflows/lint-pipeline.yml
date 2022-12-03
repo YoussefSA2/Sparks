@@ -1,0 +1,29 @@
+name: lint
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+    clang-format:
+  
+      runs-on: ubuntu-latest
+  
+      steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: run clang-format
+        uses: DoozyX/clang-format-lint-action@v0.14
+        with:
+          source: '.'
+          extensions: 'h,c'
+          clangFormatVersion: 11
+          inplace: True
+      - uses: EndBug/add-and-commit@v4
+        with:
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: 'style: apply clang-format fixes'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
