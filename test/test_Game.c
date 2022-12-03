@@ -69,7 +69,7 @@ MU_TEST(test_check_game_state_player_won){
 	mu_assert(result == PLAYER_WON, "checkGameState should return PLAYER_WON");
 }
 
-MU_TEST(test_check_game_state_player_not_won){
+MU_TEST(test_check_game_state_player_is_still_alive){
 	int lastPlayerAction = 11;
 
 	player.position.x = 0;
@@ -78,6 +78,16 @@ MU_TEST(test_check_game_state_player_not_won){
 	int result = checkGameState(player, lastPlayerAction);
 
 	mu_assert(result == lastPlayerAction, "checkGameState should return lastPlayerAction");
+}
+
+MU_TEST(test_check_game_state_player_lost){
+	int lastPlayerAction = 11;
+
+	player.energy = -1;
+
+	int result = checkGameState(player, lastPlayerAction);
+
+	mu_assert(result == PLAYER_LOST, "checkGameState should return playerLost");
 }
 
 MU_TEST_SUITE(test_suite) {
@@ -91,7 +101,8 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_handle_player_input_obstacle_found);
 	MU_RUN_TEST(test_handle_player_input_random);
 	MU_RUN_TEST(test_check_game_state_player_won);
-	MU_RUN_TEST(test_check_game_state_player_not_won);
+	MU_RUN_TEST(test_check_game_state_player_is_still_alive);
+	MU_RUN_TEST(test_check_game_state_player_lost);
 
 }
 
