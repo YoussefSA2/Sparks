@@ -47,7 +47,7 @@ jobs:
       - name: run linter
         uses: DoozyX/clang-format-lint-action@v0.14
         with:
-          source: './src, ./test'
+          source: '.'
           extensions: 'h,c'
           clangFormatVersion: 11
           inplace: True
