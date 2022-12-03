@@ -11,7 +11,7 @@
 * TODO : save the map, the player position, etc. into a file (JSON? .txt?)
 */
 int saveGame() {
-    return GAME_IS_FINISHED;
+    return PLAYER_SAVED;
 }
 
 /*
@@ -119,7 +119,7 @@ void printLastAction(char gameState) {
         case OBSTACLE_HIT:
             printf("You hit an obstacle! You lose 10 energy.\n");
             break;
-        case GAME_IS_FINISHED:
+        case PLAYER_SAVED:
             printf("You saved the game.\n");
             break;
         case INVALID_DIRECTION_INPUT:
