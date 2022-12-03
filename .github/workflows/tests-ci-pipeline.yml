@@ -18,6 +18,8 @@ jobs:
       run: make compile-game
     - name: run unit tests
       run: make run-tests
+    - name: lint
+      uses: make lint
 
   windows:
 
@@ -29,9 +31,11 @@ jobs:
       - name: install dependencies
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: install make mingw
+          args: install make
       - name: compile game
         run: make compile-game
       - name: run unit tests
         run: make run-tests
+      - name: lint
+      uses: make lint
 
