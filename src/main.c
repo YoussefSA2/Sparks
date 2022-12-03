@@ -13,7 +13,7 @@
 */
 int main(void)
 {
-    int gameState = GAME_IS_RUNNING;
+    int lastPlayerAction = GAME_IS_RUNNING;
 
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
@@ -21,25 +21,27 @@ int main(void)
     showMap(map, MAP_SIZE, player);
 
   
-    while(gameState != GAME_IS_FINISHED)
+    while(lastPlayerAction != GAME_IS_FINISHED)
     {   
         #ifdef _WIN32 // Windows
             if (kbhit()) {
-                gameState = handlePlayerInput(getPlayerInput(), &player, map);
+                lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
-                printLastAction(gameState);
+                printLastAction(lastPlayerAction);
+                checkGameState(player, lastPlayerAction);
             }
         #else
-            gameState = handlePlayerInput(getPlayerInput(), &player, map);
+            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
-            printLastAction(gameState);
+            printLastAction(lastPlayerAction);
+            checkGameState(player, lastPlayerAction);
         #endif
     }
 
     clearScreen();
-    printLastAction(gameState);
+    printLastAction(lastPlayerAction);
     printf("Thanks for playing!\n");
 
     return EXIT_SUCCESS;
