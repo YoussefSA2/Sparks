@@ -26,11 +26,11 @@ void test_teardown(void) {
 }
 
 MU_TEST(test_save_game) {
-    mu_assert(saveGame() == GAME_IS_FINISHED, "saveGame should return GAME_IS_FINISHED");
+    mu_assert(saveGame() == PLAYER_SAVED, "saveGame should return PLAYER_SAVED");
 }
 
 MU_TEST(test_handle_player_input_exit) {
-    mu_assert(handlePlayerInput(EXIT_INPUT, &player, map) == GAME_IS_FINISHED, "handlePlayerInput should return GAME_IS_FINISHED");
+    mu_assert(handlePlayerInput(EXIT_INPUT, &player, map) == PLAYER_SAVED, "handlePlayerInput should return GAME_IS_FINISHED");
 }
 
 MU_TEST(test_handle_player_input_unvalid_move) {
@@ -66,7 +66,7 @@ MU_TEST(test_check_game_state_player_won){
 	
 	int result = checkGameState(player, lastPlayerAction);
 
-	mu_assert(result == PLAYER_WON, "checkGameState should return PLAYER_WON");
+	mu_assert(result == true, "checkGameState should return true");
 }
 
 MU_TEST(test_check_game_state_player_is_still_alive){
@@ -77,7 +77,7 @@ MU_TEST(test_check_game_state_player_is_still_alive){
 	
 	int result = checkGameState(player, lastPlayerAction);
 
-	mu_assert(result == lastPlayerAction, "checkGameState should return lastPlayerAction");
+	mu_assert(result == false, "checkGameState should return false");
 }
 
 MU_TEST(test_check_game_state_player_lost){
@@ -87,7 +87,15 @@ MU_TEST(test_check_game_state_player_lost){
 
 	int result = checkGameState(player, lastPlayerAction);
 
-	mu_assert(result == PLAYER_LOST, "checkGameState should return playerLost");
+	mu_assert(result == true, "checkGameState should return true");
+}
+
+MU_TEST(test_check_game_state_player_saved){
+	int lastPlayerAction = PLAYER_SAVED;
+
+	int result = checkGameState(player, lastPlayerAction);
+
+	mu_assert(result == true, "checkGameState should return true");
 }
 
 MU_TEST_SUITE(test_suite) {
@@ -103,6 +111,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_check_game_state_player_won);
 	MU_RUN_TEST(test_check_game_state_player_is_still_alive);
 	MU_RUN_TEST(test_check_game_state_player_lost);
+	MU_RUN_TEST(test_check_game_state_player_saved);
 
 }
 

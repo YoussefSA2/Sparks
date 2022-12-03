@@ -11,7 +11,7 @@
 * TODO : save the map, the player position, etc. into a file (JSON? .txt?)
 */
 int saveGame() {
-    return GAME_IS_FINISHED;
+    return PLAYER_SAVED;
 }
 
 /*
@@ -119,7 +119,7 @@ void printLastAction(char gameState) {
         case OBSTACLE_HIT:
             printf("You hit an obstacle! You lose 10 energy.\n");
             break;
-        case GAME_IS_FINISHED:
+        case PLAYER_SAVED:
             printf("You saved the game.\n");
             break;
         case INVALID_DIRECTION_INPUT:
@@ -137,17 +137,34 @@ int checkGameState(Player player, int lastPlayerAction)
      && player.position.y == MAP_SIZE-1;
 
     int playerLost = player.energy <= 0;
+
+    int gameState = 0;
     
     if (playerWon)
     {
-        return PLAYER_WON;
+        gameState = PLAYER_WON;
     }
     else if (playerLost)
     {
-        return PLAYER_LOST;
+        gameState = killPlayer();
     }
-    else
+    else if (lastPlayerAction == PLAYER_SAVED)
     {
-        return lastPlayerAction;
+        gameState = PLAYER_SAVED;
     }
+
+    int gameIsFinished = gameState == PLAYER_LOST 
+            || gameState == PLAYER_WON 
+            || gameState == PLAYER_SAVED;
+
+    return gameIsFinished;
+}
+
+int killPlayer()
+{
+    printf("You lost ! You don't have energy anymore.\n");
+
+    saveGame();
+
+    return PLAYER_LOST;
 }
