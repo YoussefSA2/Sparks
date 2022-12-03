@@ -1,6 +1,7 @@
 name: CI pipeline
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: 
       - lint
@@ -15,10 +16,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v3
-      with:
-          ref: ${{ github.event.workflow_run.head_branch }}
-    - run: git branch
-    - run: env
     - name: compile game
       run: make compile-game
     - name: run unit tests
