@@ -6,7 +6,7 @@
 #include "./cvector.h"
 
 typedef struct Player Player;
-struct Player{
+struct Player {
     float energy;
     Coordinates position;
     int nbRewinds;

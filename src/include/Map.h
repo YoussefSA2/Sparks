@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 #include "./Constants.h"
 #include "./Player.h"
-
 
 #ifdef _WIN32
     #include <conio.h>
@@ -28,9 +28,8 @@
     #define PLAYER_EMOJI "👨"
 #endif
 
-
-int **generateMap(int mapSize);
+int** generateMap(int mapSize);
 char getOppositeDirection(char direction);
-void showMap(int** map, int mapSize, Player player);   
+void showMap(int** map, int mapSize, Player player);
 
 #endif

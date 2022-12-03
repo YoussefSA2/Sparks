@@ -4,8 +4,8 @@
 #define MAP_SIZE 10
 
 /*
-* Game states
-*/
+ * Game states
+ */
 #define PLAYER_SAVED -1
 #define GAME_IS_RUNNING 0
 #define MOVE_SUCCESS 1
@@ -15,8 +15,8 @@
 #define PLAYER_LOST 2
 
 /*
-* Player inputs
-*/
+ * Player inputs
+ */
 
 #define EXIT_INPUT 'q'
 // Direction inputs

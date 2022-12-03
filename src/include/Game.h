@@ -2,15 +2,15 @@
 #define _GAME_H
 
 #include "./Constants.h"
-#include "./Player.h"
 #include "./Map.h"
+#include "./Player.h"
 #ifdef _WIN32
     #include <conio.h>
 #endif
 
 /*
-* Boolean values
-*/
+ * Boolean values
+ */
 
 #define true 1
 #define false 0

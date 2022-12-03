@@ -1,66 +1,68 @@
 /*
-* File containing all the functions needed to handle the game in its main loop.
-*/
+ * File containing all the functions needed to handle the game in its main loop.
+ */
+
+#include "./include/Game.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "./include/Game.h"
 
 /*
-* Saves the game.
-* TODO : save the map, the player position, etc. into a file (JSON? .txt?)
-*/
-int saveGame() {
-    return PLAYER_SAVED;
+ * Saves the game.
+ * TODO : save the map, the player position, etc. into a file (JSON? .txt?)
+ */
+int saveGame() { return PLAYER_SAVED; }
+
+/*
+ * Clears the console.
+ */
+void clearScreen() {
+#ifdef _WIN32  // Windows
+    system("cls");
+#else  // Linux
+    system("clear");
+#endif
 }
 
 /*
-* Clears the console.
-*/
-void clearScreen()
-{
-    #ifdef _WIN32 // Windows
-        system("cls");
-    #else // Linux
-        system("clear");
-    #endif
-}
-
-/*
-* Returns the player input.
-*/
+ * Returns the player input.
+ */
 char getPlayerInput() {
-    #ifdef _WIN32 // Windows
-        return getch();
-    #else // Linux
-        char input = getchar();
-        getchar(); // To remove the \n character you get when you press enter.
-        return input;
-    #endif
+#ifdef _WIN32  // Windows
+    return getch();
+#else  // Linux
+    char input = getchar();
+    getchar();  // To remove the \n character you get when you press enter.
+    return input;
+#endif
 }
 
 /*
-* Fonction which checks if the player is still on the map after moving. 
-*/
+ * Fonction which checks if the player is still on the map after moving.
+ */
 int isPlayerInTheMap(Player* player, int mapSize) {
-    if (player->position.x < 0 || player->position.x >= mapSize || player->position.y < 0 || player->position.y >= mapSize) {
+    if (player->position.x < 0 || player->position.x >= mapSize ||
+        player->position.y < 0 || player->position.y >= mapSize) {
         return false;
     }
     return true;
 }
 
 /*
-* Fonction which handles player movement.
-* It checks if the player is still on the map after moving (if not, they go back to their previous position).
-* and change player energy given the destination square (tree, food, obstacle).
-* If player find food, it increases their energy and removes the food from the map.
-* If player hit an obstacle, it decreases their energy and player goes back to their previous position.
-*/
+ * Fonction which handles player movement.
+ * It checks if the player is still on the map after moving (if not, they go
+ * back to their previous position). and change player energy given the
+ * destination square (tree, food, obstacle). If player find food, it increases
+ * their energy and removes the food from the map. If player hit an obstacle, it
+ * decreases their energy and player goes back to their previous position.
+ */
 int handlePlayerMove(Player* player, char direction, int** map) {
     move(player, direction);
 
     if (!isPlayerInTheMap(player, MAP_SIZE)) {
-        move(player, getOppositeDirection(direction)); // TODO : in the future, use moveHistory to go back to the previous position.
+        move(player, getOppositeDirection(
+                         direction));  // TODO : in the future, use moveHistory
+                                       // to go back to the previous position.
         return INVALID_DIRECTION_INPUT;
     }
 
@@ -81,10 +83,11 @@ int handlePlayerMove(Player* player, char direction, int** map) {
 }
 
 /*
-* Function which handles all player inputs.
-* It calls the functions corresponding to the player input.
-* For example, if the player inputs 'q', it will call the saveGame function, etc.
-*/
+ * Function which handles all player inputs.
+ * It calls the functions corresponding to the player input.
+ * For example, if the player inputs 'q', it will call the saveGame function,
+ * etc.
+ */
 int handlePlayerInput(char input, Player* player, int** map) {
     switch (input) {
         case EXIT_INPUT:
@@ -106,8 +109,8 @@ int handlePlayerInput(char input, Player* player, int** map) {
 }
 
 /*
-* Function which prints the last action the player did.
-*/
+ * Function which prints the last action the player did.
+ */
 void printLastAction(char gameState) {
     switch (gameState) {
         case MOVE_SUCCESS:
@@ -131,37 +134,29 @@ void printLastAction(char gameState) {
     }
 }
 
-int checkGameState(Player player, int lastPlayerAction)
-{
-    int playerWon = player.position.x == MAP_SIZE-1
-     && player.position.y == MAP_SIZE-1;
+int checkGameState(Player player, int lastPlayerAction) {
+    int playerWon =
+        player.position.x == MAP_SIZE - 1 && player.position.y == MAP_SIZE - 1;
 
     int playerLost = player.energy <= 0;
 
     int gameState = 0;
-    
-    if (playerWon)
-    {
+
+    if (playerWon) {
         gameState = PLAYER_WON;
-    }
-    else if (playerLost)
-    {
+    } else if (playerLost) {
         gameState = killPlayer();
-    }
-    else if (lastPlayerAction == PLAYER_SAVED)
-    {
+    } else if (lastPlayerAction == PLAYER_SAVED) {
         gameState = PLAYER_SAVED;
     }
 
-    int gameIsFinished = gameState == PLAYER_LOST 
-            || gameState == PLAYER_WON 
-            || gameState == PLAYER_SAVED;
+    int gameIsFinished = gameState == PLAYER_LOST || gameState == PLAYER_WON ||
+                         gameState == PLAYER_SAVED;
 
     return gameIsFinished;
 }
 
-int killPlayer()
-{
+int killPlayer() {
     printf("You lost ! You don't have energy anymore.\n");
 
     saveGame();

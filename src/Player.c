@@ -1,35 +1,36 @@
 /**
-* File which handles the Player structure and functions.
-*/
-#include <stdio.h>
-#include <stdlib.h>
+ * File which handles the Player structure and functions.
+ */
 #include "./include/Player.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 /*
-* Function which initializes the player.
-*
-*/
-Player initPlayer(){
-    
+ * Function which initializes the player.
+ *
+ */
+Player initPlayer() {
     Player player;
-    
+
     player.position.x = 0;
     player.position.y = 0;
     player.energy = 100;
     player.nbRewinds = 6;
     player.movesHistory = NULL;
-    
+
     return player;
 }
 
 /*
-* Function which moves the player.
-* It only changes the player position (the display will be handled in the showMap() function).
-* It returns the direction input given by the user (see the Player.h file for the constants).
-*/
+ * Function which moves the player.
+ * It only changes the player position (the display will be handled in the
+ * showMap() function). It returns the direction input given by the user (see
+ * the Player.h file for the constants).
+ */
 
-char move(Player* player, char direction){
-    switch(direction){
+char move(Player* player, char direction) {
+    switch (direction) {
         case MOVE_NORTH_INPUT:
             player->position.y--;
             break;
@@ -64,8 +65,6 @@ char move(Player* player, char direction){
 }
 
 /*
-* Function which modifies the player energy.
-*/
-void modifyEnergy(Player* player, int value){
-    player->energy += value;
-}
+ * Function which modifies the player energy.
+ */
+void modifyEnergy(Player* player, int value) { player->energy += value; }
