@@ -10,7 +10,8 @@ void test_setup(void) {
     map = generateMap(mapSize);
 }
 
-void test_teardown(void) { /* Nothing */ }
+void test_teardown(void) { /* Nothing */
+}
 
 MU_TEST(test_generate_map) {
     mu_assert(map != NULL, "map should not be NULL");

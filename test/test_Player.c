@@ -7,7 +7,8 @@ Player player;
 
 void test_setup(void) {}
 
-void test_teardown(void) { /* Nothing */ }
+void test_teardown(void) { /* Nothing */
+}
 
 MU_TEST(test_init_player) {
     player = initPlayer();

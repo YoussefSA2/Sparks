@@ -22,7 +22,8 @@ void test_setup(void) {
     map[0][2] = OBSTACLE;
 }
 
-void test_teardown(void) { /* Nothing */ }
+void test_teardown(void) { /* Nothing */
+}
 
 MU_TEST(test_save_game) {
     mu_assert(saveGame() == PLAYER_SAVED,
