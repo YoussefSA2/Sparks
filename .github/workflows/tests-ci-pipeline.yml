@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  checks: write
-  contents: write
-
 jobs:
   ubuntu:
 
