@@ -19,7 +19,7 @@ jobs:
     - name: run unit tests
       run: make run-tests
     - name: lint
-      uses: wearerequired/lint-action@v2.1.0
+      uses: wearerequired/lint-action@v2
       with: 
         auto_fix: true
         commit_message: "style: apply linting fixes"
