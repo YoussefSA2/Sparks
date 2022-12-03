@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  ubuntu:
+  build-ubuntu:
 
     runs-on: ubuntu-latest
 
@@ -18,18 +18,9 @@ jobs:
       run: make compile-game
     - name: run unit tests
       run: make run-tests
-    - name: lint
-      uses: wearerequired/lint-action@v2
-      with: 
-        auto_fix: true
-        commit_message: "style: apply linting fixes"
-        clang_format: true
-        clang_format_args: "--style=file"
-        clang_format_auto_fix: true
-        clang_format_dir: .src/
 
 
-  windows:
+  build-windows:
 
     runs-on: windows-latest
 
@@ -46,3 +37,17 @@ jobs:
         run: make run-tests
       
 
+  lint:
+  
+      runs-on: ubuntu-latest
+  
+      steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: run linter
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_CLANG_FORMAT: true
