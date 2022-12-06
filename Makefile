@@ -27,7 +27,7 @@ compile-tests:
 		gcc $(FLAGS) test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_Map.exe; \
 		gcc $(FLAGS) test/test_Player.c $(SOURCES_WITOUT_MAIN) -o tests_Player.exe; \
 		gcc $(FLAGS) test/test_Path.c $(SOURCES_WITOUT_MAIN) -o tests_Path.exe; \
-		gcc $(FLAGS) test/test_CoordinatesQueue.c $(SOURCES_WITOUT_MAIN) -o tests_CoordinatesQueue.exe; \
+		gcc $(FLAGS) test/test_CoordinatesQueue.c $(SOURCES_WITOUT_MAIN) -o tests_Coordinates_Queue.exe; \
 	else \
 		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_game; \
 		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_map; \
