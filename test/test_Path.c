@@ -2,17 +2,21 @@
 #include "./include/minunit.h"
 #include "../src/include/Map.h"
 #include "../src/include/Path.h"
+#include "../src/include/Player.h"
 
 static int mapSize;
 static int** map = NULL;
+static int** mapWithUnreachableExit = NULL;
 
 void test_setup(void) {
 	mapSize = 3;
     
     //allocate memory for the map
     map = malloc(sizeof(int*) * mapSize);
+    mapWithUnreachableExit = malloc(sizeof(int*) * mapSize);
     for (int i = 0; i < mapSize; i++) {
         map[i] = malloc(sizeof(int) * mapSize);
+        mapWithUnreachableExit[i] = malloc(sizeof(int) * mapSize);
     }
 
     //initialize the map
@@ -25,6 +29,16 @@ void test_setup(void) {
     map[2][0] = TREE;
     map[2][1] = TREE;
     map[2][2] = TREE;
+
+    mapWithUnreachableExit[0][0] = TREE;
+    mapWithUnreachableExit[0][1] = OBSTACLE;
+    mapWithUnreachableExit[0][2] = TREE;
+    mapWithUnreachableExit[1][0] = TREE;
+    mapWithUnreachableExit[1][1] = OBSTACLE;
+    mapWithUnreachableExit[1][2] = TREE;
+    mapWithUnreachableExit[2][0] = TREE;
+    mapWithUnreachableExit[2][1] = OBSTACLE;
+    mapWithUnreachableExit[2][2] = TREE;
 }
 
 void test_teardown(void) {
@@ -43,8 +57,8 @@ MU_TEST(test_get_shortest_path_to_exit){
 }
 
 MU_TEST(test_get_shortest_path_to_exit_unreachable_exit){
-    map[2][2] = OBSTACLE;
-    cvector_vector_type(Coordinates) shortestPath = getShortestPathToExit(map, mapSize);
+
+    cvector_vector_type(Coordinates) shortestPath = getShortestPathToExit(mapWithUnreachableExit, mapSize);
 
     mu_check(shortestPath == NULL);
 }
