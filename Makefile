@@ -18,6 +18,9 @@ clean:
 compile-game:
 	gcc $(FLAGS) src/*.c -o game
 
+compile-game-debug:
+	gcc $(FLAGS) -g src/*.c -o game
+
 compile-tests:
 	if [ "$(detected_OS)" = "Windows" ]; then \
 		gcc $(FLAGS) test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_Game.exe; \
@@ -36,3 +39,6 @@ run-tests: compile-tests
 	./tests_game
 	./tests_map
 	./tests_player
+
+run-debug: compile-game-debug
+	gdb game
