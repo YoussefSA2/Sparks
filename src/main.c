@@ -29,8 +29,8 @@ int main(void)
                 lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
-                displayAvailableCommands();
                 printLastAction(lastPlayerAction);
+                displayAvailableCommands();
                 gameIsFinished = checkGameState(player, lastPlayerAction);
             }
         #else
@@ -38,6 +38,7 @@ int main(void)
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
+            displayAvailableCommands();
             gameIsFinished = checkGameState(player, lastPlayerAction);
             
         #endif
