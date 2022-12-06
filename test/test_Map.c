@@ -22,7 +22,7 @@ MU_TEST(test_generate_map) {
     {   
         for(int j=0; j < mapSize; ++j)
         {
-            mu_assert(map[i][j] == TREE || map[i][j] == OBSTACLE || map[i][j] == FOOD, "map content should be 0 or 1");
+            mu_assert(map[i][j] == TREE || map[i][j] == OBSTACLE || map[i][j] == FOOD || map[i][j] == EXIT, "map content should be TREE or OBSTACLE or FOOD or EXIT");
         }
     }
 }
