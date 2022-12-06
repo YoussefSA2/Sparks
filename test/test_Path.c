@@ -28,6 +28,7 @@ void test_setup(void) {
 }
 
 void test_teardown(void) {
+    freeMap(map, mapSize);
 }
 
 MU_TEST(test_get_shortest_path_to_exit){
