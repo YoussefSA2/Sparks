@@ -173,7 +173,7 @@ int killPlayer()
 * Function which displays available commands
 */
 void displayAvailableCommands(){
-    printf("NORTH WEST          NORTH           NORTH EAST\n");
-    printf("      WEST          Player                EAST\n");
-    printf("SOUTH WEST          SOUTH           SOUTH EAST\n");
+    printf("[7] GO NORTH WEST [8] GO NORTH [9]GO NORTH EAST ");
+    printf("[4] GO WEST [6]GO EAST ");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3]GO SOUTH EAST ");
 }
