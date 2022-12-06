@@ -46,11 +46,11 @@ Coordinates* getNeighbours(Coordinates position) {
 
     for (int i = 0; i < 8; i++) {
         // compute the x and y position of the neighbor position
+        // for example, if the position is {0, 0} by adding the first offset one of the neighbor position is {-1, 0}
+        // and so on until we get the eight neighbor positions
         int x = position.x + dx[i];
         int y = position.y + dy[i];
 
-        // create a Coordinates struct for the neighbor position
-        // and add it to the neighbours array
         Coordinates neighbor = {x, y};
         neighbours[i] = neighbor;
     }
