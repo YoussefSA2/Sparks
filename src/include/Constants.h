@@ -30,4 +30,11 @@
 #define MOVE_NORTH_WEST_INPUT '7'
 #define INVALID_DIRECTION_INPUT '0'
 
+/*
+* Boolean values
+*/
+
+#define true 1
+#define false 0
+
 #endif
