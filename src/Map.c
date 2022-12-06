@@ -24,7 +24,7 @@ int **generateMap(int mapSize){
             map[i][j]=rand()%3;                                    
             map[0][0]=TREE;                                            
                                                                 
-            map[mapSize-1][mapSize-1]=TREE;
+            map[mapSize-1][mapSize-1]=EXIT;
         }
     }
 
@@ -40,13 +40,26 @@ void showMap(int **map, int mapSize, Player player)
     {   
         for(int j=0;j < mapSize; ++j)
         {
+            //show Player
             if (i == player.position.y && j == player.position.x)
             {
                 printf(" %s ", PLAYER_EMOJI);
             }
-            else
+            else if(map[i][j] == TREE)
             {
-                printf(" %s ", (map[i][j]==TREE) ? TREE_EMOJI: (map[i][j]==OBSTACLE) ? OBSTACLE_EMOJI : FOOD_EMOJI);
+                printf(" %s ", TREE_EMOJI);
+            }
+            else if(map[i][j] == OBSTACLE)
+            {
+                printf(" %s ", OBSTACLE_EMOJI);
+            }
+            else if(map[i][j] == FOOD)
+            {
+                printf(" %s ", FOOD_EMOJI);
+            }
+            else if(map[i][j] == EXIT)
+            {
+                printf(" %s ", EXIT_EMOJI);
             }
             
         }
