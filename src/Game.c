@@ -168,3 +168,12 @@ int killPlayer()
 
     return PLAYER_LOST;
 }
+
+/*
+* Function which displays available commands
+*/
+void displayAvailableCommands(){
+    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
+    printf("[4] GO WEST [6] GO EAST ");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
+}
