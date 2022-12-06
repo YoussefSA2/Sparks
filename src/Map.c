@@ -55,6 +55,11 @@ void showMap(int **map, int mapSize, Player player)
     }
 }
 
+/*
+* @brief Frees the memory allocated for the map.
+* @param map The map to free.
+* @param mapSize The size of the map.
+*/
 void freeMap(int** map, int mapSize) {
     for (int i = 0; i < mapSize; i++) {
         free(map[i]);
