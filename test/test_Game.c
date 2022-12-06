@@ -110,6 +110,9 @@ MU_TEST(test_movesHistory_after_valid_move) {
 }
 
 MU_TEST(test_movesHistory_if_player_gets_out_of_the_map){
+	handlePlayerInput(MOVE_NORTH_INPUT, &player, map);
+
+	mu_assert(cvector_size(player.movesHistory) == 0, "player moveHistory should be empty");
 
 }
 
@@ -139,6 +142,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_check_game_state_player_saved);
 	MU_RUN_TEST(test_movesHistory_after_valid_move);
 	MU_RUN_TEST(test_movesHistory_after_hitting_obstacle);
+	MU_RUN_TEST(test_movesHistory_if_player_gets_out_of_the_map);
 
 }
 
