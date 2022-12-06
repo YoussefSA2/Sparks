@@ -26,10 +26,12 @@ compile-tests:
 		gcc $(FLAGS) test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_Game.exe; \
 		gcc $(FLAGS) test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_Map.exe; \
 		gcc $(FLAGS) test/test_Player.c $(SOURCES_WITOUT_MAIN) -o tests_Player.exe; \
+		gcc $(FLAGS) test/test_Path.c $(SOURCES_WITOUT_MAIN) -o tests_Path.exe; \
 	else \
 		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Game.c $(SOURCES_WITOUT_MAIN) -o tests_game; \
 		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Map.c $(SOURCES_WITOUT_MAIN) -o tests_map; \
 		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Player.c $(SOURCES_WITOUT_MAIN) -o tests_player; \
+		gcc $(FLAGS) $(LINUX_TEST_FLAGS) test/test_Path.c $(SOURCES_WITOUT_MAIN) -o tests_path; \
 	fi
 
 run-game: compile-game
@@ -39,6 +41,7 @@ run-tests: compile-tests
 	./tests_game
 	./tests_map
 	./tests_player
+	./tests_path
 
 run-debug: compile-game-debug
 	gdb game
