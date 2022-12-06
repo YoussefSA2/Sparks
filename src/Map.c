@@ -55,6 +55,13 @@ void showMap(int **map, int mapSize, Player player)
     }
 }
 
+void freeMap(int** map, int mapSize) {
+    for (int i = 0; i < mapSize; i++) {
+        free(map[i]);
+    }
+    free(map);
+}
+
 /*
 * Function to get the opposite direction of the given direction.
 */
