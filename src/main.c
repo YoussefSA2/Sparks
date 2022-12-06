@@ -29,6 +29,7 @@ int main(void)
                 lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
+                displayAvailableCommands();
                 printLastAction(lastPlayerAction);
                 gameIsFinished = checkGameState(player, lastPlayerAction);
             }
