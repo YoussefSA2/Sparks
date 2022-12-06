@@ -42,11 +42,19 @@ MU_TEST(test_get_shortest_path_to_exit){
     mu_check(areEqual(shortestPath[3], exitPosition));
 }
 
+MU_TEST(test_get_shortest_path_to_exit_unreachable_exit){
+    map[2][2] = OBSTACLE;
+    cvector_vector_type(Coordinates) shortestPath = getShortestPathToExit(map, mapSize);
+
+    mu_check(shortestPath == NULL);
+}
+
 
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
     MU_RUN_TEST(test_get_shortest_path_to_exit);
+    MU_RUN_TEST(test_get_shortest_path_to_exit_unreachable_exit);
 
 }
 
