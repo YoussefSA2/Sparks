@@ -7,8 +7,8 @@
 * @param position The coordinates of the position to check.
 * @return true if the position is the exitPosition, false otherwise.
 */
-int isExitPosition(Coordinates position) {
-    return position.x == MAP_SIZE - 1 && position.y == MAP_SIZE - 1;
+int isExitPosition(Coordinates position, int mapSize) {
+    return position.x == mapSize - 1 && position.y == mapSize - 1; // TODO: use the EXIT constant when the relevant PR is merged
 }
 
 /*
@@ -26,9 +26,9 @@ int isStartPosition(Coordinates position) {
 * @param map The map.
 * @return true if the position is valid, false otherwise.
 */
-int isPositionValid(Coordinates position, int** map) {
-    return position.x >= 0 && position.x < MAP_SIZE 
-        && position.y >= 0 && position.y < MAP_SIZE 
+int isPositionValid(Coordinates position, int** map, int mapSize) {
+    return position.x >= 0 && position.x < mapSize 
+        && position.y >= 0 && position.y < mapSize 
         && map[position.x][position.y] != OBSTACLE;
 }
 
@@ -65,8 +65,10 @@ Coordinates* getNeighbours(Coordinates position) {
 * @param map The map.
 * @return An array of Coordinates containing the closest predecessor of each position.
 */
-Coordinates* breadthFirstSearchTheExit(int** map)
-{
+Coordinates* breadthFirstSearchTheExit(int** map, int mapSize)
+{   
+
+    unsigned int numberOfPositions = mapSize * mapSize;
     Coordinates startPosition = {0, 0};
     
     // The frontier is a queue of positions to explore.
@@ -75,8 +77,8 @@ Coordinates* breadthFirstSearchTheExit(int** map)
 
     Coordinates unvisitedPosition = {-1, -1};
 
-    Coordinates* closestPredecessors =  malloc(sizeof(Coordinates) * NUMBER_OF_POSITIONS); 
-    for (unsigned int i = 0; i < NUMBER_OF_POSITIONS; i++) {
+    Coordinates* closestPredecessors =  malloc(sizeof(Coordinates) * numberOfPositions); 
+    for (unsigned int i = 0; i < numberOfPositions; i++) {
         closestPredecessors[i] = unvisitedPosition;
     }
 
@@ -84,16 +86,16 @@ Coordinates* breadthFirstSearchTheExit(int** map)
 
     while (!isEmpty(frontier)) {
         Coordinates currentPosition = removeFromQueue(frontier);
-        if (isExitPosition(currentPosition)) {
+        if (isExitPosition(currentPosition, mapSize)) {
             break;
         }
 
         Coordinates* neighbours = getNeighbours(currentPosition);
         for (unsigned int i = 0; i < 8; i++) {
             Coordinates currentPositionNeighbour = neighbours[i];
-            unsigned int currentPositionIndex = currentPositionNeighbour.x + currentPositionNeighbour.y * MAP_SIZE;
+            unsigned int currentPositionIndex = currentPositionNeighbour.x + currentPositionNeighbour.y * mapSize;
             // if the currentPositionNeighbour position is valid and has not been visited yet, add it to the frontier
-            if (isPositionValid(currentPositionNeighbour, map) && areEqual(closestPredecessors[currentPositionIndex], unvisitedPosition)) {
+            if (isPositionValid(currentPositionNeighbour, map, mapSize) && areEqual(closestPredecessors[currentPositionIndex], unvisitedPosition)) {
                 addToQueue(frontier, currentPositionNeighbour);
                 closestPredecessors[currentPositionIndex] = currentPosition;
             }
@@ -112,14 +114,16 @@ Coordinates* breadthFirstSearchTheExit(int** map)
 * @return An array of Coordinates containing the shortest shortestPath to the exitPosition. 
 * Note that the array is not null-terminated (the last element is not {0, 0}).
 */
-Coordinates* getShortestPathToExit(int ** map) {
+cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) {
     
-    Coordinates* closestPredecessors = breadthFirstSearchTheExit(map);
+    unsigned int numberOfPositions = mapSize * mapSize;
+    
+    Coordinates* closestPredecessors = breadthFirstSearchTheExit(map, mapSize);
 
     Coordinates startPosition = {0, 0};
-    Coordinates exitPosition = {MAP_SIZE - 1, MAP_SIZE - 1};
+    Coordinates exitPosition = {mapSize - 1, mapSize - 1};
     
-    Coordinates* shortestPath = malloc(sizeof(Coordinates) * NUMBER_OF_POSITIONS);
+    Coordinates* shortestPath = malloc(sizeof(Coordinates) * numberOfPositions);
 
     shortestPath[0] = exitPosition;
 
@@ -133,7 +137,7 @@ Coordinates* getShortestPathToExit(int ** map) {
     while (!isStartPosition(currentPosition)) {
         shortestPath[index] = currentPosition;
         
-        unsigned int currentPositionIndex = currentPosition.x + currentPosition.y * MAP_SIZE;
+        unsigned int currentPositionIndex = currentPosition.x + currentPosition.y * mapSize;
         currentPosition = closestPredecessors[currentPositionIndex];
         index++;
     }
@@ -160,6 +164,7 @@ Coordinates* getShortestPathToExit(int ** map) {
 
     free(closestPredecessors);
     free(shortestPath);
+    free(reversedShortestPath);
 
     return cleanShortestpath;
 }

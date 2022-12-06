@@ -5,5 +5,5 @@
 #include "./Constants.h"
 #include "./Coordinates.h"
 
-Coordinates* getShortestPathToExit(int** map);
+cvector_vector_type(Coordinates) getShortestPathToExit(int** map, int mapSize);
 #endif
