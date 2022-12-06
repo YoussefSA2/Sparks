@@ -112,7 +112,7 @@ Coordinates* breadthFirstSearchTheExit(int** map, int mapSize)
 * @brief Compute the shortest shortestPath to the exitPosition from the closest predecessor of each position.
 * @param map The map.
 * @return An array of Coordinates containing the shortest shortestPath to the exitPosition. 
-* Note that the array is not null-terminated (the last element is not {0, 0}).
+* If the exitPosition is not reachable, the function returns NULL.
 */
 cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) {
     
@@ -138,6 +138,12 @@ cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) 
         shortestPath[index] = currentPosition;
         
         unsigned int currentPositionIndex = currentPosition.x + currentPosition.y * mapSize;
+        // if the currentPositionIndex is out of bounds, the shortestPath is not valid so we return NULL
+        // (this probably means that the exitPosition is not reachable)
+        if (currentPositionIndex >= numberOfPositions) {
+            return NULL;
+        }
+        
         currentPosition = closestPredecessors[currentPositionIndex];
         index++;
     }
