@@ -10,6 +10,8 @@ struct Coordinates{
 
 };
 
+int areEqual(Coordinates position1, Coordinates position2);
 void showCoordinates(Coordinates coordinates);
+
 
 #endif
