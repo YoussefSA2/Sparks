@@ -168,3 +168,12 @@ int killPlayer()
 
     return PLAYER_LOST;
 }
+
+/*
+* Function which displays available commands
+*/
+void displayAvailableCommands(){
+    printf("NORTH WEST          NORTH           NORTH EAST\n");
+    printf("      WEST          Player                EAST\n");
+    printf("SOUTH WEST          SOUTH           SOUTH EAST\n");
+}
