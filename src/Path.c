@@ -147,8 +147,20 @@ Coordinates* getShortestPathToExit(int ** map) {
         reversedShortestPath[i] = shortestPath[index - i - 1];
     }
 
+    // remove the positions that are not part of the shortest shortestPath
+    // (don't ask me why)
+    cvector_vector_type(Coordinates) cleanShortestpath = NULL;
+
+     for (unsigned int i = 0; i < index; i++) {
+        cvector_push_back(cleanShortestpath, reversedShortestPath[i]);
+        if (areEqual(reversedShortestPath[i], exitPosition)) {
+            break;
+        }
+    }
+
+    free(closestPredecessors);
     free(shortestPath);
 
-    return reversedShortestPath;
+    return cleanShortestpath;
 }
 
