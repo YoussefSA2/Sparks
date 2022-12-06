@@ -7,12 +7,14 @@
 #include "./include/Game.h"
 #include "./include/Map.h"
 #include "./include/Player.h"
+#include <time.h> 
 
 /*
 * Main function, contains the game loop.
 */
 int main(void)
 {
+    srand(time(NULL)) ;
     int lastPlayerAction = GAME_IS_RUNNING;
 
     int** map = generateMap(MAP_SIZE);

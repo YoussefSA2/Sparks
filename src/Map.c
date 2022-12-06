@@ -9,6 +9,8 @@
 */
 int **generateMap(int mapSize){
     int** map;
+    int line,column;
+    int count;
 
     map=malloc(mapSize * sizeof(int*));
 
@@ -25,17 +27,17 @@ int **generateMap(int mapSize){
             map[0][0]=TREE;                                            
                                                                 
             map[mapSize-1][mapSize-1]=TREE;
-        }
-    }
-
+         }
+    }   
     return map;
+    
 }
-
 /*
 * Displays the map.
 */
 void showMap(int **map, int mapSize, Player player)
 {   
+    char* c;
     for(int i=0; i < mapSize; ++i)
     {   
         for(int j=0;j < mapSize; ++j)
@@ -46,7 +48,8 @@ void showMap(int **map, int mapSize, Player player)
             }
             else
             {
-                printf(" %s ", (map[i][j]==TREE) ? TREE_EMOJI: (map[i][j]==OBSTACLE) ? OBSTACLE_EMOJI : FOOD_EMOJI);
+                
+               printf(" %s ", (map[i][j]==TREE) ? TREE_EMOJI: (map[i][j]==OBSTACLE) ? OBSTACLE_EMOJI : FOOD_EMOJI);
             }
             
         }
