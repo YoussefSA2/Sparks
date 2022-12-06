@@ -2,6 +2,7 @@
 #define _CONSTANTS_H
 
 #define MAP_SIZE 10
+#define NUMBER_OF_POSITIONS MAP_SIZE * MAP_SIZE
 
 /*
 * Game states
