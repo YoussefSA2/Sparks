@@ -8,13 +8,6 @@
     #include <conio.h>
 #endif
 
-/*
-* Boolean values
-*/
-
-#define true 1
-#define false 0
-
 int saveGame();
 void clearScreen();
 char getPlayerInput();

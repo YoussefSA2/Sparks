@@ -2,6 +2,7 @@
 #define _CONSTANTS_H
 
 #define MAP_SIZE 10
+#define NUMBER_OF_POSITIONS MAP_SIZE * MAP_SIZE
 
 /*
 * Game states
@@ -29,5 +30,12 @@
 #define MOVE_WEST_INPUT '4'
 #define MOVE_NORTH_WEST_INPUT '7'
 #define INVALID_DIRECTION_INPUT '0'
+
+/*
+* Boolean values
+*/
+
+#define true 1
+#define false 0
 
 #endif

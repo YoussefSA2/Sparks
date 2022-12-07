@@ -45,6 +45,7 @@ int main(void)
     }
 
     printf("Thanks for playing!\n");
+    freeMap(map, MAP_SIZE);
 
     return EXIT_SUCCESS;
 }
