@@ -30,6 +30,7 @@ int main(void)
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
                 printLastAction(lastPlayerAction);
+                displayAvailableCommands();
                 gameIsFinished = checkGameState(player, lastPlayerAction);
             }
         #else
@@ -37,6 +38,7 @@ int main(void)
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
+            displayAvailableCommands();
             gameIsFinished = checkGameState(player, lastPlayerAction);
             
         #endif

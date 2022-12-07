@@ -23,5 +23,6 @@ void printLastAction(char gameState);
 int checkGameState(Player player, int lastPlayerAction);
 int killPlayer();
 int handlePlayerVictory();
+void displayAvailableCommands();
 
 #endif

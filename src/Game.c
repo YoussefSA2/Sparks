@@ -171,7 +171,16 @@ int killPlayer()
 
 int handlePlayerVictory() 
 {
-    printf("You win.\n");
+    printf("You've reached the exit, you win!\n");
     saveGame();
     return PLAYER_WON;
+}
+
+/*
+* Function which displays available commands
+*/
+void displayAvailableCommands(){
+    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
+    printf("[4] GO WEST [6] GO EAST ");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
 }
