@@ -8,7 +8,7 @@
 * @return true if the position is the exitPosition, false otherwise.
 */
 int isExitPosition(Coordinates position, int mapSize) {
-    return position.x == mapSize - 1 && position.y == mapSize - 1; // TODO: use the EXIT constant when the relevant PR is merged
+    return areEqual(position, (Coordinates){mapSize -1, mapSize -1}); // TODO: use the EXIT constant when the relevant PR is merged
 }
 
 /*
@@ -17,7 +17,16 @@ int isExitPosition(Coordinates position, int mapSize) {
 * @return true if the position is the startPosition, false otherwise.
 */
 int isStartPosition(Coordinates position) {
-    return position.x == 0 && position.y == 0;
+    return areEqual(position, (Coordinates) {0, 0});
+}
+
+/*
+* @brief Check if a position has not been visited yet.
+* @param position The coordinates of the position to check.
+* @return true if the position has not been visited yet, false otherwise.
+*/
+int isUnvisitedPosition(Coordinates position) {
+    return areEqual(position, (Coordinates) {-1, -1});
 }
 
 /*
@@ -26,7 +35,7 @@ int isStartPosition(Coordinates position) {
 * @param map The map.
 * @return true if the position is valid, false otherwise.
 */
-int isPositionValid(Coordinates position, int** map, int mapSize) {
+int isValidPosition(Coordinates position, int** map, int mapSize) {
     return position.x >= 0 && position.x < mapSize 
         && position.y >= 0 && position.y < mapSize 
         && map[position.x][position.y] != OBSTACLE;
@@ -95,7 +104,7 @@ Coordinates* breadthFirstSearchTheExit(int** map, int mapSize)
             Coordinates currentPositionNeighbour = neighbours[i];
             unsigned int currentPositionIndex = currentPositionNeighbour.x + currentPositionNeighbour.y * mapSize;
             // if the currentPositionNeighbour position is valid and has not been visited yet, add it to the frontier
-            if (isPositionValid(currentPositionNeighbour, map, mapSize) && areEqual(closestPredecessors[currentPositionIndex], unvisitedPosition)) {
+            if (isValidPosition(currentPositionNeighbour, map, mapSize) && isUnvisitedPosition(closestPredecessors[currentPositionIndex])) {
                 addToQueue(frontier, currentPositionNeighbour);
                 closestPredecessors[currentPositionIndex] = currentPosition;
             }
@@ -163,7 +172,7 @@ cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) 
 
      for (unsigned int i = 0; i < index; i++) {
         cvector_push_back(cleanShortestpath, reversedShortestPath[i]);
-        if (areEqual(reversedShortestPath[i], exitPosition)) {
+        if (isExitPosition(reversedShortestPath[i], mapSize)) {
             break;
         }
     }
