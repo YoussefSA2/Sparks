@@ -41,6 +41,9 @@ MU_TEST(test_handle_player_input_unvalid_move) {
 MU_TEST(test_handle_player_input_valid_move) {
 	// Player is initialized at (0, 0) so they should be able go south
 	mu_assert(handlePlayerInput(MOVE_SOUTH_INPUT, &player, map) == MOVE_SUCCESS, "handlePlayerInput should return MOVE_SUCCESS");
+	
+	mu_assert(player.movesHistory[0].x == 0, "player.movesHistory should contains (0,1)");
+	mu_assert(player.movesHistory[0].y == 1, "player.movesHistory should contains (0,1)");	
 }
 
 MU_TEST(test_handle_player_input_food_found) {
@@ -98,6 +101,31 @@ MU_TEST(test_check_game_state_player_saved){
 	mu_assert(result == true, "checkGameState should return true");
 }
 
+MU_TEST(test_movesHistory_after_valid_move) {
+	// make player move south
+	handlePlayerInput(MOVE_SOUTH_INPUT, &player, map);
+	
+	mu_assert(player.movesHistory[0].x == 0, "player.movesHistory should contains (0,1)");
+	mu_assert(player.movesHistory[0].y == 1, "player.movesHistory should contains (0,1)");	
+}
+
+MU_TEST(test_movesHistory_if_player_gets_out_of_the_map){
+	handlePlayerInput(MOVE_NORTH_INPUT, &player, map);
+
+	mu_assert(cvector_size(player.movesHistory) == 0, "player moveHistory should be empty");
+
+}
+
+MU_TEST(test_movesHistory_after_hitting_obstacle) {
+	map[1][0] = OBSTACLE;
+
+	handlePlayerInput(MOVE_SOUTH_INPUT, &player, map);
+
+	mu_assert(cvector_size(player.movesHistory) == 0, "player moveHistory should be empty");
+
+}
+
+
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
@@ -112,6 +140,9 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_check_game_state_player_is_still_alive);
 	MU_RUN_TEST(test_check_game_state_player_lost);
 	MU_RUN_TEST(test_check_game_state_player_saved);
+	MU_RUN_TEST(test_movesHistory_after_valid_move);
+	MU_RUN_TEST(test_movesHistory_after_hitting_obstacle);
+	MU_RUN_TEST(test_movesHistory_if_player_gets_out_of_the_map);
 
 }
 
