@@ -142,7 +142,7 @@ int checkGameState(Player player, int lastPlayerAction)
     
     if (playerWon)
     {
-        gameState = PLAYER_WON;
+        gameState = handlePlayerVictory();
     }
     else if (playerLost)
     {
@@ -167,6 +167,13 @@ int killPlayer()
     saveGame();
 
     return PLAYER_LOST;
+}
+
+int handlePlayerVictory() 
+{
+    printf("You've reached the exit, you win!\n");
+    saveGame();
+    return PLAYER_WON;
 }
 
 /*
