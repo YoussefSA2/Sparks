@@ -8,7 +8,8 @@
 * @return true if the position is the exitPosition, false otherwise.
 */
 int isExitPosition(Coordinates position, int mapSize) {
-    return areEqual(position, (Coordinates){mapSize -1, mapSize -1}); // TODO: use the EXIT constant when the relevant PR is merged
+    Coordinates exitPosition = {mapSize -1, mapSize -1};
+    return areEqual(position, exitPosition); // TODO: use the EXIT constant when the relevant PR is merged
 }
 
 /*
@@ -17,7 +18,8 @@ int isExitPosition(Coordinates position, int mapSize) {
 * @return true if the position is the startPosition, false otherwise.
 */
 int isStartPosition(Coordinates position) {
-    return areEqual(position, (Coordinates) {0, 0});
+    Coordinates startPosition = {0, 0};
+    return areEqual(position, startPosition);
 }
 
 /*
@@ -26,7 +28,8 @@ int isStartPosition(Coordinates position) {
 * @return true if the position has not been visited yet, false otherwise.
 */
 int isUnvisitedPosition(Coordinates position) {
-    return areEqual(position, (Coordinates) {-1, -1});
+    Coordinates unvisitedPosition = {-1, -1};
+    return areEqual(position, unvisitedPosition);
 }
 
 /*
