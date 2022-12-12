@@ -207,3 +207,9 @@ void loadGame(Player* player, int** map, char* saveFileName)
     loadPlayer(player, saveFileName);
     loadMap(map, saveFileName);
 }
+
+void showMenu(){
+    printf("Que voulez-vous faire?\n");
+    printf("1: Une nouvelle partie\n");
+    printf("2: Charger le jeu\n");
+}

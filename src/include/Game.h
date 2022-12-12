@@ -21,5 +21,6 @@ int killPlayer();
 int handlePlayerVictory();
 void displayAvailableCommands();
 void loadGame(Player* player, int** map, char* saveFileName);
+void showMenu();
 
 #endif

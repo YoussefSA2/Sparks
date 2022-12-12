@@ -13,6 +13,7 @@
 */
 int main(void)
 {
+    showMenu();
     int lastPlayerAction = GAME_IS_RUNNING;
     int gameIsFinished = false;
 
