@@ -69,3 +69,62 @@ char move(Player* player, char direction){
 void modifyEnergy(Player* player, int value){
     player->energy += value;
 }
+
+void savePlayer(Player* player, char* saveFileName){
+    FILE* file = fopen(saveFileName, "wb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+    
+    // save all informations one by one 
+    // because saving the entire Player structure doesn't work
+    fwrite(&(player->energy), sizeof(float), 1, file);
+    fwrite(&(player->nbRewinds), sizeof(int), 1, file);
+    fwrite(&(player->position), sizeof(Coordinates), 1, file);
+    
+    // saving number of moves contained in player history
+    // because we need it to load it after
+    unsigned int nbMoves = cvector_size(player->movesHistory);
+    fwrite(&nbMoves, sizeof(unsigned int), 1, file);
+    fwrite(player->movesHistory, sizeof(Coordinates), cvector_size(player->movesHistory), file);
+
+    fclose(file);
+
+}
+
+void loadPlayer(Player* player, char* saveFileName){
+    FILE* file = fopen(saveFileName, "rb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+
+    float loadEnergy;
+    int loadNbRewinds;
+    Coordinates loadPosition;
+    cvector_vector_type(Coordinates) loadMovesHistory = NULL;
+
+    // loading infos one by one
+    fread(&loadEnergy, sizeof(float), 1, file);
+    fread(&loadNbRewinds, sizeof(int), 1, file);
+    fread(&loadPosition, sizeof(Coordinates), 1, file);
+    
+    unsigned int nbMovesToLoad;
+    fread(&nbMovesToLoad, sizeof(unsigned int), 1, file);
+    
+    Coordinates loadMove;
+    for (unsigned int i = 0; i < nbMovesToLoad; i++){
+        fread(&loadMove, sizeof(Coordinates), 1, file);
+        cvector_push_back(loadMovesHistory, loadMove);
+    }
+    
+    // modify the player with loaded infos
+    player->energy = loadEnergy;
+    player->nbRewinds = loadNbRewinds;
+    player->position = loadPosition;
+    player->movesHistory = loadMovesHistory;
+
+    fclose(file);
+
+}

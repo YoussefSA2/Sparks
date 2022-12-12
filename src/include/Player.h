@@ -17,5 +17,7 @@ Player initPlayer();
 
 char move(Player* player, char direction);
 void modifyEnergy(Player* player, int value);
+void savePlayer(Player* player, char* saveFileName);
+void loadPlayer(Player* player, char* saveFileName);
 
 #endif

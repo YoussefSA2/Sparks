@@ -26,20 +26,20 @@ int main(void)
     {   
         #ifdef _WIN32 // Windows
             if (kbhit()) {
-                lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
+                lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map, gameIsFinished);
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
                 printLastAction(lastPlayerAction);
                 displayAvailableCommands();
-                gameIsFinished = checkGameState(player, lastPlayerAction);
+                gameIsFinished = checkGameState(player, lastPlayerAction, map, gameIsFinished);
             }
         #else
-            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
+            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map, gameIsFinished);
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
             displayAvailableCommands();
-            gameIsFinished = checkGameState(player, lastPlayerAction);
+            gameIsFinished = checkGameState(player, lastPlayerAction, map, gameIsFinished);
             
         #endif
     }

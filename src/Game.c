@@ -4,13 +4,26 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+
 #include "./include/Game.h"
 
 /*
-* Saves the game.
-* TODO : save the map, the player position, etc. into a file (JSON? .txt?)
+* @brief Save the game
+* 
 */
-int saveGame() {
+int saveGame(Player* player, int** map, int gameIsFinished) {
+    
+    char* saveName = "game.sav";
+
+    FILE* file = fopen(saveName, "wb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+
+    savePlayer(player, saveName);
+    
     return PLAYER_SAVED;
 }
 
@@ -97,10 +110,10 @@ int handlePlayerMove(Player* player, char direction, int** map) {
 * It calls the functions corresponding to the player input.
 * For example, if the player inputs 'q', it will call the saveGame function, etc.
 */
-int handlePlayerInput(char input, Player* player, int** map) {
+int handlePlayerInput(char input, Player* player, int** map, int gameIsFinished) {
     switch (input) {
         case EXIT_INPUT:
-            return saveGame();
+            return saveGame(player, map, gameIsFinished);
         case MOVE_NORTH_INPUT:
         case MOVE_NORTH_EAST_INPUT:
         case MOVE_EAST_INPUT:
@@ -143,7 +156,7 @@ void printLastAction(char gameState) {
     }
 }
 
-int checkGameState(Player player, int lastPlayerAction)
+int checkGameState(Player player, int lastPlayerAction, int** map, int gameIsFinished)
 {
     int playerWon = player.position.x == MAP_SIZE-1
      && player.position.y == MAP_SIZE-1;
@@ -155,17 +168,19 @@ int checkGameState(Player player, int lastPlayerAction)
     if (playerWon)
     {
         gameState = handlePlayerVictory();
+        saveGame(&player, map, gameIsFinished);
     }
     else if (playerLost)
     {
         gameState = killPlayer();
+        saveGame(&player, map, gameIsFinished);
     }
     else if (lastPlayerAction == PLAYER_SAVED)
     {
         gameState = PLAYER_SAVED;
     }
 
-    int gameIsFinished = gameState == PLAYER_LOST 
+    gameIsFinished = gameState == PLAYER_LOST 
             || gameState == PLAYER_WON 
             || gameState == PLAYER_SAVED;
 
@@ -176,15 +191,12 @@ int killPlayer()
 {
     printf("You lost ! You don't have energy anymore.\n");
 
-    saveGame();
-
     return PLAYER_LOST;
 }
 
 int handlePlayerVictory() 
 {
     printf("You've reached the exit, you win!\n");
-    saveGame();
     return PLAYER_WON;
 }
 
@@ -195,4 +207,16 @@ void displayAvailableCommands(){
     printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
     printf("[4] GO WEST [6] GO EAST ");
     printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
+}
+
+void loadGame(Player* player, int** map, int gameIsFinished, char* saveName)
+{
+    FILE* file = fopen(saveName, "rb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+    
+    loadPlayer(player, saveName);
+
 }
