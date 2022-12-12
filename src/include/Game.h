@@ -4,9 +4,6 @@
 #include "./Constants.h"
 #include "./Player.h"
 #include "./Map.h"
-#ifdef _WIN32
-    #include <conio.h>
-#endif
 
 int saveGame();
 void clearScreen();
