@@ -2,24 +2,12 @@ name: CI pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main-windows" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main-windows" ]
 
 jobs:
-  ubuntu:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: checkout
-      uses: actions/checkout@v3
-    - name: compile game
-      run: make compile-game
-    - name: run unit tests
-      run: make run-tests
-
-  windows:
+  build and test:
 
     runs-on: windows-latest
 
@@ -29,7 +17,7 @@ jobs:
       - name: install dependencies
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: install make mingw
+          args: install make
       - name: compile game
         run: make compile-game
       - name: run unit tests
