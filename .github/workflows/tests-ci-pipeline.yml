@@ -2,12 +2,12 @@ name: CI pipeline
 
 on:
   push:
-    branches: [ "main_ubuntu" ]
+    branches: [ "main-ubuntu" ]
   pull_request:
-    branches: [ "main_ubuntu" ]
+    branches: [ "main-ubuntu" ]
 
 jobs:
-  build:
+  build and test:
 
     runs-on: ubuntu-latest
 
