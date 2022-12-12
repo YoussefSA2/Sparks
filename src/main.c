@@ -34,12 +34,12 @@ int main(void)
                 gameIsFinished = checkGameState(player, lastPlayerAction, map, gameIsFinished);
             }
         #else
-            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map, gameIsFinished);
+            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
             displayAvailableCommands();
-            gameIsFinished = checkGameState(player, lastPlayerAction, map, gameIsFinished);
+            gameIsFinished = checkGameState(player, lastPlayerAction, map);
             
         #endif
     }

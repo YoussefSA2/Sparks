@@ -70,7 +70,7 @@ void modifyEnergy(Player* player, int value){
     player->energy += value;
 }
 
-void savePlayer(Player* player, char* saveFileName){
+int savePlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "wb");
     if (file == NULL) {
         printf("Fichier non trouvé.");
@@ -87,13 +87,13 @@ void savePlayer(Player* player, char* saveFileName){
     // because we need it to load it after
     unsigned int nbMoves = cvector_size(player->movesHistory);
     fwrite(&nbMoves, sizeof(unsigned int), 1, file);
-    fwrite(player->movesHistory, sizeof(Coordinates), cvector_size(player->movesHistory), file);
+    fwrite(player->movesHistory, sizeof(Coordinates), nbMoves, file);
 
-    fclose(file);
+    return fclose(file);
 
 }
 
-void loadPlayer(Player* player, char* saveFileName){
+int loadPlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "rb");
     if (file == NULL) {
         printf("Fichier non trouvé.");
@@ -125,6 +125,6 @@ void loadPlayer(Player* player, char* saveFileName){
     player->position = loadPosition;
     player->movesHistory = loadMovesHistory;
 
-    fclose(file);
+    return fclose(file);
 
 }

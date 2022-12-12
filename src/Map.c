@@ -105,3 +105,61 @@ char getOppositeDirection(char direction){
             return INVALID_DIRECTION_INPUT;
     }
 }
+
+int saveMap(int** map, char* saveFileName)
+{
+    FILE* file = fopen(saveFileName, "wb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+
+    /* create a static map because you can't save a dynamic one
+    * TODO : use a static map in the game instead
+    */
+    int mapToSave[MAP_SIZE][MAP_SIZE];
+
+    for (unsigned int i = 0; i < MAP_SIZE; i++)
+    {
+        for(unsigned int j = 0; j < MAP_SIZE; j++)
+        {
+            mapToSave[i][j] = map[i][j];
+        }
+    }
+
+    fwrite(mapToSave, sizeof(int), MAP_SIZE * MAP_SIZE, file);
+
+    return fclose(file);
+}
+
+int loadMap(int** map, char* saveFileName)
+{
+    FILE* file = fopen(saveFileName, "rb");
+    if (file == NULL) {
+        printf("Fichier non trouvé.");
+        return EXIT_FAILURE;
+    }
+
+    // load a static map
+    int loadMap[MAP_SIZE][MAP_SIZE];
+    fread(loadMap, sizeof(int), MAP_SIZE * MAP_SIZE, file);
+
+    // free the map and allocate a new one
+    freeMap(map, MAP_SIZE);
+    map = malloc(MAP_SIZE * sizeof(int*));
+    for (unsigned int i = 0; i < MAP_SIZE; ++i){
+        map[i] = malloc(MAP_SIZE * sizeof(int));
+    }
+
+    // fill the dynamic map with the load data
+    for (unsigned int i = 0; i < MAP_SIZE; i++)
+    {
+        for(unsigned int j = 0; j < MAP_SIZE; j++)
+        {
+            map[i][j] = loadMap[i][j];
+        }
+    }
+
+    return fclose(file);
+
+}

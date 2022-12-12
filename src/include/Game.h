@@ -11,15 +11,15 @@
     #define access _access
 #endif
 
-int saveGame(Player* player, int** map, int gameIsFinished);
+int saveGame(Player* player, int** map);
 void clearScreen();
 char getPlayerInput();
-int handlePlayerInput(char input, Player* player, int** map, int gameIsFinished);
+int handlePlayerInput(char input, Player* player, int** map);
 void printLastAction(char gameState);
-int checkGameState(Player player, int lastPlayerAction, int** map, int gameIsFinished);
+int checkGameState(Player player, int lastPlayerAction, int** map);
 int killPlayer();
 int handlePlayerVictory();
 void displayAvailableCommands();
-void loadGame(Player* player, int** map, int gameIsFinished, char* saveName);
+void loadGame(Player* player, int** map, char* saveFileName);
 
 #endif
