@@ -11,7 +11,7 @@
 * TODO : save the map, the player position, etc. into a file (JSON? .txt?)
 */
 int saveGame() {
-    return GAME_IS_FINISHED;
+    return PLAYER_SAVED;
 }
 
 /*
@@ -64,18 +64,30 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         return INVALID_DIRECTION_INPUT;
     }
 
+    //save move in player moveHistory
+    cvector_push_back(player->movesHistory, player->position);
+
     modifyEnergy(player, -1);
 
     int squareContent = map[player->position.y][player->position.x];
     if (squareContent == FOOD) {
         modifyEnergy(player, 10);
+
+        // set a tree after player ate the food
         map[player->position.y][player->position.x] = TREE;
+
         return FOOD_FOUND;
+        
     } else if (squareContent == OBSTACLE) {
+        // move back the player and removes its move from the history
         move(player, getOppositeDirection(direction));
+        cvector_pop_back(player->movesHistory);
+
+        //remove energy
         modifyEnergy(player, -10);
         return OBSTACLE_HIT;
     }
+
 
     return MOVE_SUCCESS;
 }
@@ -119,7 +131,7 @@ void printLastAction(char gameState) {
         case OBSTACLE_HIT:
             printf("You hit an obstacle! You lose 10 energy.\n");
             break;
-        case GAME_IS_FINISHED:
+        case PLAYER_SAVED:
             printf("You saved the game.\n");
             break;
         case INVALID_DIRECTION_INPUT:
@@ -137,17 +149,50 @@ int checkGameState(Player player, int lastPlayerAction)
      && player.position.y == MAP_SIZE-1;
 
     int playerLost = player.energy <= 0;
+
+    int gameState = 0;
     
     if (playerWon)
     {
-        return PLAYER_WON;
+        gameState = handlePlayerVictory();
     }
     else if (playerLost)
     {
-        return PLAYER_LOST;
+        gameState = killPlayer();
     }
-    else
+    else if (lastPlayerAction == PLAYER_SAVED)
     {
-        return lastPlayerAction;
+        gameState = PLAYER_SAVED;
     }
+
+    int gameIsFinished = gameState == PLAYER_LOST 
+            || gameState == PLAYER_WON 
+            || gameState == PLAYER_SAVED;
+
+    return gameIsFinished;
+}
+
+int killPlayer()
+{
+    printf("You lost ! You don't have energy anymore.\n");
+
+    saveGame();
+
+    return PLAYER_LOST;
+}
+
+int handlePlayerVictory() 
+{
+    printf("You've reached the exit, you win!\n");
+    saveGame();
+    return PLAYER_WON;
+}
+
+/*
+* Function which displays available commands
+*/
+void displayAvailableCommands(){
+    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
+    printf("[4] GO WEST [6] GO EAST ");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
 }

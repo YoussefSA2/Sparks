@@ -16,6 +16,7 @@ int main(void)
 {
     srand(time(NULL)) ;
     int lastPlayerAction = GAME_IS_RUNNING;
+    int gameIsFinished = false;
 
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
@@ -23,7 +24,7 @@ int main(void)
     showMap(map, MAP_SIZE, player);
 
   
-    while(lastPlayerAction != GAME_IS_FINISHED)
+    while(!gameIsFinished)
     {   
         #ifdef _WIN32 // Windows
             if (kbhit()) {
@@ -31,20 +32,22 @@ int main(void)
                 clearScreen();
                 showMap(map, MAP_SIZE, player);
                 printLastAction(lastPlayerAction);
-                checkGameState(player, lastPlayerAction);
+                displayAvailableCommands();
+                gameIsFinished = checkGameState(player, lastPlayerAction);
             }
         #else
             lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
-            checkGameState(player, lastPlayerAction);
+            displayAvailableCommands();
+            gameIsFinished = checkGameState(player, lastPlayerAction);
+            
         #endif
     }
 
-    clearScreen();
-    printLastAction(lastPlayerAction);
     printf("Thanks for playing!\n");
+    freeMap(map, MAP_SIZE);
 
     return EXIT_SUCCESS;
 }
