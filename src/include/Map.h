@@ -7,32 +7,18 @@
 #include "./Constants.h"
 #include "./Player.h"
 
+#include <conio.h>
+#define TREE 0
+#define TREE_EMOJI "T"
+#define OBSTACLE 1
+#define OBSTACLE_EMOJI "O"
+#define FOOD 2
+#define FOOD_EMOJI "F"
+#define EXIT 3
+#define EXIT_EMOJI "E"
 
-#ifdef _WIN32
-    #include <conio.h>
+#define PLAYER_EMOJI "P"
 
-    #define TREE 0
-    #define TREE_EMOJI "T"
-    #define OBSTACLE 1
-    #define OBSTACLE_EMOJI "O"
-    #define FOOD 2
-    #define FOOD_EMOJI "F"
-    #define EXIT 3
-    #define EXIT_EMOJI "E"
-    
-    #define PLAYER_EMOJI "P"
-#else
-    #define TREE 0
-    #define TREE_EMOJI "🌲"
-    #define OBSTACLE 1
-    #define OBSTACLE_EMOJI "🚧"
-    #define FOOD 2
-    #define FOOD_EMOJI "🍎"
-    #define EXIT 3
-    #define EXIT_EMOJI "🏁"
-
-    #define PLAYER_EMOJI "👨"
-#endif
 
 
 int **generateMap(int mapSize);

@@ -24,24 +24,15 @@ int main(void)
   
     while(!gameIsFinished)
     {   
-        #ifdef _WIN32 // Windows
-            if (kbhit()) {
-                lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
-                clearScreen();
-                showMap(map, MAP_SIZE, player);
-                printLastAction(lastPlayerAction);
-                displayAvailableCommands();
-                gameIsFinished = checkGameState(player, lastPlayerAction);
-            }
-        #else
+        if (kbhit()) {
             lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
             displayAvailableCommands();
             gameIsFinished = checkGameState(player, lastPlayerAction);
-            
-        #endif
+        }
+        
     }
 
     printf("Thanks for playing!\n");
