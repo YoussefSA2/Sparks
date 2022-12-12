@@ -3,10 +3,10 @@ name: CI pipeline
 on:
   push:
     branches: 
-      - main-ubuntu
+      - main
   pull_request:
     branches: 
-      - main-ubuntu
+      - main
 
 jobs:
   build_and_test:
@@ -16,8 +16,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v3
-      with:
-        ref: "main-ubuntu"
     - name: compile game
       run: make compile-game
     - name: run unit tests
