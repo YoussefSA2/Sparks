@@ -19,7 +19,11 @@ int main(void)
 
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
-
+    char playerInput;
+    if (kbhit()) {
+        playerInput = getPlayerInput();
+        choiceMenu(playerInput, &player, map, "player.sav", "map.sav");
+    }    
     showMap(map, MAP_SIZE, player);
 
   

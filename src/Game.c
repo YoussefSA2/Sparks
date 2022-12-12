@@ -202,14 +202,23 @@ void displayAvailableCommands(){
     printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
 }
 
-void loadGame(Player* player, int** map, char* saveFileName)
+void loadGame(Player* player, int** map, char* playerSaveFile, char* mapSaveFile)
 {
-    loadPlayer(player, saveFileName);
-    loadMap(map, saveFileName);
+    loadPlayer(player, playerSaveFile);
+    loadMap(map, mapSaveFile);
 }
 
 void showMenu(){
     printf("Que voulez-vous faire?\n");
     printf("1: Une nouvelle partie\n");
     printf("2: Charger le jeu\n");
+}
+
+void choiceMenu(char playerInput, Player* player, int** map, char* playerSaveFile, char* mapSaveFile){
+    if(playerInput=='1'){
+        return;
+    }    
+    else if(playerInput=='2'){
+        return loadGame(player, map, playerSaveFile, mapSaveFile);
+    }       
 }
