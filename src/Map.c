@@ -115,7 +115,6 @@ void showMap(int **map, int mapSize, Player player)
         printf("\n");
 
     }
-    free(map);
 }
 /*
 * @brief Frees the memory allocated for the map.
