@@ -2,12 +2,14 @@ name: CI pipeline
 
 on:
   push:
-    branches: [ "main-windows" ]
+    branches: 
+      - main-windows 
   pull_request:
-    branches: [ "main-windows" ]
+    branches:
+      - main-windows
 
 jobs:
-  build and test:
+  build_and_test:
 
     runs-on: windows-latest
 
