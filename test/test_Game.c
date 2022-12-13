@@ -155,6 +155,8 @@ MU_TEST(test_load_game)
 
 	mu_assert(player.energy == 50, "player.energy should be 50");
 	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
+	mu_assert(areEqual(player.movesHistory[0], (Coordinates) {0,2}), "player.movesHistory should contains (0,2)");
+	mu_assert_int_eq(cvector_size(player.movesHistory), 1);
 	mu_assert_int_eq(map[1][0], TREE);
 	mu_assert_int_eq(map[0][1], FOOD);
 	mu_assert_int_eq(map[0][2], OBSTACLE);

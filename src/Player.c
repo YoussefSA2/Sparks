@@ -96,33 +96,26 @@ void savePlayer(Player* player, FILE* saveFile){
  * @param saveFileName The name of the file where the player will be loaded.
 */
 void loadPlayer(Player* player, FILE* saveFile){
-    // find the beginning of player infos : they are written after the map
-    // so MAP_SIZE * MAP_SIZE * sizeof(int) bytes after the beginning of the file
+    /*
+    * find the beginning of player infos : they are written after the map
+    * so MAP_SIZE * MAP_SIZE * sizeof(int) bytes after the beginning of the file*
+    */
     fseek(saveFile, MAP_SIZE * MAP_SIZE * sizeof(int), SEEK_SET);
 
-    float loadEnergy;
-    int loadNbRewinds;
-    Coordinates loadPosition;
-    cvector_vector_type(Coordinates) loadMovesHistory = NULL;
-
     // loading infos one by one
-    fread(&loadEnergy, sizeof(float), 1, saveFile);
-    fread(&loadNbRewinds, sizeof(int), 1, saveFile);
-    fread(&loadPosition, sizeof(Coordinates), 1, saveFile);
+    fread(&(player->energy), sizeof(float), 1, saveFile);
+    fread(&(player->nbRewinds), sizeof(int), 1, saveFile);
+    fread(&(player->position), sizeof(Coordinates), 1, saveFile);
     
+    // load all moves in player history
     unsigned int nbMovesToLoad;
     fread(&nbMovesToLoad, sizeof(unsigned int), 1, saveFile);
     
-    Coordinates loadMove;
+    player->movesHistory = NULL;
+    Coordinates move;
     for (unsigned int i = 0; i < nbMovesToLoad; i++){
-        fread(&loadMove, sizeof(Coordinates), 1, saveFile);
-        cvector_push_back(loadMovesHistory, loadMove);
-    }
-    
-    // modify the player with loaded infos
-    player->energy = loadEnergy;
-    player->nbRewinds = loadNbRewinds;
-    player->position = loadPosition;
-    player->movesHistory = loadMovesHistory;
+        fread(&move, sizeof(Coordinates), 1, saveFile);
+        cvector_push_back(player->movesHistory, move);
+    }    
 
 }
