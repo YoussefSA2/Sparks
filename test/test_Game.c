@@ -153,10 +153,6 @@ MU_TEST(test_load_game)
 
 	loadGame(&player, map, "game.sav");
 
-	printf("\n");
-	showMap(map, MAP_SIZE, player);
-	
-	showCoordinates(player.position);
 	mu_assert(player.energy == 50, "player.energy should be 50");
 	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
 	mu_assert_int_eq(map[1][0], TREE);
