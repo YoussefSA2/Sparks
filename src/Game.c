@@ -213,6 +213,7 @@ void choiceMenu(char playerInput, Player* player, int** map, char* playerSaveFil
         return;
     }    
     else if(playerInput=='2'){
-        return loadGame(player, map, playerSaveFile, mapSaveFile);
+        loadGame(player, map, playerSaveFile, mapSaveFile);
+        return;
     }       
 }
