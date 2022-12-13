@@ -129,48 +129,40 @@ MU_TEST(test_movesHistory_after_hitting_obstacle) {
 
 }
 
-MU_TEST(test_load_player){
-	
+MU_TEST(test_load_game)
+{
 	//informations to save
 	player.energy = 50;
 	player.position = (Coordinates) {1, 3};
 	cvector_push_back(player.movesHistory, ((Coordinates) {0,2}));
 
-	savePlayer(&player, "player.sav");
+	map[1][0] = TREE;
+	map[0][1] = FOOD;
+	map[0][2] = OBSTACLE;
+
+	saveGame(&player, map);
 
 	//modify infos so we can check that the game correctly loads infos above
 	player.energy = 0;
 	player.position = (Coordinates) {0,0};
 	player.movesHistory = NULL;
 
-	loadPlayer(&player, "player.sav");
-	
-	mu_assert(player.energy == 50, "player.energy should be 50");
-	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
-
-}
-
-MU_TEST(test_load_map){
-	//informations to save
-	map[1][0] = TREE;
-	map[0][1] = FOOD;
-	map[0][2] = OBSTACLE;
-
-	saveMap(map, "map.sav");
-
-	//modify infos so we can check that the game correctly loads infos above
 	map[1][0] = FOOD;
 	map[0][1] = OBSTACLE;
 	map[0][2] = TREE;
 
-	loadMap(map, "map.sav");
+	loadGame(&player, map, "game.sav");
+
+	printf("\n");
+	showMap(map, MAP_SIZE, player);
 	
+	showCoordinates(player.position);
+	mu_assert(player.energy == 50, "player.energy should be 50");
+	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
 	mu_assert_int_eq(map[1][0], TREE);
 	mu_assert_int_eq(map[0][1], FOOD);
 	mu_assert_int_eq(map[0][2], OBSTACLE);
-	
 }
-
 
 
 MU_TEST_SUITE(test_suite) {
@@ -190,8 +182,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_movesHistory_after_valid_move);
 	MU_RUN_TEST(test_movesHistory_after_hitting_obstacle);
 	MU_RUN_TEST(test_movesHistory_if_player_gets_out_of_the_map);
-	MU_RUN_TEST(test_load_player);
-	MU_RUN_TEST(test_load_map);
+	MU_RUN_TEST(test_load_game);
 
 }
 

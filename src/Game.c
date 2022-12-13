@@ -14,8 +14,9 @@
 */
 int saveGame(Player* player, int** map) {
     
-    savePlayer(player, "player.sav");
-    saveMap(map, "map.sav");
+    saveMap(map, "game.sav");
+    savePlayer(player, "game.sav");
+    
     
     return PLAYER_SAVED;
 }
@@ -196,10 +197,10 @@ void displayAvailableCommands(){
     printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
 }
 
-void loadGame(Player* player, int** map, char* playerSaveFile, char* mapSaveFile)
+void loadGame(Player* player, int** map, char* saveFileName)
 {
-    loadPlayer(player, playerSaveFile);
-    loadMap(map, mapSaveFile);
+    loadMap(map, saveFileName);
+    loadPlayer(player, saveFileName);
 }
 
 void showMenu(){
@@ -208,12 +209,12 @@ void showMenu(){
     printf("2: Charger le jeu\n");
 }
 
-void choiceMenu(char playerInput, Player* player, int** map, char* playerSaveFile, char* mapSaveFile){
+void launchGame(char playerInput, Player* player, int** map, char* saveFileName){
     if(playerInput=='1'){
         return;
     }    
     else if(playerInput=='2'){
-        loadGame(player, map, playerSaveFile, mapSaveFile);
+        loadGame(player, map, saveFileName);
         return;
     }       
 }

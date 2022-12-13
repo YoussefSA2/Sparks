@@ -8,7 +8,7 @@
 * Generates a mapSize x mapSize map.
 */
 int **generateMap(int mapSize){
-    int** map;
+    int** map = NULL;
 
     map=malloc(mapSize * sizeof(int*));
 

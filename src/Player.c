@@ -71,7 +71,7 @@ void modifyEnergy(Player* player, int value){
 }
 
 int savePlayer(Player* player, char* saveFileName){
-    FILE* file = fopen(saveFileName, "wb");
+    FILE* file = fopen(saveFileName, "ab");
     if (file == NULL) {
         printf("File not found, impossible to save the player. Exiting.");
         return EXIT_FAILURE;
@@ -89,6 +89,7 @@ int savePlayer(Player* player, char* saveFileName){
     fwrite(&nbMoves, sizeof(unsigned int), 1, file);
     fwrite(player->movesHistory, sizeof(Coordinates), nbMoves, file);
 
+
     return fclose(file);
 
 }
@@ -99,6 +100,10 @@ int loadPlayer(Player* player, char* saveFileName){
         printf("File not found, impossible to load the player. Creating a new game...");
         return EXIT_FAILURE;
     }
+
+    // find the beginning of player infos : they are written after the map
+    // so MAP_SIZE * MAP_SIZE * sizeof(int) bytes after the beginning of the file
+    fseek(file, MAP_SIZE * MAP_SIZE * sizeof(int), SEEK_SET);
 
     float loadEnergy;
     int loadNbRewinds;

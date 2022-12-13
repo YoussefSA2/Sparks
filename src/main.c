@@ -20,7 +20,7 @@ int main(void)
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
     
-    choiceMenu(getPlayerInput(), &player, map, "player.sav", "map.sav");
+    launchGame(getPlayerInput(), &player, map, "game.sav");
     
     showMap(map, MAP_SIZE, player);
   
