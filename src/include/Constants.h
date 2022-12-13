@@ -20,6 +20,12 @@
 */
 
 #define EXIT_INPUT 'q'
+
+// Menu inputs
+#define NEW_GAME '1'
+#define LOAD_GAME '2'
+#define INVALID_LAUNCH_GAME_CHOICE -1
+
 // Direction inputs
 #define MOVE_NORTH_INPUT '8'
 #define MOVE_NORTH_EAST_INPUT '9'
