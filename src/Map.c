@@ -110,7 +110,7 @@ int saveMap(int** map, char* saveFileName)
 {
     FILE* file = fopen(saveFileName, "wb");
     if (file == NULL) {
-        printf("Fichier non trouvé.");
+        printf("File not found, impossible to save the map. Exiting.");
         return EXIT_FAILURE;
     }
 
@@ -136,7 +136,7 @@ int loadMap(int** map, char* saveFileName)
 {
     FILE* file = fopen(saveFileName, "rb");
     if (file == NULL) {
-        printf("Fichier non trouvé.");
+        printf("File not found, impossible to load the map. Creating a new one.");
         return EXIT_FAILURE;
     }
 

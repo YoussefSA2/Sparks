@@ -73,7 +73,7 @@ void modifyEnergy(Player* player, int value){
 int savePlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "wb");
     if (file == NULL) {
-        printf("Fichier non trouvé.");
+        printf("File not found, impossible to save the player. Exiting.");
         return EXIT_FAILURE;
     }
     
@@ -96,7 +96,7 @@ int savePlayer(Player* player, char* saveFileName){
 int loadPlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "rb");
     if (file == NULL) {
-        printf("Fichier non trouvé.");
+        printf("File not found, impossible to load the player. Creating a new game...");
         return EXIT_FAILURE;
     }
 
