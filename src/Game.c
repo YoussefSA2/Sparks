@@ -243,11 +243,11 @@ void loadGame(Player* player, int** map, char* saveFileName)
 /**
  * @brief Function which displays the main menu of the game.
 */
-void showMenu(){
+void showMenu(){    
     printf("Bienvenue dans notre jeu!\n");
     printf("Que voulez-vous faire?\n");
     printf("1: Une nouvelle partie\n");
-    printf("2: Charger le jeu\n");
+    printf("2: Charger la partie\n");
 }
 
 /**
@@ -256,12 +256,23 @@ void showMenu(){
  * @param player The player struct which might be loaded
  * @param map The map which might be loaded
 */
-void launchGame(char playerInput, Player* player, int** map, char* saveFileName){
-    if(playerInput=='1'){
-        return;
-    }    
-    else if(playerInput=='2'){
-        loadGame(player, map, saveFileName);
-        return;
-    }       
+int launchGame(char playerInput, Player* player, int** map, char* saveFileName){
+    
+    switch (playerInput)
+    {
+        case NEW_GAME:
+            printf("New game started.\n");
+        break;
+        case LOAD_GAME:
+            loadGame(player, map, saveFileName);
+            printf("Previous game loaded.\n");
+        break;
+        default:
+            printf("Invalid choice, try again.\n");
+            return INVALID_LAUNCH_GAME_CHOICE;
+        break;
+    }
+
+    return playerInput;
+
 }

@@ -16,6 +16,6 @@ int handlePlayerVictory();
 void displayAvailableCommands();
 void loadGame(Player* player, int** map, char* saveFileName);
 void showMenu();
-void launchGame(char playerInput, Player* player, int** map, char* saveFileName);
+int launchGame(char playerInput, Player* player, int** map, char* saveFileName);
 
 #endif
