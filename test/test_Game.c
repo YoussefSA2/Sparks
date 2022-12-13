@@ -151,7 +151,7 @@ MU_TEST(test_load_game)
 	map[0][1] = OBSTACLE;
 	map[0][2] = TREE;
 
-	loadGame(&player, map, "game.sav");
+	loadGame(&player, map);
 
 	mu_assert(player.energy == 50, "player.energy should be 50");
 	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");

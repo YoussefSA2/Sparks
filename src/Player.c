@@ -76,27 +76,18 @@ void modifyEnergy(Player* player, int value){
  * @param saveFileName The name of the file where the player will be saved.
  * @return EXIT_SUCCESS if the player has been saved, EXIT_FAILURE otherwise.
 */
-int savePlayer(Player* player, char* saveFileName){
-    FILE* file = fopen(saveFileName, "ab");
-    if (file == NULL) {
-        printf("File not found, impossible to save the player. Exiting.");
-        return EXIT_FAILURE;
-    }
-    
+void savePlayer(Player* player, FILE* saveFile){
     // save all informations one by one 
     // because saving the entire Player structure doesn't work
-    fwrite(&(player->energy), sizeof(float), 1, file);
-    fwrite(&(player->nbRewinds), sizeof(int), 1, file);
-    fwrite(&(player->position), sizeof(Coordinates), 1, file);
+    fwrite(&(player->energy), sizeof(float), 1, saveFile);
+    fwrite(&(player->nbRewinds), sizeof(int), 1, saveFile);
+    fwrite(&(player->position), sizeof(Coordinates), 1, saveFile);
     
     // saving number of moves contained in player history
     // because we need it to load it after
     unsigned int nbMoves = cvector_size(player->movesHistory);
-    fwrite(&nbMoves, sizeof(unsigned int), 1, file);
-    fwrite(player->movesHistory, sizeof(Coordinates), nbMoves, file);
-
-
-    return fclose(file);
+    fwrite(&nbMoves, sizeof(unsigned int), 1, saveFile);
+    fwrite(player->movesHistory, sizeof(Coordinates), nbMoves, saveFile);
 
 }
 
@@ -106,16 +97,10 @@ int savePlayer(Player* player, char* saveFileName){
  * @param saveFileName The name of the file where the player will be loaded.
  * @return EXIT_SUCCESS if the player has been loaded, EXIT_FAILURE otherwise.
 */
-int loadPlayer(Player* player, char* saveFileName){
-    FILE* file = fopen(saveFileName, "rb");
-    if (file == NULL) {
-        printf("File not found, impossible to load the player. Creating a new game...");
-        return EXIT_FAILURE;
-    }
-
+void loadPlayer(Player* player, FILE* saveFile){
     // find the beginning of player infos : they are written after the map
     // so MAP_SIZE * MAP_SIZE * sizeof(int) bytes after the beginning of the file
-    fseek(file, MAP_SIZE * MAP_SIZE * sizeof(int), SEEK_SET);
+    fseek(saveFile, MAP_SIZE * MAP_SIZE * sizeof(int), SEEK_SET);
 
     float loadEnergy;
     int loadNbRewinds;
@@ -123,16 +108,16 @@ int loadPlayer(Player* player, char* saveFileName){
     cvector_vector_type(Coordinates) loadMovesHistory = NULL;
 
     // loading infos one by one
-    fread(&loadEnergy, sizeof(float), 1, file);
-    fread(&loadNbRewinds, sizeof(int), 1, file);
-    fread(&loadPosition, sizeof(Coordinates), 1, file);
+    fread(&loadEnergy, sizeof(float), 1, saveFile);
+    fread(&loadNbRewinds, sizeof(int), 1, saveFile);
+    fread(&loadPosition, sizeof(Coordinates), 1, saveFile);
     
     unsigned int nbMovesToLoad;
-    fread(&nbMovesToLoad, sizeof(unsigned int), 1, file);
+    fread(&nbMovesToLoad, sizeof(unsigned int), 1, saveFile);
     
     Coordinates loadMove;
     for (unsigned int i = 0; i < nbMovesToLoad; i++){
-        fread(&loadMove, sizeof(Coordinates), 1, file);
+        fread(&loadMove, sizeof(Coordinates), 1, saveFile);
         cvector_push_back(loadMovesHistory, loadMove);
     }
     
@@ -141,7 +126,5 @@ int loadPlayer(Player* player, char* saveFileName){
     player->nbRewinds = loadNbRewinds;
     player->position = loadPosition;
     player->movesHistory = loadMovesHistory;
-
-    return fclose(file);
 
 }

@@ -17,11 +17,50 @@
 */
 int saveGame(Player* player, int** map) {
     
-    saveMap(map, "game.sav");
-    savePlayer(player, "game.sav");
-    
+    FILE* saveFile = fopen("game.sav", "wb");
+    if (saveFile == NULL) {
+        printf("Error while creating the save file, impossible to save the game. Exiting.");
+        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
+    }
+
+    saveMap(map, saveFile);
+    fclose(saveFile);
+
+    saveFile = fopen("game.sav", "ab");
+    if (saveFile == NULL) {
+        printf("Error while creating the save file, impossible to save the game. Exiting.");
+        exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
+    }
+    savePlayer(player, saveFile);
+    fclose(saveFile);
+
     return PLAYER_SAVED;
 }
+
+/**
+ * @brief Function which loads the game from the `saveFileName` file.
+ * @param player The player to load
+ * @param map The map to load
+ * @param saveFileName The name of the file where the game is saved
+*/
+int loadGame(Player* player, int** map)
+{
+    FILE* saveFile = fopen("game.sav", "rb");
+    if (saveFile == NULL) {
+        printf("Error while opening the save file, impossible to load the game. Launching a new one.\n");
+        return GAME_LOAD_FAILED;
+    }
+    
+    loadMap(map, saveFile);
+    loadPlayer(player, saveFile);
+
+    fclose(saveFile);
+
+    return GAME_LOAD_SUCCESS;
+}
+
 
 /**
  * @brief Function which clears the screen.
@@ -229,25 +268,13 @@ void displayAvailableCommands(){
 }
 
 /**
- * @brief Function which loads the game from the `saveFileName` file.
- * @param player The player to load
- * @param map The map to load
- * @param saveFileName The name of the file where the game is saved
-*/
-void loadGame(Player* player, int** map, char* saveFileName)
-{
-    loadMap(map, saveFileName);
-    loadPlayer(player, saveFileName);
-}
-
-/**
  * @brief Function which displays the main menu of the game.
 */
 void showMenu(){    
-    printf("Bienvenue dans notre jeu!\n");
-    printf("Que voulez-vous faire?\n");
-    printf("1: Une nouvelle partie\n");
-    printf("2: Charger la partie\n");
+    printf("Welcome to our game!\n");
+    printf("What do you want to do?\n");
+    printf("1: New game\n");
+    printf("2: Load previous game\n");
 }
 
 /**
@@ -256,7 +283,7 @@ void showMenu(){
  * @param player The player struct which might be loaded
  * @param map The map which might be loaded
 */
-int launchGame(char playerInput, Player* player, int** map, char* saveFileName){
+int launchGame(char playerInput, Player* player, int** map){
     
     switch (playerInput)
     {
@@ -264,9 +291,10 @@ int launchGame(char playerInput, Player* player, int** map, char* saveFileName){
             printf("New game started.\n");
         break;
         case LOAD_GAME:
-            loadGame(player, map, saveFileName);
-            printf("Previous game loaded.\n");
-        break;
+            if(loadGame(player, map) != GAME_LOAD_FAILED){
+                printf("Previous game loaded.\n");
+            }
+            break;
         default:
             printf("Invalid choice, try again.\n");
             return INVALID_LAUNCH_GAME_CHOICE;

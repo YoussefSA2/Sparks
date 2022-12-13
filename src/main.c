@@ -20,7 +20,7 @@ int main(void)
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
     
-    do{} while (launchGame(getPlayerInput(), &player, map, "game.sav") == INVALID_LAUNCH_GAME_CHOICE);
+    do{} while (launchGame(getPlayerInput(), &player, map) == INVALID_LAUNCH_GAME_CHOICE);
     
     showMap(map, MAP_SIZE, player);
   

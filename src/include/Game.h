@@ -14,8 +14,8 @@ int checkGameState(Player player, int lastPlayerAction, int** map);
 int killPlayer();
 int handlePlayerVictory();
 void displayAvailableCommands();
-void loadGame(Player* player, int** map, char* saveFileName);
+int loadGame(Player* player, int** map);
 void showMenu();
-int launchGame(char playerInput, Player* player, int** map, char* saveFileName);
+int launchGame(char playerInput, Player* player, int** map);
 
 #endif

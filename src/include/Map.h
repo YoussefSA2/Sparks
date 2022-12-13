@@ -23,7 +23,7 @@ int **generateMap(int mapSize);
 char getOppositeDirection(char direction);
 void freeMap(int** map, int mapSize);
 void showMap(int** map, int mapSize, Player player);
-int saveMap(int** map, char* saveFileName);
-int loadMap(int** map, char* saveFileName);
+void saveMap(int** map, FILE* saveFile);
+void loadMap(int** map, FILE* saveFile);
 
 #endif
