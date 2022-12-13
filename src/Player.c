@@ -74,7 +74,6 @@ void modifyEnergy(Player* player, int value){
  * @brief Function which saves the player in a file. It is used in the saveGame() function
  * @param player The player to save.
  * @param saveFileName The name of the file where the player will be saved.
- * XIT_SUCCESS if the player has been saved, EXIT_FAILURE otherwise.
 */
 void savePlayer(Player* player, FILE* saveFile){
     // save all informations one by one 
@@ -95,7 +94,6 @@ void savePlayer(Player* player, FILE* saveFile){
  * @brief Function which loads the player from a file. It is used in the loadGame() function
  * @param player The player to load.
  * @param saveFileName The name of the file where the player will be loaded.
- * XIT_SUCCESS if the player has been loaded, EXIT_FAILURE otherwise.
 */
 void loadPlayer(Player* player, FILE* saveFile){
     // find the beginning of player infos : they are written after the map
