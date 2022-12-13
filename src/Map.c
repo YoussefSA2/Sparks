@@ -106,6 +106,12 @@ char getOppositeDirection(char direction){
     }
 }
 
+/** 
+ * @brief Function which saves the map in a file. It is used in the saveGame function.
+ * @param map The map to save.
+ * @param saveFileName The name of the file to save the map in.
+ * @return EXIT_FAILURE if the file can't be opened, EXIT_SUCCESS otherwise.
+*/
 int saveMap(int** map, char* saveFileName)
 {
     FILE* file = fopen(saveFileName, "wb");
@@ -132,6 +138,12 @@ int saveMap(int** map, char* saveFileName)
     return fclose(file);
 }
 
+/** 
+ * @brief Function which loads the map from a file. It is used in the loadGame function.
+ * @param map The map to load.
+ * @param saveFileName The name of the file to load the map from.
+ * @return EXIT_FAILURE if the file can't be opened, EXIT_SUCCESS otherwise.
+*/
 int loadMap(int** map, char* saveFileName)
 {
     FILE* file = fopen(saveFileName, "rb");

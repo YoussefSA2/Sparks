@@ -70,6 +70,12 @@ void modifyEnergy(Player* player, int value){
     player->energy += value;
 }
 
+/**
+ * @brief Function which saves the player in a file. It is used in the saveGame() function
+ * @param player The player to save.
+ * @param saveFileName The name of the file where the player will be saved.
+ * @return EXIT_SUCCESS if the player has been saved, EXIT_FAILURE otherwise.
+*/
 int savePlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "ab");
     if (file == NULL) {
@@ -94,6 +100,12 @@ int savePlayer(Player* player, char* saveFileName){
 
 }
 
+/**
+ * @brief Function which loads the player from a file. It is used in the loadGame() function
+ * @param player The player to load.
+ * @param saveFileName The name of the file where the player will be loaded.
+ * @return EXIT_SUCCESS if the player has been loaded, EXIT_FAILURE otherwise.
+*/
 int loadPlayer(Player* player, char* saveFileName){
     FILE* file = fopen(saveFileName, "rb");
     if (file == NULL) {

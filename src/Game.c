@@ -8,29 +8,33 @@
 
 #include "./include/Game.h"
 
-/*
-* @brief Save the game
-* 
+/**
+* @brief Function which saves the game.
+* It calls the saveMap and savePlayer functions.
+* @param player The player.
+* @param map The map.
+* @return PLAYER_SAVED.
 */
 int saveGame(Player* player, int** map) {
     
     saveMap(map, "game.sav");
     savePlayer(player, "game.sav");
     
-    
     return PLAYER_SAVED;
 }
 
-/*
-* Clears the console.
+/**
+ * @brief Function which clears the screen.
+ * It uses the system function to call the clear command.
 */
 void clearScreen()
 {
     system("clear");
 }
 
-/*
-* Returns the player input.
+/**
+* @brief Returns the player input.
+* @return The player input.
 */
 char getPlayerInput() {
     
@@ -40,8 +44,11 @@ char getPlayerInput() {
     
 }
 
-/*
-* Fonction which checks if the player is still on the map after moving. 
+/**
+ * @brief Fonction which checks if the player is still on the map after moving. 
+ * @param player The player.
+ * @param mapSize The size of the map.
+ * @return true if the player is still on the map, false otherwise.
 */
 int isPlayerInTheMap(Player* player, int mapSize) {
     if (player->position.x < 0 || player->position.x >= mapSize || player->position.y < 0 || player->position.y >= mapSize) {
@@ -50,12 +57,16 @@ int isPlayerInTheMap(Player* player, int mapSize) {
     return true;
 }
 
-/*
-* Fonction which handles player movement.
-* It checks if the player is still on the map after moving (if not, they go back to their previous position).
-* and change player energy given the destination square (tree, food, obstacle).
-* If player find food, it increases their energy and removes the food from the map.
-* If player hit an obstacle, it decreases their energy and player goes back to their previous position.
+/**
+ * @brief Fonction which handles player movement.
+ *  It checks if the player is still on the map after moving (if not, they go back to their previous position).
+ *  and change player energy given the destination square (tree, food, obstacle).
+ *  If player find food, it increases their energy and removes the food from the map.
+ *  If player hit an obstacle, it decreases their energy and player goes back to their previous position.
+ * @param player The player.
+ * @param direction The direction the player wants to move.
+ * @param map The map.
+ * @return The result of the player move.
 */
 int handlePlayerMove(Player* player, char direction, int** map) {
     move(player, direction);
@@ -93,10 +104,14 @@ int handlePlayerMove(Player* player, char direction, int** map) {
     return MOVE_SUCCESS;
 }
 
-/*
-* Function which handles all player inputs.
-* It calls the functions corresponding to the player input.
-* For example, if the player inputs 'q', it will call the saveGame function, etc.
+/**
+ * @brief Function which handles all player inputs.
+ * It calls the functions corresponding to the player input.
+ * For example, if the player inputs 'q', it will call the saveGame function, etc.
+ * @param input The player input.
+ * @param player The player.
+ * @param map The map.
+ * @return The result of the player input.
 */
 int handlePlayerInput(char input, Player* player, int** map) {
     switch (input) {
@@ -118,8 +133,9 @@ int handlePlayerInput(char input, Player* player, int** map) {
     }
 }
 
-/*
-* Function which prints the last action the player did.
+/**
+ * @brief Function which prints the last action the player did.
+ * @param gameState The last action the player did.
 */
 void printLastAction(char gameState) {
     switch (gameState) {
@@ -144,6 +160,13 @@ void printLastAction(char gameState) {
     }
 }
 
+/**
+ * @brief Function which checks if the game is finished.
+ * @param player The player.
+ * @param lastPlayerAction The last action the player did.
+ * @param map The map.
+ * @return true if the game is finished, false otherwise.
+*/
 int checkGameState(Player player, int lastPlayerAction, int** map)
 {
     int playerWon = player.position.x == MAP_SIZE-1
@@ -175,6 +198,10 @@ int checkGameState(Player player, int lastPlayerAction, int** map)
     return gameIsFinished;
 }
 
+/**
+ * @brief Function which prints a message when the player loses.
+ * @return PLAYER_LOST
+*/
 int killPlayer()
 {
     printf("You lost ! You don't have energy anymore.\n");
@@ -182,14 +209,18 @@ int killPlayer()
     return PLAYER_LOST;
 }
 
+/**
+ * @brief Function which prints a message when the player wins.
+ * @return PLAYER_WON
+*/
 int handlePlayerVictory() 
 {
     printf("You've reached the exit, you win!\n");
     return PLAYER_WON;
 }
 
-/*
-* Function which displays available commands
+/**
+ * @brief Function which displays the available commands to the player.
 */
 void displayAvailableCommands(){
     printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
@@ -197,18 +228,34 @@ void displayAvailableCommands(){
     printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
 }
 
+/**
+ * @brief Function which loads the game from the `saveFileName` file.
+ * @param player The player to load
+ * @param map The map to load
+ * @param saveFileName The name of the file where the game is saved
+*/
 void loadGame(Player* player, int** map, char* saveFileName)
 {
     loadMap(map, saveFileName);
     loadPlayer(player, saveFileName);
 }
 
+/**
+ * @brief Function which displays the main menu of the game.
+*/
 void showMenu(){
+    printf("Bienvenue dans notre jeu!\n");
     printf("Que voulez-vous faire?\n");
     printf("1: Une nouvelle partie\n");
     printf("2: Charger le jeu\n");
 }
 
+/**
+ * @brief Function which launches the game. It calls the loadGame function if the user wants to load a previous game.
+ * @param playerInput The player input
+ * @param player The player struct which might be loaded
+ * @param map The map which might be loaded
+*/
 void launchGame(char playerInput, Player* player, int** map, char* saveFileName){
     if(playerInput=='1'){
         return;
