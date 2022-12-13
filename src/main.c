@@ -31,7 +31,7 @@ int main(void)
         showMap(map, MAP_SIZE, player);
         printLastAction(lastPlayerAction);
         displayAvailableCommands();
-        gameIsFinished = checkGameState(player, lastPlayerAction);
+        gameIsFinished = checkGameState(player, lastPlayerAction, map);
     }
 
     printf("Thanks for playing!\n");
