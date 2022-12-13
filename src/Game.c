@@ -25,24 +25,18 @@ int saveGame(Player* player, int** map) {
 */
 void clearScreen()
 {
-    #ifdef _WIN32 // Windows
-        system("cls");
-    #else // Linux
-        system("clear");
-    #endif
+    system("clear");
 }
 
 /*
 * Returns the player input.
 */
 char getPlayerInput() {
-    #ifdef _WIN32 // Windows
-        return getch();
-    #else // Linux
-        char input = getchar();
-        getchar(); // To remove the \n character you get when you press enter.
-        return input;
-    #endif
+    
+    char input = getchar();
+    getchar(); // To remove the \n character you get when you press enter
+    return input;
+    
 }
 
 /*
