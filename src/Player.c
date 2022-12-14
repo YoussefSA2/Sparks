@@ -96,12 +96,6 @@ void savePlayer(Player* player, FILE* saveFile){
  * @param saveFileName The name of the file where the player will be loaded.
 */
 void loadPlayer(Player* player, FILE* saveFile){
-    /*
-    * find the beginning of player infos : they are written after the map
-    * so MAP_SIZE * MAP_SIZE * sizeof(int) bytes after the beginning of the file*
-    */
-    fseek(saveFile, MAP_SIZE * MAP_SIZE * sizeof(int), SEEK_SET);
-
     // loading infos one by one
     fread(&(player->energy), sizeof(float), 1, saveFile);
     fread(&(player->nbRewinds), sizeof(int), 1, saveFile);
