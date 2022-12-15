@@ -51,13 +51,13 @@ MU_TEST(test_handle_player_input_valid_move) {
 }
 
 MU_TEST(test_handle_player_input_food_found) {
-	// there is food at (0, 1) so the player shoudld find it by going east
+	// there is food at (1,0) so the player shoudld find it by going east
 	mu_assert(handlePlayerInput(MOVE_EAST_INPUT, &player, map) == FOOD_FOUND, "handlePlayerInput should return FOOD_FOUND");
 }
 
 MU_TEST(test_handle_player_input_obstacle_found) {
 	player.position.x = 1;
-	// there is an obstacle at (0, 2) so the player should hit it by going east
+	// there is an obstacle at (2, 0) so the player should hit it by going east
 	mu_assert(handlePlayerInput(MOVE_EAST_INPUT, &player, map) == OBSTACLE_HIT, "handlePlayerInput should return OBSTACLE_HIT");
 }
 
