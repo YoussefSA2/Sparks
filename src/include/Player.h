@@ -8,6 +8,8 @@
 typedef struct Player Player;
 struct Player{
     float energy;
+    float gainedEnergy;
+    float lostEnergy;
     Coordinates position;
     int nbRewinds;
     cvector_vector_type(Coordinates) movesHistory;

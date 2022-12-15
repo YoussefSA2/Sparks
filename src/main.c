@@ -34,7 +34,7 @@ int main(void)
         gameIsFinished = checkGameState(player, lastPlayerAction, map);
     }
 
-    printf("Thanks for playing!\n");
+    printf("\nThanks for playing!\n");
     freeMap(map, MAP_SIZE);
 
     return EXIT_SUCCESS;

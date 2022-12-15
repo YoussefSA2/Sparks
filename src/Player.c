@@ -16,6 +16,8 @@ Player initPlayer(){
     player.position.x = 0;
     player.position.y = 0;
     player.energy = 100;
+    player.gainedEnergy = 0;
+    player.lostEnergy = 0;
     player.nbRewinds = 6;
     player.movesHistory = NULL;
     
@@ -67,6 +69,13 @@ char move(Player* player, char direction){
 * Function which modifies the player energy.
 */
 void modifyEnergy(Player* player, int value){
+    if (value>0){
+        player->gainedEnergy += value;
+    }
+    else if (value<0){
+        player->lostEnergy += value;
+    }
+
     player->energy += value;
 }
 
