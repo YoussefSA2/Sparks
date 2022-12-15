@@ -13,14 +13,16 @@
 */
 int main(void)
 {
-    int lastPlayerAction = GAME_IS_RUNNING;
+    showMenu();
+    
     int gameIsFinished = false;
 
     int** map = generateMap(MAP_SIZE);
     Player player = initPlayer();
-
+    
+    do{} while (launchGame(getPlayerInput(), &player, map) == INVALID_LAUNCH_GAME_CHOICE);
+    
     showMap(map, MAP_SIZE, player);
-
   
     while(!gameIsFinished)
     {   

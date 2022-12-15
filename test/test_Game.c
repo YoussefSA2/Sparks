@@ -12,9 +12,13 @@
 
 Player player;
 int **map = NULL;
+int gameIsFinished;
 
 void test_setup(void) {
+	
+	gameIsFinished = false;
 	player = initPlayer();
+
 	map = generateMap(10);
 	map[1][0] = TREE;
 	map[0][1] = FOOD;
@@ -26,7 +30,7 @@ void test_teardown(void) {
 }
 
 MU_TEST(test_save_game) {
-    mu_assert(saveGame() == PLAYER_SAVED, "saveGame should return PLAYER_SAVED");
+    mu_assert(saveGame(&player, map) == PLAYER_SAVED, "saveGame should return PLAYER_SAVED");
 }
 
 MU_TEST(test_handle_player_input_exit) {
@@ -67,7 +71,7 @@ MU_TEST(test_check_game_state_player_won){
 	player.position.x = MAP_SIZE - 1;
 	player.position.y = MAP_SIZE - 1;
 	
-	int result = checkGameState(player, lastPlayerAction);
+	int result = checkGameState(player, lastPlayerAction, map);
 
 	mu_assert(result == true, "checkGameState should return true");
 }
@@ -78,7 +82,7 @@ MU_TEST(test_check_game_state_player_is_still_alive){
 	player.position.x = 0;
 	player.position.y = 0;
 	
-	int result = checkGameState(player, lastPlayerAction);
+	int result = checkGameState(player, lastPlayerAction, map);
 
 	mu_assert(result == false, "checkGameState should return false");
 }
@@ -88,7 +92,7 @@ MU_TEST(test_check_game_state_player_lost){
 
 	player.energy = -1;
 
-	int result = checkGameState(player, lastPlayerAction);
+	int result = checkGameState(player, lastPlayerAction, map);
 
 	mu_assert(result == true, "checkGameState should return true");
 }
@@ -96,7 +100,7 @@ MU_TEST(test_check_game_state_player_lost){
 MU_TEST(test_check_game_state_player_saved){
 	int lastPlayerAction = PLAYER_SAVED;
 
-	int result = checkGameState(player, lastPlayerAction);
+	int result = checkGameState(player, lastPlayerAction, map);
 
 	mu_assert(result == true, "checkGameState should return true");
 }
@@ -125,6 +129,39 @@ MU_TEST(test_movesHistory_after_hitting_obstacle) {
 
 }
 
+MU_TEST(test_load_game)
+{
+	//informations to save
+	player.energy = 50;
+	player.position = (Coordinates) {1, 3};
+	cvector_push_back(player.movesHistory, ((Coordinates) {0,2}));
+
+	map[1][0] = TREE;
+	map[0][1] = FOOD;
+	map[0][2] = OBSTACLE;
+
+	saveGame(&player, map);
+
+	//modify infos so we can check that the game correctly loads infos above
+	player.energy = 0;
+	player.position = (Coordinates) {0,0};
+	player.movesHistory = NULL;
+
+	map[1][0] = FOOD;
+	map[0][1] = OBSTACLE;
+	map[0][2] = TREE;
+
+	loadGame(&player, map);
+
+	mu_assert(player.energy == 50, "player.energy should be 50");
+	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
+	mu_assert(areEqual(player.movesHistory[0], (Coordinates) {0,2}), "player.movesHistory should contains (0,2)");
+	mu_assert_int_eq(cvector_size(player.movesHistory), 1);
+	mu_assert_int_eq(map[1][0], TREE);
+	mu_assert_int_eq(map[0][1], FOOD);
+	mu_assert_int_eq(map[0][2], OBSTACLE);
+}
+
 
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -143,6 +180,7 @@ MU_TEST_SUITE(test_suite) {
 	MU_RUN_TEST(test_movesHistory_after_valid_move);
 	MU_RUN_TEST(test_movesHistory_after_hitting_obstacle);
 	MU_RUN_TEST(test_movesHistory_if_player_gets_out_of_the_map);
+	MU_RUN_TEST(test_load_game);
 
 }
 
