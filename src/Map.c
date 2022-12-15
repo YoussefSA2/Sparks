@@ -200,7 +200,7 @@ int** generateReplayMap(int** savedMap, cvector_vector_type(Coordinates) movesHi
  */
 void removeEatenFoodFromReplayMap(int** replayMap, Coordinates position)
 {
-    if (replayMap[position.y][position.x] == FOOD){
-        replayMap[position.y][position.x] = TREE;
+    if (replayMap[position.x][position.y] == FOOD){
+        replayMap[position.x][position.y] = TREE;
     }
 }

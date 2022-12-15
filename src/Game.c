@@ -386,14 +386,10 @@ int showReplay(Player player, int** map, int replaySpeed){
 
     int** replayMap = generateReplayMap(map, player.movesHistory);
 
-    player.position = (Coordinates){0, 0};
-    showMap(replayMap, MAP_SIZE, player);
-    sleep(replaySpeed);
-
     for (unsigned int i = 0; i < cvector_size(player.movesHistory); i++)
     {
         Coordinates replayedPosition = player.movesHistory[i];
-        player.position = replayedPosition;
+        player.position = (Coordinates) {replayedPosition.y, replayedPosition.x}; // x and y are inverted in the replay map
         clearScreen();
         showMap(replayMap, MAP_SIZE, player);
         sleep(replaySpeed);
