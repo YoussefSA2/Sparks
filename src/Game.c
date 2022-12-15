@@ -261,8 +261,8 @@ void showStatistics(Player player, int ** map){
 
     for(unsigned int i = 0; i < movesHistorySize; i++){
         showCoordinates(player.movesHistory[i]);
-        // to separate coordinates when displaying
-        printf(" , ");
+        // to separate coordinates when displaying until the last one
+        if (i != movesHistorySize - 1){printf(", ");}
     }
     Coordinates* shortPath = getShortestPathToExit(map, MAP_SIZE);
 
@@ -272,8 +272,7 @@ void showStatistics(Player player, int ** map){
 
     for(unsigned int i = 0; i < shortPathSize; i++){
         showCoordinates(shortPath[i]);
-        // to separate coordinates when displaying
-        printf(" , ");
+        if (i != shortPathSize - 1){printf(", ");}
     }
 }
 
