@@ -384,8 +384,10 @@ int showReplay(Player player, int** map, int replaySpeed){
         return INVALID_LAUNCH_GAME_CHOICE;
     }
 
+    int** replayMap = generateReplayMap(map, player.movesHistory);
+
     player.position = (Coordinates){0, 0};
-    showMap(map, MAP_SIZE, player);
+    showMap(replayMap, MAP_SIZE, player);
     sleep(replaySpeed);
 
     for (unsigned int i = 0; i < cvector_size(player.movesHistory); i++)
@@ -393,8 +395,9 @@ int showReplay(Player player, int** map, int replaySpeed){
         Coordinates replayedPosition = player.movesHistory[i];
         player.position = replayedPosition;
         clearScreen();
-        showMap(map, MAP_SIZE, player);
+        showMap(replayMap, MAP_SIZE, player);
         sleep(replaySpeed);
+        removeEatenFoodFromReplayMap(replayMap, replayedPosition);
     }
 
     printf("Replay finished, coming back to main menu.\n");
