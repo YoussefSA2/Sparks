@@ -1,6 +1,7 @@
 # C-generated executables
 *.o
 tests_*
+*.exe
 game
 
 # VSCode settings
