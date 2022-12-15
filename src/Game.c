@@ -126,6 +126,7 @@ int handlePlayerMove(Player* player, char direction, int** map) {
     modifyEnergy(player, -1);
 
     int squareContent = map[player->position.y][player->position.x];
+    player->position.content = squareContent;
     if (squareContent == FOOD) {
         modifyEnergy(player, 10);
 
@@ -143,7 +144,6 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         modifyEnergy(player, -10);
         return OBSTACLE_HIT;
     }
-
 
     return MOVE_SUCCESS;
 }

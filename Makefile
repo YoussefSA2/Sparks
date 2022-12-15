@@ -1,4 +1,4 @@
-FLAGS= -Wall -Wextra -pedantic
+FLAGS= -Wall -Wextra -pedantic -Wno-missing-field-initializers
 TEST_FLAGS= -lrt -lm
 
 MAIN= src/main.c

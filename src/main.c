@@ -16,7 +16,7 @@ int main(void)
     int gameIsFinished = false;
 
     int** map = generateMap(MAP_SIZE);
-    Player player = initPlayer();
+    Player player = initPlayer(map);
 
     mainMenu();
     int launchGameResult = launchGame(getPlayerInput(), &player, map);

@@ -7,7 +7,7 @@ typedef struct Coordinates Coordinates;
 struct Coordinates{
     int x;
     int y;
-
+    int content;
 };
 
 int areEqual(Coordinates position1, Coordinates position2);
