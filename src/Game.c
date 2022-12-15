@@ -117,8 +117,11 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         return INVALID_DIRECTION_INPUT;
     }
 
+    //on the map, the X and Y coordinates are inverted
+    Coordinates playerPositionOnTheMap = {player->position.y, player->position.x};
+
     //save move in player moveHistory
-    cvector_push_back(player->movesHistory, player->position);
+    cvector_push_back(player->movesHistory, playerPositionOnTheMap);
 
     modifyEnergy(player, -1);
 
