@@ -27,12 +27,12 @@ int main(void)
     while(!gameIsFinished)
     {   
         if (kbhit()) {
-            lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
+            int lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
             printLastAction(lastPlayerAction);
             displayAvailableCommands();
-            gameIsFinished = checkGameState(player, lastPlayerAction);
+            gameIsFinished = checkGameState(player, lastPlayerAction, map);
         }
         
     }
