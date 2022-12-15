@@ -47,8 +47,8 @@ MU_TEST(test_handle_player_input_valid_move) {
 	// Player is initialized at (0, 0) so they should be able go south
 	mu_assert(handlePlayerInput(MOVE_SOUTH_INPUT, &player, map) == MOVE_SUCCESS, "handlePlayerInput should return MOVE_SUCCESS");
 	
-	mu_assert(player.movesHistory[1].x == 1, "player.movesHistory should contains (1,0)");
-	mu_assert(player.movesHistory[1].y == 0, "player.movesHistory should contains (1,0)");	
+	mu_assert(areEqual(player.position, (Coordinates) {1, 0}), "player.position should be (1, 0)");
+	mu_assert(player.position.content == TREE, "player.position.content should be TREE");
 }
 
 MU_TEST(test_handle_player_input_food_found) {
