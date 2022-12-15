@@ -22,6 +22,7 @@
 #define INVALID_LAUNCH_GAME_CHOICE -1
 #define GAME_LOAD_FAILED -2
 #define GAME_LOAD_SUCCESS 1
+#define END_REPLAY 9
 
 /*
 * Player inputs
@@ -32,6 +33,7 @@
 // Menu inputs
 #define NEW_GAME '1'
 #define LOAD_GAME '2'
+#define REPLAY_GAME '3'
 
 // Direction inputs
 #define MOVE_NORTH_INPUT '8'
@@ -50,5 +52,10 @@
 
 #define true 1
 #define false 0
+
+// Replay speeds
+#define SLOW '1'
+#define NORMAL '2'
+#define FAST '3'
 
 #endif
