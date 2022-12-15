@@ -17,12 +17,13 @@ int gameIsFinished;
 void test_setup(void) {
 	
 	gameIsFinished = false;
-	player = initPlayer();
 
 	map = generateMap(10);
 	map[1][0] = TREE;
 	map[0][1] = FOOD;
 	map[0][2] = OBSTACLE;
+
+	player = initPlayer(map);
 }
 
 void test_teardown(void) {
