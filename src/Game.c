@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "./include/Game.h"
+#include "./include/Player.h"
+#include "./include/Path.h"
 #include "./include/utils.h"
 
 /**
@@ -114,8 +116,11 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         return INVALID_DIRECTION_INPUT;
     }
 
+    //on the map, the X and Y coordinates are inverted
+    Coordinates playerPositionOnTheMap = {player->position.y, player->position.x};
+
     //save move in player moveHistory
-    cvector_push_back(player->movesHistory, player->position);
+    cvector_push_back(player->movesHistory, playerPositionOnTheMap);
 
     modifyEnergy(player, -1);
 
@@ -216,7 +221,7 @@ int checkGameState(Player player, int lastPlayerAction, int** map)
     
     if (playerWon)
     {
-        gameState = handlePlayerVictory();
+        gameState = handlePlayerVictory(player, map);
         saveGame(&player, map);
     }
     else if (playerLost)
@@ -247,13 +252,40 @@ int killPlayer()
     return PLAYER_LOST;
 }
 
+/*
+* Function wich shows statistics of the game
+*/
+void showStatistics(Player player, int ** map){
+    printf("Energy left: %f     Energy gained: %f    Energy lost: %f \n", player.energy, player.gainedEnergy, player.lostEnergy);
+    printf("\nMove history:\n");
+
+    unsigned int movesHistorySize = cvector_size(player.movesHistory); 
+
+    for(unsigned int i = 0; i < movesHistorySize; i++){
+        showCoordinates(player.movesHistory[i]);
+        // to separate coordinates when displaying until the last one
+        if (i != movesHistorySize - 1){printf(", ");}
+    }
+    Coordinates* shortPath = getShortestPathToExit(map, MAP_SIZE);
+
+    printf("\nShortest path to exit:\n");
+
+    unsigned int shortPathSize = cvector_size(shortPath); 
+
+    for(unsigned int i = 0; i < shortPathSize; i++){
+        showCoordinates(shortPath[i]);
+        if (i != shortPathSize - 1){printf(", ");}
+    }
+}
+
 /**
  * @brief Function which prints a message when the player wins.
  * @return PLAYER_WON
 */
-int handlePlayerVictory() 
+int handlePlayerVictory(Player player, int ** map) 
 {
     printf("You've reached the exit, you win!\n");
+    showStatistics(player, map);
     return PLAYER_WON;
 }
 
