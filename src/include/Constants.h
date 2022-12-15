@@ -15,11 +15,21 @@
 #define PLAYER_WON 1
 #define PLAYER_LOST 2
 
+// Launch game states
+#define INVALID_LAUNCH_GAME_CHOICE -1
+#define GAME_LOAD_FAILED -2
+#define GAME_LOAD_SUCCESS 1
+
 /*
 * Player inputs
 */
 
 #define EXIT_INPUT 'q'
+
+// Menu inputs
+#define NEW_GAME '1'
+#define LOAD_GAME '2'
+
 // Direction inputs
 #define MOVE_NORTH_INPUT '8'
 #define MOVE_NORTH_EAST_INPUT '9'
