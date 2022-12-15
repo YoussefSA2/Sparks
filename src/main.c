@@ -26,12 +26,12 @@ int main(void)
   
     while(!gameIsFinished)
     {   
-    int lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
-    clearScreen();
-    showMap(map, MAP_SIZE, player);
-    printLastAction(lastPlayerAction);
-    displayAvailableCommands();
-    gameIsFinished = checkGameState(player, lastPlayerAction, map);
+        int lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
+        clearScreen();
+        showMap(map, MAP_SIZE, player);
+        printLastAction(lastPlayerAction);
+        displayAvailableCommands();
+        gameIsFinished = checkGameState(player, lastPlayerAction, map);
     }
 
     printf("Thanks for playing!\n");
