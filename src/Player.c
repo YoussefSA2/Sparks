@@ -12,6 +12,7 @@
 Player initPlayer(){
     
     Player player;
+    Coordinates startPosition = {0, 0};
     
     player.position.x = 0;
     player.position.y = 0;
@@ -20,6 +21,8 @@ Player initPlayer(){
     player.lostEnergy = 0;
     player.nbRewinds = 6;
     player.movesHistory = NULL;
+    cvector_push_back(player.movesHistory, startPosition);
+
     
     return player;
 }
