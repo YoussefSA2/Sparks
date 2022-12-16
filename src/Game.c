@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include "./include/Game.h"
 #include "./include/Player.h"
 #include "./include/Path.h"
+#include "./include/utils.h"
 
 /**
 * @brief Function which saves the game.
@@ -78,9 +78,8 @@ void clearScreen()
 * @return The player input.
 */
 char getPlayerInput() {
-    
+    while (!kbhit()) {}
     char input = getchar();
-    getchar(); // To remove the \n character you get when you press enter
     return input;
     
 }
