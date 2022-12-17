@@ -46,18 +46,18 @@ MU_TEST(test_handle_player_input_valid_move) {
 	// Player is initialized at (0, 0) so they should be able go south
 	mu_assert(handlePlayerInput(MOVE_SOUTH_INPUT, &player, map) == MOVE_SUCCESS, "handlePlayerInput should return MOVE_SUCCESS");
 	
-	mu_assert(player.movesHistory[0].x == 0, "player.movesHistory should contains (0,1)");
-	mu_assert(player.movesHistory[0].y == 1, "player.movesHistory should contains (0,1)");	
+	mu_assert(player.movesHistory[1].x == 1, "player.movesHistory should contains (1,0)");
+	mu_assert(player.movesHistory[1].y == 0, "player.movesHistory should contains (1,0)");	
 }
 
 MU_TEST(test_handle_player_input_food_found) {
-	// there is food at (0, 1) so the player shoudld find it by going east
+	// there is food at (1,0) so the player shoudld find it by going east
 	mu_assert(handlePlayerInput(MOVE_EAST_INPUT, &player, map) == FOOD_FOUND, "handlePlayerInput should return FOOD_FOUND");
 }
 
 MU_TEST(test_handle_player_input_obstacle_found) {
 	player.position.x = 1;
-	// there is an obstacle at (0, 2) so the player should hit it by going east
+	// there is an obstacle at (2, 0) so the player should hit it by going east
 	mu_assert(handlePlayerInput(MOVE_EAST_INPUT, &player, map) == OBSTACLE_HIT, "handlePlayerInput should return OBSTACLE_HIT");
 }
 
@@ -68,8 +68,8 @@ MU_TEST(test_handle_player_input_random) {
 MU_TEST(test_check_game_state_player_won){
 	int lastPlayerAction = 11;
 
-	player.position.x = MAP_SIZE - 1;
 	player.position.y = MAP_SIZE - 1;
+	player.position.x = MAP_SIZE - 1;
 	
 	int result = checkGameState(player, lastPlayerAction, map);
 
@@ -79,8 +79,8 @@ MU_TEST(test_check_game_state_player_won){
 MU_TEST(test_check_game_state_player_is_still_alive){
 	int lastPlayerAction = 11;
 
-	player.position.x = 0;
 	player.position.y = 0;
+	player.position.x = 0;
 	
 	int result = checkGameState(player, lastPlayerAction, map);
 
@@ -109,14 +109,14 @@ MU_TEST(test_movesHistory_after_valid_move) {
 	// make player move south
 	handlePlayerInput(MOVE_SOUTH_INPUT, &player, map);
 	
-	mu_assert(player.movesHistory[0].x == 0, "player.movesHistory should contains (0,1)");
-	mu_assert(player.movesHistory[0].y == 1, "player.movesHistory should contains (0,1)");	
+	mu_assert(player.movesHistory[1].x == 1, "player.movesHistory[1] should contains (1,0)");
+	mu_assert(player.movesHistory[1].y == 0, "player.movesHistory[1] should contains (1,0)");	
 }
 
 MU_TEST(test_movesHistory_if_player_gets_out_of_the_map){
 	handlePlayerInput(MOVE_NORTH_INPUT, &player, map);
 
-	mu_assert(cvector_size(player.movesHistory) == 0, "player moveHistory should be empty");
+	mu_assert(cvector_size(player.movesHistory) == 1, "player moveHistory should only contains startPosition");
 
 }
 
@@ -125,7 +125,7 @@ MU_TEST(test_movesHistory_after_hitting_obstacle) {
 
 	handlePlayerInput(MOVE_SOUTH_INPUT, &player, map);
 
-	mu_assert(cvector_size(player.movesHistory) == 0, "player moveHistory should be empty");
+	mu_assert(cvector_size(player.movesHistory) == 1, "player moveHistory should only contains startPosition");
 
 }
 
@@ -155,8 +155,8 @@ MU_TEST(test_load_game)
 
 	mu_assert(player.energy == 50, "player.energy should be 50");
 	mu_assert(areEqual(player.position, (Coordinates) {1, 3}), "player.position should be (1,3)");
-	mu_assert(areEqual(player.movesHistory[0], (Coordinates) {0,2}), "player.movesHistory should contains (0,2)");
-	mu_assert_int_eq(cvector_size(player.movesHistory), 1);
+	mu_assert(areEqual(player.movesHistory[1], (Coordinates) {0,2}), "player.movesHistory[1] should contains (0,2)");
+	mu_assert_int_eq(cvector_size(player.movesHistory), 2); //start position + 1 move
 	mu_assert_int_eq(map[1][0], TREE);
 	mu_assert_int_eq(map[0][1], FOOD);
 	mu_assert_int_eq(map[0][2], OBSTACLE);
