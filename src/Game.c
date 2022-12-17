@@ -308,9 +308,9 @@ int handlePlayerVictory(Player player, int ** map)
  * @brief Function which displays the available commands to the player.
 */
 void displayAvailableCommands(){
-    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
+    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST");
     printf("[4] GO WEST [6] GO EAST ");
-    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME [c] CANCEL PREVIOUS MOVE\n");
 }
 
 /**
