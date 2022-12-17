@@ -208,6 +208,9 @@ void printLastAction(char gameState, Player player) {
         case NO_REWINDS_LEFT:
             printf("No more rewinds.\n");
             break;
+        case NO_MOVE_TO_CANCEL:
+            printf("No move to cancel : you haven't moved yet!\n");
+            break;
         default:
             printf("Invalid input.\n");
             break;

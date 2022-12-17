@@ -79,6 +79,14 @@ int cancelMove(Player* player){
         return NO_REWINDS_LEFT;
     }
 
+    /*
+    * If the player has only one move in his history, it means that he hasn't moved yet
+    * and therefore there is no move to cancel.
+    */
+    if (cvector_size(player->movesHistory) <= 1){
+        return NO_MOVE_TO_CANCEL;
+    }
+
     // we want to go back to the second to last position
     Coordinates secondToLastPosition = player->movesHistory[cvector_size(player->movesHistory)-2];
     player->position = secondToLastPosition;
