@@ -63,18 +63,23 @@ char move(Player* player, char direction){
             player->position.x--;
             player->position.y--;
             break;
-        case MOVE_CANCEL_INPUT:
-            cancelMove(player);
-            break;
     }
 
     return direction;
 }
 
-void cancelMove(Player* player){
-    Coordinates replayedPosition = player->movesHistory[cvector_size(player->movesHistory)-2];
-    player->position = (Coordinates) {replayedPosition.x, replayedPosition.y}; 
-    cvector_erase(player->movesHistory,cvector_size(player->movesHistory)-1);
+int cancelMove(Player* player){
+    
+    if(player->nbRewinds <= 0){
+        return NO_REWINDS_LEFT;
+    }
+
+    Coordinates lastMove = player->movesHistory[cvector_size(player->movesHistory)-2];
+    player->position = lastMove;
+
+    player->nbRewinds--;
+
+    return CANCEL_MOVE_SUCCESS;
 }
 
 /*

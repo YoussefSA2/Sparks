@@ -18,7 +18,7 @@ struct Player{
 Player initPlayer();
 
 char move(Player* player, char direction);
-void cancelMove(Player* player);
+int cancelMove(Player* player);
 void modifyEnergy(Player* player, int value);
 void savePlayer(Player* player, FILE* saveFile);
 void loadPlayer(Player* player, FILE* saveFile);
