@@ -89,7 +89,12 @@ int cancelMove(Player* player){
 
     // we want to go back to the second to last position
     Coordinates secondToLastPosition = player->movesHistory[cvector_size(player->movesHistory)-2];
-    player->position = secondToLastPosition;
+    
+    // revert coordinates because the map is displayed in a different way than the player moves
+    // TODO: find a better way to do this
+    Coordinates positionOnTheMap = {secondToLastPosition.y, secondToLastPosition.x};
+
+    player->position = positionOnTheMap;
     
     // remove the last move from the history as it has been cancelled
     cvector_pop_back(player->movesHistory); 

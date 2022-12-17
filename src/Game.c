@@ -116,7 +116,8 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         return INVALID_DIRECTION_INPUT;
     }
 
-    //on the map, the X and Y coordinates are inverted
+    // on the map, the X and Y coordinates are inverted
+    // TODO : find a better way to do this
     Coordinates playerPositionOnTheMap = {player->position.y, player->position.x};
 
     //save move in player moveHistory
