@@ -177,7 +177,10 @@ int handlePlayerInput(char input, Player* player, int** map) {
  * @brief Function which prints the last action the player did.
  * @param gameState The last action the player did.
 */
-void printLastAction(char gameState) {
+void printLastAction(char gameState, Player player) {
+    showPlayerEnergy(player);
+    showPlayerPosition(player);
+    
     switch (gameState) {
         case MOVE_SUCCESS:
             printf("You moved successfully.\n");
@@ -331,4 +334,5 @@ int launchGame(char playerInput, Player* player, int** map){
 
     return playerInput;
 
+ 
 }
