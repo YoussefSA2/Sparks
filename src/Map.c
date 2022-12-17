@@ -47,6 +47,8 @@ int **generateMap(int mapSize, char mapDifficulty){
 
     int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
     int nbMaluses = (int) (NUMBER_OF_SQUARES * obstacleRatio);
+    printf("nbBonuses: %d", nbBonuses);
+    printf("nbMaluses: %d", nbMaluses);
 
     do {
         
@@ -54,6 +56,8 @@ int **generateMap(int mapSize, char mapDifficulty){
         {
             int x = randomInteger(0, mapSize - 1);
             int y = randomInteger(0, mapSize - 1);
+            // if the square is already an obstacle, we rewind the loop
+            // so we are sure to have the exact number of obstacles we want
             if (map[y][x] == OBSTACLE)
             {
                 i--;
@@ -68,6 +72,8 @@ int **generateMap(int mapSize, char mapDifficulty){
         {
             int x = randomInteger(0, mapSize - 1);
             int y = randomInteger(0, mapSize - 1);
+            // if the square is already an obstacle or food, we rewind the loop
+            // so we don't remove the obstacle and we are sure to have the exact number of food we want
             if (map[y][x] == FOOD || map[y][x] == OBSTACLE)
             {
                 i--;
