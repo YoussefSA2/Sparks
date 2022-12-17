@@ -446,8 +446,14 @@ int launchGame(char playerInput, Player* player, int** map){
     
     switch (playerInput)
     {
+        char difficulty;
         case NEW_GAME:
-            map = generateMap(MAP_SIZE, chooseMapDifficulty());
+            do{
+                difficulty = chooseMapDifficulty();
+            } while(difficulty == INVALID_DIFFICULTY_CHOICE);
+            
+            map = generateMap(MAP_SIZE, difficulty);
+
             printf("New game started.\n");
         break;
         case LOAD_GAME:

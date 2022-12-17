@@ -7,7 +7,7 @@ Player player;
 int **map;
 
 void test_setup(void) {
-    map = generateMap(3);
+    map = generateMap(3, EASY);
 }
 
 void test_teardown(void) {

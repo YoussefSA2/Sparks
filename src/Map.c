@@ -43,6 +43,9 @@ int **generateMap(int mapSize, char mapDifficulty){
             foodRatio = HARD_FOOD_RATIO;
             obstacleRatio = HARD_OBSTACLE_RATIO;
             break;
+        default:
+            printf("We shouldn't be here, exiting game.\n");
+            exit(EXIT_FAILURE);
     }
 
     int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
