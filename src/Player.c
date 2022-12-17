@@ -123,5 +123,13 @@ void loadPlayer(Player* player, FILE* saveFile){
         fread(&move, sizeof(Coordinates), 1, saveFile);
         cvector_push_back(player->movesHistory, move);
     }    
+}
 
+void showPlayerEnergy(Player player){
+    printf(" Energy : %f \n", player.energy);
+}
+void showPlayerPosition(Player player){
+    printf(" Position : ");
+    showCoordinates(player.position);
+    printf("\n");
 }
