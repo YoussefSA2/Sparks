@@ -21,5 +21,7 @@ char move(Player* player, char direction);
 void modifyEnergy(Player* player, int value);
 void savePlayer(Player* player, FILE* saveFile);
 void loadPlayer(Player* player, FILE* saveFile);
+void showPlayerEnergy(Player player);
+void showPlayerPosition(Player player);
 
 #endif

@@ -30,7 +30,7 @@ int main(void)
             int lastPlayerAction = handlePlayerInput(getPlayerInput(), &player, map);
             clearScreen();
             showMap(map, MAP_SIZE, player);
-            printLastAction(lastPlayerAction);
+            printLastAction(lastPlayerAction, player);
             displayAvailableCommands();
             gameIsFinished = checkGameState(player, lastPlayerAction, map);
         }
