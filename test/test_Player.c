@@ -89,8 +89,12 @@ MU_TEST(test_cancel_move_sucess){
     
     // Move 2 times
     move(&player, MOVE_SOUTH_INPUT);
-    cvector_push_back(player.movesHistory, player.position);
+    
+    Coordinates swapPosition = (Coordinates){player.position.y, player.position.x};
+    cvector_push_back(player.movesHistory, swapPosition);
+    
     move(&player, MOVE_SOUTH_INPUT);
+    swapPosition = (Coordinates){player.position.y, player.position.x};
     cvector_push_back(player.movesHistory, player.position);
     
     mu_assert(cancelMove(&player) == CANCEL_MOVE_SUCCESS, "cancelMove should return CANCEL_MOVE_SUCCESS");
@@ -104,10 +108,6 @@ MU_TEST(test_cancel_move_no_rewinds_left){
     move(&player, MOVE_SOUTH_INPUT);
     cvector_push_back(player.movesHistory, player.position);
     mu_assert(cancelMove(&player) == NO_REWINDS_LEFT, "cancelMove should return NO_REWINDS_LEFT");
-    
-    showCoordinates(player.position);
-    printf("\n");
-    
     mu_assert(areEqual(player.position, (Coordinates){0,1}), "player.position should be (0,1)");
 
 }
