@@ -5,8 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Game.h"
-#include "./include/Map.h"
-#include "./include/Player.h"
 
 /*
 * Main function, contains the game loop.
@@ -15,7 +13,7 @@ int main(void)
 {    
     int gameIsFinished = false;
 
-    int** map = generateMap(MAP_SIZE);
+    int** map = generateMap(MAP_SIZE, EASY);
     Player player = initPlayer(map);
 
     mainMenu();

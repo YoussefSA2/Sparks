@@ -7,11 +7,9 @@
 /*
 * Generates a mapSize x mapSize map.
 */
-int **generateMap(int mapSize){
+int **generateMap(int mapSize, char mapDifficulty){
+   
     int** map = NULL;
-    int nbEmptySquare,nbObstacle;
-    int choix;
-    double FoodRatio,ObstacleRatio;
 
     map=malloc(mapSize * sizeof(int*));
 
@@ -19,67 +17,75 @@ int **generateMap(int mapSize){
     {
         map[i]=malloc(mapSize * sizeof(int));
     }
-        
+
     for(int i=0; i<mapSize; i++)
     {
         for(int j=0 ; j<mapSize; j++)
         {
-            map[i][j]=rand()%2;
-            if (map[i][j]==0)
-            { 
-                nbEmptySquare++;
+            map[i][j]=TREE;
+        } 
+    } 
+    
+    double foodRatio;
+    double obstacleRatio;
+
+    switch(mapDifficulty)
+    {
+        case EASY:
+            foodRatio = EASY_FOOD_RATIO;
+            obstacleRatio = EASY_OBSTACLE_RATIO;
+            break;
+        case NORMAL:
+            foodRatio = NORMAL_FOOD_RATIO;
+            obstacleRatio = NORMAL_OBSTACLE_RATIO;
+            break;
+        case HARD:
+            foodRatio = HARD_FOOD_RATIO;
+            obstacleRatio = HARD_OBSTACLE_RATIO;
+            break;
+    }
+
+    int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
+    int nbMaluses = (int) (NUMBER_OF_SQUARES * obstacleRatio);
+
+    do {
+        
+        for (int i = 0; i < nbMaluses; i++)
+        {
+            int x = randomInteger(0, mapSize - 1);
+            int y = randomInteger(0, mapSize - 1);
+            if (map[y][x] == OBSTACLE)
+            {
+                i--;
             }
             else
             {
-                nbObstacle++;
+                map[y][x] = OBSTACLE;
             }
-        } 
-    } 
-    printf("Choisissez la difficulté du labyrinte :\n");
-    printf("1. Facile (peu d'obstacles)\n");
-    printf("2. Moyen (un nombre moyen d'obstacles)\n");
-    printf("3. Difficile (beaucoup d'obstacles)\n");
-    printf("Votre choix : ");
-    scanf("%d", &choix);
-    if (choix == 1)
-    {
-    FoodRatio = 0.7;
-    ObstacleRatio = 1.4;
-    }
-    else if (choix == 2)
-    {
-    FoodRatio = 0.7;
-    ObstacleRatio = 0.4;
-    }
-    else 
-    {
-    FoodRatio = 0.4;
-    ObstacleRatio = 0.1;
-    }
-
-    int nbBonus=nbEmptySquare*FoodRatio; 
-    int nbMalus=nbObstacle*ObstacleRatio;
-    while(nbBonus>0 || nbMalus>0)
-    {
-        int line = rand() % mapSize;
-        int column= rand() % mapSize;
-
-        if ((map[line][column]==TREE))
-        {
-            map[line][column]=FOOD;
-            nbBonus--;
         }
-        else
+
+        for (int i = 0; i < nbBonuses; i++)
         {
-            map[line][column]=TREE;
-            nbMalus--;
+            int x = randomInteger(0, mapSize - 1);
+            int y = randomInteger(0, mapSize - 1);
+            if (map[y][x] == FOOD || map[y][x] == OBSTACLE)
+            {
+                i--;
+            }
+            else
+            {
+                map[y][x] = FOOD;
+            }
         }
-    } 
-    map[0][0]=TREE; 
-    map[mapSize-1][mapSize-1]=EXIT;
-    
-return map;
+
+        map[0][0] = TREE; 
+        map[mapSize-1][mapSize-1] = EXIT;
+
+    } while (getShortestPathToExit(map, MAP_SIZE) == NULL);
+
+    return map;
 }
+
 /*
 * Displays the map.
 */
@@ -116,6 +122,7 @@ void showMap(int **map, int mapSize, Player player)
 
     }
 }
+
 /*
 * @brief Frees the memory allocated for the map.
 * @param map The map to free.

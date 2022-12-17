@@ -1,6 +1,4 @@
-#include "./include/Map.h"
 #include "./include/Path.h"
-#include "./include/CoordinatesQueue.h"
 
 /*
 * @brief Check if a position is the exitPosition.

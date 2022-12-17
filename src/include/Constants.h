@@ -2,7 +2,7 @@
 #define _CONSTANTS_H
 
 #define MAP_SIZE 10
-#define NUMBER_OF_POSITIONS MAP_SIZE * MAP_SIZE
+#define NUMBER_OF_SQUARES MAP_SIZE * MAP_SIZE
 
 /*
 * Game states
@@ -57,5 +57,19 @@
 #define SLOW '1'
 #define NORMAL '2'
 #define FAST '3'
+
+// Map difficulty
+#define EASY '1'
+#define NORMAL '2'
+#define HARD '3'
+#define INVALID_DIFFICULTY_CHOICE -1
+
+#define EASY_OBSTACLE_RATIO 0.2
+#define NORMAL_OBSTACLE_RATIO 0.3
+#define HARD_OBSTACLE_RATIO 0.4
+
+#define EASY_FOOD_RATIO 0.3
+#define NORMAL_FOOD_RATIO 0.1
+#define HARD_FOOD_RATIO 0.05
 
 #endif
