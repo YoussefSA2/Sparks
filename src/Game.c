@@ -109,6 +109,10 @@ int isPlayerInTheMap(Player* player, int mapSize) {
  * @return The result of the player move.
 */
 int handlePlayerMove(Player* player, char direction, int** map) {
+    if(direction==MOVE_CANCEL_INPUT)
+        if(player->nbRewinds<=0)
+            return NOREWINDS_CANCEL;
+
     move(player, direction);
 
     if (!isPlayerInTheMap(player, MAP_SIZE)) {
@@ -168,6 +172,7 @@ int handlePlayerInput(char input, Player* player, int** map) {
         case MOVE_SOUTH_WEST_INPUT:
         case MOVE_WEST_INPUT:
         case MOVE_NORTH_WEST_INPUT:
+        case MOVE_CANCEL_INPUT:
             return handlePlayerMove(player, input, map);
             break;
         default:
@@ -194,11 +199,17 @@ void printLastAction(char gameState, Player player) {
         case OBSTACLE_HIT:
             printf("You hit an obstacle! You lose 10 energy.\n");
             break;
+        case MOVE_CANCEL:
+            printf("The move was canceled successfully.\n");
+            break;
         case PLAYER_SAVED:
             printf("You saved the game.\n");
             break;
         case INVALID_DIRECTION_INPUT:
             printf("You can't go there! Try again.\n");
+            break;
+        case NOREWINDS_CANCEL:
+            printf("No more rewinds.\n");
             break;
         default:
             printf("Invalid input.\n");
