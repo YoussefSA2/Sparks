@@ -186,4 +186,3 @@ cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) 
 
     return cleanShortestpath;
 }
-
