@@ -6,4 +6,6 @@
 #include <fcntl.h>
 #include <termios.h>
 
+int kbhit(void);
+
 #endif
