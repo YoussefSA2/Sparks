@@ -50,8 +50,6 @@ int **generateMap(int mapSize, char mapDifficulty){
 
     int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
     int nbMaluses = (int) (NUMBER_OF_SQUARES * obstacleRatio);
-    printf("nbBonuses: %d", nbBonuses);
-    printf("nbMaluses: %d", nbMaluses);
 
     do {
         
