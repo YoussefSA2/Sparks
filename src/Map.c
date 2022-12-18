@@ -155,3 +155,52 @@ void loadMap(int** map, FILE* saveFile)
     }
 
 }
+
+/**
+ * @brief Function which generates a replay map from a saved map.
+ * @param savedMap The saved map.
+ * @param movesHistory The moves history of the player.
+ * @return The replay map.
+ * This function uses player movesHistory to generate the replay map from a saved map,
+ * which contains the food that was eaten by the player during the game.
+ */
+int** generateReplayMap(int** savedMap, cvector_vector_type(Coordinates) movesHistory)
+{
+    // create a new map
+    int** replayMap = malloc(MAP_SIZE * sizeof(int*));
+    for (unsigned int i = 0; i < MAP_SIZE; ++i){
+        replayMap[i] = malloc(MAP_SIZE * sizeof(int));
+    }
+
+    // fill the new map with the saved map data
+    for (unsigned int i = 0; i < MAP_SIZE; i++)
+    {
+        for(unsigned int j = 0; j < MAP_SIZE; j++)
+        {
+            replayMap[i][j] = savedMap[i][j];
+        }
+    }
+    
+    // fill the new map with the moves history data
+    unsigned int movesHistorySize = cvector_size(movesHistory);
+    for (unsigned int i = 0; i < movesHistorySize; i++)
+    {
+        if (movesHistory[i].content == FOOD){
+            replayMap[movesHistory[i].y][movesHistory[i].x] = FOOD;
+        }
+    }
+
+    return replayMap;
+}
+
+/**
+ * @brief Function which removes the eaten food from the replay map.
+ * @param replayMap The replay map.
+ * @param position The position of the eaten food.
+ */
+void removeEatenFoodFromReplayMap(int** replayMap, Coordinates position)
+{
+    if (replayMap[position.x][position.y] == FOOD){
+        replayMap[position.x][position.y] = TREE;
+    }
+}

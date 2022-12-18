@@ -9,13 +9,14 @@
 * Function which initializes the player.
 *
 */
-Player initPlayer(){
+Player initPlayer(int** map){
     
     Player player;
     Coordinates startPosition = {0, 0};
     
     player.position.x = 0;
     player.position.y = 0;
+    player.position.content = map[player.position.y][player.position.x];
     player.energy = 100;
     player.gainedEnergy = 0;
     player.lostEnergy = 0;

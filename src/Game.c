@@ -126,6 +126,7 @@ int handlePlayerMove(Player* player, char direction, int** map) {
     modifyEnergy(player, -1);
 
     int squareContent = map[player->position.y][player->position.x];
+    player->position.content = squareContent;
     if (squareContent == FOOD) {
         modifyEnergy(player, 10);
 
@@ -143,7 +144,6 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         modifyEnergy(player, -10);
         return OBSTACLE_HIT;
     }
-
 
     return MOVE_SUCCESS;
 }
@@ -316,11 +316,90 @@ void displayAvailableCommands(){
 /**
  * @brief Function which displays the main menu of the game.
 */
-void showMenu(){    
+void mainMenu(){    
     printf("Welcome to our game!\n");
     printf("What do you want to do?\n");
     printf("1: New game\n");
     printf("2: Load previous game\n");
+    printf("3: Replay last game\n");
+    printf("q: Quit\n");
+}
+
+/**
+ * @brief Function which displays a menu to choose the replay speed.
+*/
+void replaySpeedMenu(){
+    clearScreen();
+    printf("Choose replay speed:\n");
+    printf("1: Slow\n");
+    printf("2: Normal\n");
+    printf("3: Fast\n");
+}
+
+/**
+ * @brief Function which allows the player to choose the replay speed.
+ * @return The replay speed in seconds.
+*/
+int chooseReplaySpeed(){
+    char replaySpeedChoice = 0;
+    replaySpeedMenu();
+    replaySpeedChoice = getPlayerInput();
+
+    int replaySpeedInSeconds;
+    switch (replaySpeedChoice)
+    {
+        case SLOW:
+            replaySpeedInSeconds = 3;
+            break;
+        case NORMAL:
+            replaySpeedInSeconds = 2;
+            break;
+        case FAST:
+            replaySpeedInSeconds = 1;
+            break;
+        default:
+        break;
+    }
+
+    return replaySpeedInSeconds;
+}
+
+/**
+ * @brief Function which displays the replay of the last game.
+ * @param player The player.
+ * @param map The map.
+ * @param replaySpeed The speed of the replay in seconds.
+ * @return INVALID_LAUNCH_GAME_CHOICE if the game is not finished and END_REPLAY if the replay is launched successfully.
+*/
+int showReplay(Player player, int** map, int replaySpeed){
+    loadGame(&player, map);
+
+    int playerWon = player.position.x == MAP_SIZE-1
+     && player.position.y == MAP_SIZE-1;
+    int playerLost = player.energy <= 0;
+    int gameIsFinished = playerWon || playerLost;
+
+    if (!gameIsFinished){
+        printf("The previous game is not finished, no replay available.\n");
+        return INVALID_LAUNCH_GAME_CHOICE;
+    }
+
+    int** replayMap = generateReplayMap(map, player.movesHistory);
+
+    for (unsigned int i = 0; i < cvector_size(player.movesHistory); i++)
+    {
+        Coordinates replayedPosition = player.movesHistory[i];
+        player.position = (Coordinates) {replayedPosition.y, replayedPosition.x}; // x and y are inverted in the replay map
+        clearScreen();
+        showMap(replayMap, MAP_SIZE, player);
+        sleep(replaySpeed);
+        removeEatenFoodFromReplayMap(replayMap, replayedPosition);
+    }
+
+    printf("Replay finished, coming back to main menu.\n");
+
+    return END_REPLAY;
+
 }
 
 /**
@@ -341,6 +420,11 @@ int launchGame(char playerInput, Player* player, int** map){
                 printf("Previous game loaded.\n");
             }
             break;
+        case REPLAY_GAME:
+            return showReplay(*player, map, chooseReplaySpeed());
+        case EXIT_INPUT:
+            printf("Bye bye!\n");
+            exit(EXIT_SUCCESS);
         default:
             printf("Invalid choice, try again.\n");
             return INVALID_LAUNCH_GAME_CHOICE;
