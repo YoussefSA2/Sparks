@@ -7,11 +7,11 @@ Player player;
 int **map;
 
 void test_setup(void) {
-    map = generateMap(3, EASY);
+    map = generateMap(10, EASY);
 }
 
 void test_teardown(void) {
-    freeMap(map, 3);
+    freeMap(map, 10);
 }
 
 MU_TEST(test_init_player) {
