@@ -17,11 +17,11 @@ int main(void)
     Player player = initPlayer(map);
 
     mainMenu();
-    int launchGameResult = launchGame(getPlayerInput(), &player, map);
+    int launchGameResult = launchGame(getPlayerInput(), &player, &map);
     while (launchGameResult == INVALID_LAUNCH_GAME_CHOICE || launchGameResult == END_REPLAY)
     {
         mainMenu();
-        launchGameResult = launchGame(getPlayerInput(), &player, map);
+        launchGameResult = launchGame(getPlayerInput(), &player, &map);
     }
     
     showMap(map, MAP_SIZE, player);

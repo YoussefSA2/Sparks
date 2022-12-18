@@ -22,6 +22,6 @@ int handlePlayerVictory(Player player, int** map);
 void displayAvailableCommands();
 int loadGame(Player* player, int** map);
 void mainMenu();
-int launchGame(char playerInput, Player* player, int** map);
+int launchGame(char playerInput, Player* player, int*** mapPointer);
 
 #endif
