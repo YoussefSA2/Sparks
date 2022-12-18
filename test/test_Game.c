@@ -18,7 +18,7 @@ void test_setup(void) {
 	
 	gameIsFinished = false;
 
-	map = generateMap(10);
+	map = generateMap(10, EASY);
 	map[1][0] = TREE;
 	map[0][1] = FOOD;
 	map[0][2] = OBSTACLE;
