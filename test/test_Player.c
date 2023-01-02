@@ -13,10 +13,13 @@ void test_teardown(void) {
 
 MU_TEST(test_init_player) {
     player = initPlayer();
-    mu_assert(player.position.x == 0, "player.position.x should be 0");
-    mu_assert(player.position.y == 0, "player.position.y should be 0");
+    mu_assert(areEqual(player.position, (Coordinates){0, 0}), "player.position should be equal to (0,0)");
     mu_assert(player.energy == 100, "player.energy should be 100");
     mu_assert(player.nbRewinds == 6, "player.nbRewinds should be 6");
+    mu_assert(player.movesHistory != NULL, "player.movesHistory should not be NULL");
+    mu_assert(cvector_size(player.movesHistory) == 1, "player.movesHistory should have a size of 1");
+    mu_assert(areEqual(player.movesHistory[0], (Coordinates){0, 0}), "player.movesHistory[0] should be equal to player.position");
+
 }
 
 MU_TEST(test_modify_energy) {
@@ -81,6 +84,40 @@ MU_TEST(test_move_north_west) {
     mu_assert(player.position.y == -1, "player.position.y should be -1");
 }
 
+MU_TEST(test_cancel_move_sucess){
+    player = initPlayer();
+    
+    // Move 2 times
+    move(&player, MOVE_SOUTH_INPUT);
+    
+    Coordinates swapPosition = (Coordinates){player.position.y, player.position.x};
+    cvector_push_back(player.movesHistory, swapPosition);
+    
+    move(&player, MOVE_SOUTH_INPUT);
+    swapPosition = (Coordinates){player.position.y, player.position.x};
+    cvector_push_back(player.movesHistory, player.position);
+    
+    mu_assert(cancelMove(&player) == CANCEL_MOVE_SUCCESS, "cancelMove should return CANCEL_MOVE_SUCCESS");
+    mu_assert(areEqual(player.position, (Coordinates){0,1}), "player.position should be (0,1)");
+}
+
+MU_TEST(test_cancel_move_no_rewinds_left){
+    player = initPlayer();
+    player.nbRewinds = 0;
+    
+    move(&player, MOVE_SOUTH_INPUT);
+    cvector_push_back(player.movesHistory, player.position);
+    mu_assert(cancelMove(&player) == NO_REWINDS_LEFT, "cancelMove should return NO_REWINDS_LEFT");
+    mu_assert(areEqual(player.position, (Coordinates){0,1}), "player.position should be (0,1)");
+
+}
+
+MU_TEST(test_cancel_move_no_moves_made){
+    player = initPlayer();
+
+    mu_assert(cancelMove(&player) == NO_MOVE_TO_CANCEL, "cancelMove should return NO_MOVE_TO_CANCEL");
+    mu_assert(areEqual(player.position, (Coordinates){0,0}), "player.position should be (0,0)");
+}
 
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
@@ -95,6 +132,9 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(test_move_south_west);
     MU_RUN_TEST(test_move_west);
     MU_RUN_TEST(test_move_north_west);
+    MU_RUN_TEST(test_cancel_move_sucess);
+    MU_RUN_TEST(test_cancel_move_no_rewinds_left);
+    MU_RUN_TEST(test_cancel_move_no_moves_made);
 
 }
 

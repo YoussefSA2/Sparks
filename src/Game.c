@@ -113,7 +113,8 @@ int handlePlayerMove(Player* player, char direction, int** map) {
         return INVALID_DIRECTION_INPUT;
     }
 
-    //on the map, the X and Y coordinates are inverted
+    // on the map, the X and Y coordinates are inverted
+    // TODO : find a better way to do this
     Coordinates playerPositionOnTheMap = {player->position.y, player->position.x};
 
     //save move in player moveHistory
@@ -166,6 +167,8 @@ int handlePlayerInput(char input, Player* player, int** map) {
         case MOVE_WEST_INPUT:
         case MOVE_NORTH_WEST_INPUT:
             return handlePlayerMove(player, input, map);
+        case CANCEL_MOVE_INPUT:
+            return cancelMove(player);
             break;
         default:
             return GAME_IS_RUNNING;
@@ -191,11 +194,20 @@ void printLastAction(char gameState, Player player) {
         case OBSTACLE_HIT:
             printf("You hit an obstacle! You lose 10 energy.\n");
             break;
+        case CANCEL_MOVE_SUCCESS:
+            printf("The move was canceled successfully.\n");
+            break;
         case PLAYER_SAVED:
             printf("You saved the game.\n");
             break;
         case INVALID_DIRECTION_INPUT:
             printf("You can't go there! Try again.\n");
+            break;
+        case NO_REWINDS_LEFT:
+            printf("No more rewinds.\n");
+            break;
+        case NO_MOVE_TO_CANCEL:
+            printf("No move to cancel : you haven't moved yet!\n");
             break;
         default:
             printf("Invalid input.\n");
@@ -293,9 +305,9 @@ int handlePlayerVictory(Player player, int ** map)
  * @brief Function which displays the available commands to the player.
 */
 void displayAvailableCommands(){
-    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST ");
+    printf("[7] GO NORTH WEST [8] GO NORTH [9] GO NORTH EAST");
     printf("[4] GO WEST [6] GO EAST ");
-    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME\n");
+    printf("[1] GO SOUTH WEST [2] GO SOUTH [3] GO SOUTH EAST [q] SAVE GAME [c] CANCEL PREVIOUS MOVE\n");
 }
 
 /**
