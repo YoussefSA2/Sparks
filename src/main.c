@@ -1,13 +1,20 @@
-/*
-* Main file, contains the game loop.
+/**
+ * @file main.c
+ * @brief Main file, contains the main game loop.
+ * @authors Sitursha Sivathevan, Youssef Saidi, Charles-Meldhine Madi Mnemoi
+ * 
+ * @details This file contains the main function, which runs the main game loop.
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Game.h"
 
-/*
-* Main function, contains the game loop.
+/**
+ * @brief Main function, contains the game loop.
+ * @return EXIT_SUCCESS if the game ends successfully.
+ * 
+ * @details This function contains the main game loop, which runs until the game is finished.
 */
 int main(void)
 {    
