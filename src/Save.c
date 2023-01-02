@@ -1,3 +1,9 @@
+/**
+ * @file Save.c
+ * @brief File containing the functions to handle the save and load of the game.
+ * @author Charles-Meldhine Madi Mnemoi
+*/
+
 #include "./include/Save.h"
 
 /**
