@@ -1,7 +1,7 @@
 /**
  * @file Player.c
  * @brief File which handles the Player structure and functions.
- * @authors Youssef Saidi, Siursha Sivathevan, Charles-Meldhine Madi Mnemoi
+ * @authors Youssef Saidi, Sitursha Sivathevan, Charles-Meldhine Madi Mnemoi
 */
 
 #include <stdio.h>

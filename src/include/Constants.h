@@ -1,3 +1,9 @@
+/**
+ * @file Constants.h
+ * @brief File containing the constants used in the game.
+ * @author Charles-Meldhine Madi Mnemoi, Youssef Saidi, Dean Bah
+*/
+
 #ifndef _CONSTANTS_H
 #define _CONSTANTS_H
 

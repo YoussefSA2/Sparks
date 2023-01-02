@@ -1,3 +1,9 @@
+/**
+ * @file Path.h
+ * @brief Functions prototypes to handle the pathfinding.
+ * @author Charles-Meldhine Madi Mnemoi
+*/
+
 #ifndef PATH_H
 #define PATH_H
 

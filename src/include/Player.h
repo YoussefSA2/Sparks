@@ -1,3 +1,9 @@
+/**
+ * @file Player.h
+ * @brief Functions prototypes to handle the player.
+ * @authors Charles-Meldhine Madi Mnemoi, Sithursha Sivathevan, Youssef Saidi
+*/
+
 #ifndef _PLAYER_H
 #define _PLAYER_H
 

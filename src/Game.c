@@ -1,7 +1,7 @@
 /**
  * @file Game.c
  * @brief Main game loop functions.
- * @author Sithursha Sivathevan, Marwa Tourabi, Charles-Meldhine Madi Mnemoi
+ * @authors Sithursha Sivathevan, Marwa Tourabi, Charles-Meldhine Madi Mnemoi
  * 
  * @details File containing all the functions needed to handle the game in its main loop.
 */
