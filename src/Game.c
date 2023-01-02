@@ -148,7 +148,7 @@ int handlePlayerMove(Player* player, char direction, int** map) {
 int handlePlayerInput(char input, Player* player, int** map) {
     switch (input) {
         case EXIT_INPUT:
-            return saveGame(player, map, chooseSaveSlot());
+            return PLAYER_SAVED;
         case MOVE_NORTH_INPUT:
         case MOVE_NORTH_EAST_INPUT:
         case MOVE_EAST_INPUT:
@@ -313,8 +313,8 @@ void mainMenu(){
     printf("Welcome to our game!\n");
     printf("What do you want to do?\n");
     printf("1: New game\n");
-    printf("2: Load previous game\n");
-    printf("3: Replay last game\n");
+    printf("2: Load a previous game\n");
+    printf("3: Replay a previous game\n");
     printf("q: Quit\n");
 }
 
