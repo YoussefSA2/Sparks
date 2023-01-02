@@ -12,6 +12,9 @@
 #define MOVE_SUCCESS 1
 #define FOOD_FOUND 2
 #define OBSTACLE_HIT 3
+#define CANCEL_MOVE_SUCCESS 4
+#define NO_REWINDS_LEFT 5
+#define NO_MOVE_TO_CANCEL 6
 #define PLAYER_WON 1
 #define PLAYER_LOST 2
 
@@ -40,7 +43,7 @@
 #define MOVE_WEST_INPUT '4'
 #define MOVE_NORTH_WEST_INPUT '7'
 #define INVALID_DIRECTION_INPUT '0'
-
+#define CANCEL_MOVE_INPUT 'c'
 /*
 * Boolean values
 */

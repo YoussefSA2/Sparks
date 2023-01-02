@@ -68,6 +68,42 @@ char move(Player* player, char direction){
     return direction;
 }
 
+/**
+ * @brief Function which cancels the last move of the player.
+ * @param player The player.
+ * @return NO_REWINDS_LEFT if the player has no more rewinds left, CANCEL_MOVE_SUCCESS otherwise.
+*/
+int cancelMove(Player* player){
+    
+    if(player->nbRewinds <= 0){
+        return NO_REWINDS_LEFT;
+    }
+
+    /*
+    * If the player has only one move in his history, it means that he hasn't moved yet
+    * and therefore there is no move to cancel.
+    */
+    if (cvector_size(player->movesHistory) <= 1){
+        return NO_MOVE_TO_CANCEL;
+    }
+
+    // we want to go back to the second to last position
+    Coordinates secondToLastPosition = player->movesHistory[cvector_size(player->movesHistory)-2];
+    
+    // revert coordinates because the map is displayed in a different way than the player moves
+    // TODO: find a better way to do this
+    Coordinates positionOnTheMap = {secondToLastPosition.y, secondToLastPosition.x};
+
+    player->position = positionOnTheMap;
+    
+    // remove the last move from the history as it has been cancelled
+    cvector_pop_back(player->movesHistory); 
+
+    player->nbRewinds--;
+
+    return CANCEL_MOVE_SUCCESS;
+}
+
 /*
 * Function which modifies the player energy.
 */
