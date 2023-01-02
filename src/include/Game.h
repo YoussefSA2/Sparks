@@ -15,7 +15,7 @@
 #include "./Map.h"
 #include "./Path.h"
 #include "./Player.h"
-#include "./utils.h"
+#include "./console.h"
 #include "./Save.h"
 
 void clearScreen();

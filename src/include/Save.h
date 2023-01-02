@@ -10,7 +10,7 @@
 #include "./Constants.h"
 #include "./Map.h"
 #include "./Player.h"
-#include "./utils.h"
+#include "./console.h"
 #include <stdlib.h>
 #include <stdio.h>
 
