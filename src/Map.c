@@ -16,8 +16,8 @@
 */
 int** generateMap(int mapSize, char mapDifficulty){
    
+    // Allocate memory for the map
     int** map = NULL;
-
     map=malloc(mapSize * sizeof(int*));
 
     for (int i=0; i< mapSize; i++)
@@ -33,6 +33,9 @@ int** generateMap(int mapSize, char mapDifficulty){
         } 
     } 
     
+    // Fill the map with obstacles and food
+
+    // The number of obstacles and food is calculated according to the mapDifficulty
     double foodRatio;
     double obstacleRatio;
 
@@ -58,6 +61,7 @@ int** generateMap(int mapSize, char mapDifficulty){
     int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
     int nbMaluses = (int) (NUMBER_OF_SQUARES * obstacleRatio);
 
+    // We fill the map with obstacles and food
     do {
         
         for (int i = 0; i < nbMaluses; i++)
@@ -95,7 +99,7 @@ int** generateMap(int mapSize, char mapDifficulty){
         map[0][0] = TREE; 
         map[mapSize-1][mapSize-1] = EXIT;
 
-    } while (getShortestPathToExit(map, MAP_SIZE) == NULL);
+    } while (getShortestPathToExit(map, MAP_SIZE) == NULL); // as long as there is no path to the exit, we generate a new map
 
     return map;
 }
