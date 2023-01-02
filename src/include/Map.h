@@ -12,7 +12,7 @@
 #include "./Constants.h"
 #include "./Path.h"
 #include "./Player.h"
-#include "./utils.h"
+#include "./random.h"
 
 #define TREE 0
 #define TREE_EMOJI "🌲"
