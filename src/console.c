@@ -7,6 +7,15 @@
 #include "./include/console.h"
 
 /**
+ * @brief Function which clears the screen.
+ * It uses the system function to call the clear command.
+*/
+void clearScreen()
+{
+    system("clear");
+}
+
+/**
  * @brief This function allows to wait for the user to enter a string without pressing enter.
 */
 int kbhit(void)

@@ -11,14 +11,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "./console.h"
 #include "./Constants.h"
 #include "./Map.h"
 #include "./Path.h"
 #include "./Player.h"
-#include "./console.h"
 #include "./Save.h"
 
-void clearScreen();
 char getPlayerInput();
 int handlePlayerInput(char input, Player* player, int** map);
 void printLastAction(char gameState, Player player);

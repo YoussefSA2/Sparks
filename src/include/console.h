@@ -14,6 +14,7 @@
 #include <termios.h>
 #include <time.h>
 
+void clearScreen();
 int kbhit(void);
 char getPlayerInput();
 

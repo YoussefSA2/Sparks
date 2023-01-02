@@ -9,15 +9,6 @@
 #include "./include/Game.h"
 
 /**
- * @brief Function which clears the screen.
- * It uses the system function to call the clear command.
-*/
-void clearScreen()
-{
-    system("clear");
-}
-
-/**
  * @brief Fonction which checks if the player is still on the map after moving. 
  * @param player The player.
  * @param mapSize The size of the map.
