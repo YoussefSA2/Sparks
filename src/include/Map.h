@@ -3,9 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "./Constants.h"
+#include "./Path.h"
 #include "./Player.h"
+#include "./utils.h"
 
 #include <conio.h>
 #define TREE 0
@@ -19,13 +20,13 @@
 
 #define PLAYER_EMOJI "P"
 
-
-
-int **generateMap(int mapSize);
+int **generateMap(int mapSize, char mapDifficulty);
 char getOppositeDirection(char direction);
 void freeMap(int** map, int mapSize);
 void showMap(int** map, int mapSize, Player player);
 void saveMap(int** map, FILE* saveFile);
 void loadMap(int** map, FILE* saveFile);
+int** generateReplayMap(int** savedMap, cvector_vector_type(Coordinates) movesHistory);
+void removeEatenFoodFromReplayMap(int** replayMap, Coordinates position);
 
 #endif

@@ -2,7 +2,7 @@
 #define _CONSTANTS_H
 
 #define MAP_SIZE 10
-#define NUMBER_OF_POSITIONS MAP_SIZE * MAP_SIZE
+#define NUMBER_OF_SQUARES MAP_SIZE * MAP_SIZE
 
 /*
 * Game states
@@ -22,6 +22,7 @@
 #define INVALID_LAUNCH_GAME_CHOICE -1
 #define GAME_LOAD_FAILED -2
 #define GAME_LOAD_SUCCESS 1
+#define END_REPLAY 9
 
 /*
 * Player inputs
@@ -32,6 +33,7 @@
 // Menu inputs
 #define NEW_GAME '1'
 #define LOAD_GAME '2'
+#define REPLAY_GAME '3'
 
 // Direction inputs
 #define MOVE_NORTH_INPUT '8'
@@ -50,5 +52,24 @@
 
 #define true 1
 #define false 0
+
+// Replay speeds
+#define SLOW '1'
+#define NORMAL '2'
+#define FAST '3'
+
+// Map difficulty
+#define EASY '1'
+#define NORMAL '2'
+#define HARD '3'
+#define INVALID_DIFFICULTY_CHOICE -1
+
+#define EASY_OBSTACLE_RATIO 0.2
+#define NORMAL_OBSTACLE_RATIO 0.3
+#define HARD_OBSTACLE_RATIO 0.35
+
+#define EASY_FOOD_RATIO 0.2
+#define NORMAL_FOOD_RATIO 0.1
+#define HARD_FOOD_RATIO 0.05
 
 #endif

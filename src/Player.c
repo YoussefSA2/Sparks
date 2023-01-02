@@ -9,13 +9,14 @@
 * Function which initializes the player.
 *
 */
-Player initPlayer(){
+Player initPlayer(int** map){
     
     Player player;
     Coordinates startPosition = {0, 0};
     
     player.position.x = 0;
     player.position.y = 0;
+    player.position.content = map[player.position.y][player.position.x];
     player.energy = 100;
     player.gainedEnergy = 0;
     player.lostEnergy = 0;
@@ -116,6 +117,23 @@ void modifyEnergy(Player* player, int value){
     }
 
     player->energy += value;
+}
+
+/**
+ * @brief Function which checks if the player already passed on a given position, 
+ * using the player moves history and player's current position.
+ * @param player The player.
+ * @return true if the player already passed on the given position, false otherwise.
+*/
+int alreadyPassedOn(Player* player){
+    unsigned int nbMoves = cvector_size(player->movesHistory);
+    for (unsigned int i = 0; i < nbMoves - 1; i++){
+       Coordinates move = {player->movesHistory[i].y, player->movesHistory[i].x};
+         if (areEqual(move, player->position)){
+              return true;
+         }
+    }
+    return false;
 }
 
 /**

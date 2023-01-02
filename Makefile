@@ -1,4 +1,4 @@
-FLAGS= -Wall -Wextra -pedantic
+FLAGS= -Wall -Wextra -pedantic -Wno-missing-field-initializers
 
 MAIN= src/main.c
 SOURCES_WITOUT_MAIN= $(filter-out $(MAIN), $(wildcard src/*.c))

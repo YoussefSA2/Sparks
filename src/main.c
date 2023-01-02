@@ -5,22 +5,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Game.h"
-#include "./include/Map.h"
-#include "./include/Player.h"
 
 /*
 * Main function, contains the game loop.
 */
 int main(void)
-{
-    showMenu();
-    
+{    
     int gameIsFinished = false;
 
-    int** map = generateMap(MAP_SIZE);
-    Player player = initPlayer();
-    
-    do{} while (launchGame(getPlayerInput(), &player, map) == INVALID_LAUNCH_GAME_CHOICE);
+    int** map = generateMap(MAP_SIZE, EASY);
+    Player player = initPlayer(map);
+
+    mainMenu();
+    int launchGameResult = launchGame(getPlayerInput(), &player, &map);
+    while (launchGameResult == INVALID_LAUNCH_GAME_CHOICE || launchGameResult == END_REPLAY)
+    {
+        mainMenu();
+        launchGameResult = launchGame(getPlayerInput(), &player, &map);
+    }
     
     showMap(map, MAP_SIZE, player);
   
@@ -37,8 +39,9 @@ int main(void)
         
     }
 
-    printf("\nThanks for playing!\n");
+    saveGame(&player, map, chooseSaveSlot());
     freeMap(map, MAP_SIZE);
+    printf("\nThanks for playing!\n");
 
     return EXIT_SUCCESS;
 }
