@@ -11,9 +11,12 @@
 * @param map The map.
 * @return PLAYER_SAVED.
 */
-int saveGame(Player* player, int** map) {
+int saveGame(Player* player, int** map, char saveSlot) {
     
-    FILE* saveFile = fopen("game.sav", "wb");
+    char saveFileName[12];
+    sprintf(saveFileName, "save%c.sav", saveSlot);
+    
+    FILE* saveFile = fopen(saveFileName, "wb");
     if (saveFile == NULL) {
         printf("Error while creating the save file, impossible to save the game. Exiting.");
         exit(EXIT_FAILURE);
@@ -23,7 +26,7 @@ int saveGame(Player* player, int** map) {
     saveMap(map, saveFile);
     fclose(saveFile);
 
-    saveFile = fopen("game.sav", "ab");
+    saveFile = fopen(saveFileName, "ab");
     if (saveFile == NULL) {
         printf("Error while creating the save file, impossible to save the game. Exiting.");
         exit(EXIT_FAILURE);
@@ -41,9 +44,12 @@ int saveGame(Player* player, int** map) {
  * @param map The map to load
  * @param saveFileName The name of the file where the game is saved
 */
-int loadGame(Player* player, int** map)
+int loadGame(Player* player, int** map, char saveSlot)
 {
-    FILE* saveFile = fopen("game.sav", "rb");
+    char saveFileName[12];
+    sprintf(saveFileName, "save%c.sav", saveSlot);
+    
+    FILE* saveFile = fopen(saveFileName, "rb");
     if (saveFile == NULL) {
         printf("Error while opening the save file, impossible to load the game. Launching a new one.\n");
         return GAME_LOAD_FAILED;
@@ -57,7 +63,6 @@ int loadGame(Player* player, int** map)
     return GAME_LOAD_SUCCESS;
 }
 
-
 /**
  * @brief Function which clears the screen.
  * It uses the system function to call the clear command.
@@ -65,14 +70,6 @@ int loadGame(Player* player, int** map)
 void clearScreen()
 {
     system("cls");
-}
-
-/**
-* @brief Returns the player input.
-* @return The player input.
-*/
-char getPlayerInput() {
-    return getch();
 }
 
 /**
@@ -151,7 +148,7 @@ int handlePlayerMove(Player* player, char direction, int** map) {
 int handlePlayerInput(char input, Player* player, int** map) {
     switch (input) {
         case EXIT_INPUT:
-            return saveGame(player, map);
+            return PLAYER_SAVED;
         case MOVE_NORTH_INPUT:
         case MOVE_NORTH_EAST_INPUT:
         case MOVE_EAST_INPUT:
@@ -233,12 +230,10 @@ int checkGameState(Player player, int lastPlayerAction, int** map)
     if (playerWon)
     {
         gameState = handlePlayerVictory(player, map);
-        saveGame(&player, map);
     }
     else if (playerLost)
     {
         gameState = killPlayer();
-        saveGame(&player, map);
     }
     else if (lastPlayerAction == PLAYER_SAVED)
     {
@@ -287,6 +282,8 @@ void showStatistics(Player player, int ** map){
         showCoordinates(shortPath[i]);
         if (i != shortPathSize - 1){printf(", ");}
     }
+
+    printf("\n");
 }
 
 /**
@@ -316,8 +313,8 @@ void mainMenu(){
     printf("Welcome to our game!\n");
     printf("What do you want to do?\n");
     printf("1: New game\n");
-    printf("2: Load previous game\n");
-    printf("3: Replay last game\n");
+    printf("2: Load a previous game\n");
+    printf("3: Replay a previous game\n");
     printf("q: Quit\n");
 }
 
@@ -365,10 +362,11 @@ int chooseReplaySpeed(){
  * @param player The player.
  * @param map The map.
  * @param replaySpeed The speed of the replay in seconds.
+ * @param saveSlot The save slot number.
  * @return INVALID_LAUNCH_GAME_CHOICE if the game is not finished and END_REPLAY if the replay is launched successfully.
 */
-int showReplay(Player player, int** map, int replaySpeed){
-    loadGame(&player, map);
+int showReplay(Player player, int** map, int replaySpeed, char saveSlot){
+    loadGame(&player, map, saveSlot);
 
     int playerWon = player.position.x == MAP_SIZE-1
      && player.position.y == MAP_SIZE-1;
@@ -461,12 +459,12 @@ int launchGame(char playerInput, Player* player, int*** mapPointer){
             printf("New game started.\n");
         break;
         case LOAD_GAME:
-            if(loadGame(player, *(mapPointer)) != GAME_LOAD_FAILED){
+            if(loadGame(player, *(mapPointer), chooseSaveSlot()) != GAME_LOAD_FAILED){
                 printf("Previous game loaded.\n");
             }
             break;
         case REPLAY_GAME:
-            return showReplay(*player, *(mapPointer), chooseReplaySpeed());
+            return showReplay(*player, *(mapPointer), chooseReplaySpeed(), chooseSaveSlot());
         case EXIT_INPUT:
             printf("Bye bye!\n");
             exit(EXIT_SUCCESS);

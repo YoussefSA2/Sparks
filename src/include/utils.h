@@ -5,5 +5,6 @@
 #include <time.h>
 
 unsigned int randomInteger(unsigned int min, unsigned int max);
+char getPlayerInput();
 
 #endif
