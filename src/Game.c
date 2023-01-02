@@ -91,6 +91,19 @@ int handlePlayerInput(char input, Player* player, int** map) {
 }
 
 /**
+ * @brief Function which checks if the game is finished.
+ * @param player The player.
+ * @return true if the game is finished, false otherwise.
+*/
+int isGameFinished(Player player) {
+    int playerWon = player.position.x == MAP_SIZE - 1
+     && player.position.y == MAP_SIZE - 1;
+    int playerLost = player.energy <= 0;
+
+    return playerWon || playerLost;
+}
+
+/**
  * @brief Function which prints the last action the player did.
  * @param gameState The result of the last action the player did.
 */
@@ -170,7 +183,6 @@ int checkGameState(Player player, int lastPlayerAction, int** map)
     return gameIsFinished;
 }
 
-
 /**
  * @brief Function which displays the replay of the last game.
  * @param player The player.
@@ -183,12 +195,7 @@ int checkGameState(Player player, int lastPlayerAction, int** map)
 int showReplay(Player player, int** map, int replaySpeed, char saveSlot){
     loadGame(&player, map, saveSlot);
 
-    int playerWon = player.position.x == MAP_SIZE-1
-     && player.position.y == MAP_SIZE-1;
-    int playerLost = player.energy <= 0;
-    int gameIsFinished = playerWon || playerLost;
-
-    if (!gameIsFinished){
+    if (!isGameFinished(player)){
         printf("The previous game is not finished, no replay available.\n");
         return INVALID_LAUNCH_GAME_CHOICE;
     }
@@ -235,7 +242,10 @@ int launchGame(char playerInput, Player* player, int*** mapPointer){
         break;
         case LOAD_GAME:
             if(loadGame(player, *(mapPointer), chooseSaveSlot()) != GAME_LOAD_FAILED){
-                printf("Previous game loaded.\n");
+                if(isGameFinished(*player)){
+                    printf("The game is already finished, you can resume it. Returning to main menu.\n\n");
+                    return INVALID_LAUNCH_GAME_CHOICE;
+                }
             }
             break;
         case REPLAY_GAME:
