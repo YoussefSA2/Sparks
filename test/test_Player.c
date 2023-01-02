@@ -122,6 +122,19 @@ MU_TEST(test_cancel_move_no_moves_made){
     mu_assert(areEqual(player.position, (Coordinates){0,0}), "player.position should be (0,0)");
 }
 
+MU_TEST(test_already_passed_on){
+    player = initPlayer(map);
+    move(&player, MOVE_SOUTH_INPUT);
+    cvector_push_back(player.movesHistory, player.position);
+    
+    mu_assert(alreadyPassedOn(&player) == false, "alreadyPassedOn should return false");
+
+    move(&player, MOVE_NORTH_INPUT);
+    cvector_push_back(player.movesHistory, player.position);
+
+    mu_assert(alreadyPassedOn(&player) == true, "alreadyPassedOn should return true");
+}
+
 MU_TEST_SUITE(test_suite) {
 	MU_SUITE_CONFIGURE(&test_setup, &test_teardown);
 
@@ -138,6 +151,7 @@ MU_TEST_SUITE(test_suite) {
     MU_RUN_TEST(test_cancel_move_sucess);
     MU_RUN_TEST(test_cancel_move_no_rewinds_left);
     MU_RUN_TEST(test_cancel_move_no_moves_made);
+    MU_RUN_TEST(test_already_passed_on);
 
 }
 
