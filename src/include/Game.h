@@ -18,7 +18,6 @@
 #include "./Player.h"
 #include "./Save.h"
 
-char getPlayerInput();
 int handlePlayerInput(char input, Player* player, int** map);
 void printLastAction(char gameState, Player player);
 int checkGameState(Player player, int lastPlayerAction, int** map);

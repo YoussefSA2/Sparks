@@ -9,19 +9,6 @@
 #include "./include/Game.h"
 
 /**
- * @brief Fonction which checks if the player is still on the map after moving. 
- * @param player The player.
- * @param mapSize The size of the map.
- * @return true if the player is still on the map, false otherwise.
-*/
-int isPlayerInTheMap(Player* player, int mapSize) {
-    if (player->position.x < 0 || player->position.x >= mapSize || player->position.y < 0 || player->position.y >= mapSize) {
-        return false;
-    }
-    return true;
-}
-
-/**
  * @brief Fonction which handles player movement.
  *  It checks if the player is still on the map after moving (if not, they go back to their previous position).
  *  and change player energy given the destination square (tree, food, obstacle).
