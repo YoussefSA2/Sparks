@@ -7,6 +7,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <conio.h>
 #include <stdlib.h>
 #include <time.h>
 

@@ -72,7 +72,6 @@ void mainMenu(){
     printf("What do you want to do?\n");
     printf("1: New game\n");
     printf("2: Load a previous game\n");
-    printf("3: Replay a previous game\n");
     printf("q: Quit\n");
 }
 
