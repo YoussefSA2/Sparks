@@ -1,7 +1,7 @@
 /**
  * @file Coordinates.c
  * @brief Coordinates functions.
- * @author Sithursha Sivathevan, Charles-Meldhine Madi Mnemoi
+ * @authors Sithursha Sivathevan, Charles-Meldhine Madi Mnemoi
  * 
  * @details This file contains the functions to manipulate Coordinates 
  * which are used to represent a position on the map.

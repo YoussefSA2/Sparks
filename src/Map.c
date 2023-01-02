@@ -1,6 +1,6 @@
 /**
  * @brief File which handles the Map structure and functions.
- * @author Dean Bah, Charles-Meldhine Madi Mnemoi
+ * @authors Dean Bah, Charles-Meldhine Madi Mnemoi
 */
 
 #include "./include/Map.h"
