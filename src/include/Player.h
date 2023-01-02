@@ -24,5 +24,6 @@ void savePlayer(Player* player, FILE* saveFile);
 void loadPlayer(Player* player, FILE* saveFile);
 void showPlayerEnergy(Player player);
 void showPlayerPosition(Player player);
+int alreadyPassedOn(Player* player);
 
 #endif
