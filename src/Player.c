@@ -150,49 +150,6 @@ int alreadyPassedOn(Player* player){
 }
 
 /**
- * @brief Function which saves the player in a file. It is used in the saveGame() function
- * @param player The player to save.
- * @param saveFile The file where the player will be saved.
-*/
-void savePlayer(Player* player, FILE* saveFile){
-    // save all informations one by one 
-    // because saving the entire Player structure doesn't work
-    fwrite(&(player->energy), sizeof(float), 1, saveFile);
-    fwrite(&(player->nbRewinds), sizeof(int), 1, saveFile);
-    fwrite(&(player->position), sizeof(Coordinates), 1, saveFile);
-    
-    // saving number of moves contained in player history
-    // because we need it to load it after
-    unsigned int nbMoves = cvector_size(player->movesHistory);
-    fwrite(&nbMoves, sizeof(unsigned int), 1, saveFile);
-    fwrite(player->movesHistory, sizeof(Coordinates), nbMoves, saveFile);
-
-}
-
-/**
- * @brief Function which loads the player from a file. It is used in the loadGame() function
- * @param player The player to load.
- * @param saveFile The file where the player will be loaded.
-*/
-void loadPlayer(Player* player, FILE* saveFile){
-    // loading infos one by one
-    fread(&(player->energy), sizeof(float), 1, saveFile);
-    fread(&(player->nbRewinds), sizeof(int), 1, saveFile);
-    fread(&(player->position), sizeof(Coordinates), 1, saveFile);
-    
-    // load all moves in player history
-    unsigned int nbMovesToLoad;
-    fread(&nbMovesToLoad, sizeof(unsigned int), 1, saveFile);
-    
-    player->movesHistory = NULL;
-    Coordinates move;
-    for (unsigned int i = 0; i < nbMovesToLoad; i++){
-        fread(&move, sizeof(Coordinates), 1, saveFile);
-        cvector_push_back(player->movesHistory, move);
-    }    
-}
-
-/**
  * @brief Function which displays player energy.
  * @param player The player.
 */

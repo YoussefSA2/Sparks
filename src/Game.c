@@ -9,67 +9,6 @@
 #include "./include/Game.h"
 
 /**
-* @brief Function which saves the game to the "save{saveSlot}.sav" file.
-* It calls the saveMap and savePlayer functions.
-* @param player The player.
-* @param map The map.
-* @param saveFileSlot The save slot number where the game is saved.
-* @return PLAYER_SAVED if the game is saved, EXIT_FAILURE if an error occured.
-*/
-int saveGame(Player* player, int** map, char saveSlot) {
-    
-    char saveFileName[12];
-    sprintf(saveFileName, "save%c.sav", saveSlot);
-    
-    FILE* saveFile = fopen(saveFileName, "wb");
-    if (saveFile == NULL) {
-        printf("Error while creating the save file, impossible to save the game. Exiting.");
-        exit(EXIT_FAILURE);
-        return EXIT_FAILURE;
-    }
-
-    saveMap(map, saveFile);
-    fclose(saveFile);
-
-    saveFile = fopen(saveFileName, "ab");
-    if (saveFile == NULL) {
-        printf("Error while creating the save file, impossible to save the game. Exiting.");
-        exit(EXIT_FAILURE);
-        return EXIT_FAILURE;
-    }
-    savePlayer(player, saveFile);
-    fclose(saveFile);
-
-    return PLAYER_SAVED;
-}
-
-/**
- * @brief Function which loads the game from the "save{saveSlot}.sav" file.
- * @param player The player to load
- * @param map The map to load
- * @param saveSlot The save slot number where the game is saved.
- * @return GAME_LOAD_SUCCESS if the game is loaded, GAME_LOAD_FAILED if an error occured.
-*/
-int loadGame(Player* player, int** map, char saveSlot)
-{
-    char saveFileName[12];
-    sprintf(saveFileName, "save%c.sav", saveSlot);
-    
-    FILE* saveFile = fopen(saveFileName, "rb");
-    if (saveFile == NULL) {
-        printf("Error while opening the save file, impossible to load the game. Launching a new one.\n");
-        return GAME_LOAD_FAILED;
-    }
-    
-    loadMap(map, saveFile);
-    loadPlayer(player, saveFile);
-
-    fclose(saveFile);
-
-    return GAME_LOAD_SUCCESS;
-}
-
-/**
  * @brief Function which clears the screen.
  * It uses the system function to call the clear command.
 */

@@ -28,8 +28,6 @@ int **generateMap(int mapSize, char mapDifficulty);
 char getOppositeDirection(char direction);
 void freeMap(int** map, int mapSize);
 void showMap(int** map, int mapSize, Player player);
-void saveMap(int** map, FILE* saveFile);
-void loadMap(int** map, FILE* saveFile);
 int** generateReplayMap(int** savedMap, cvector_vector_type(Coordinates) movesHistory);
 void removeEatenFoodFromReplayMap(int** replayMap, Coordinates position);
 
