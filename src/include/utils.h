@@ -10,5 +10,6 @@
 
 int kbhit(void);
 unsigned int randomInteger(unsigned int min, unsigned int max);
+char getPlayerInput();
 
 #endif
