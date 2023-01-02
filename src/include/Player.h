@@ -1,9 +1,11 @@
 /**
  * @file Player.h
  * @brief Functions prototypes to handle the player.
- * @authors Charles-Meldhine Madi Mnemoi, Sithursha Sivathevan, Youssef Saidi
+ * @authors
+ * @file Coordinates.h
+ * @brief Coordinates structure and functions prototypes.
+ * @authors Sitursha Sivathevan, Charles-Meldhine Madi Mnemoi
 */
-
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
