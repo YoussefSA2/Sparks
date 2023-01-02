@@ -1,3 +1,9 @@
+/**
+ * @file Coordinates.h
+ * @brief Coordinates structure and functions prototypes.
+ * @authors Siursha Sivathevan, Charles-Meldhine Madi Mnemoi
+*/
+
 #ifndef _COORDINATES_H
 #define _COORDINATES_H
 

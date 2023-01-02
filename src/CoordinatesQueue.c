@@ -1,8 +1,16 @@
+/**
+ * @file CoordinatesQueue.c
+ * @brief CoordinatesQueue functions.
+ * @author Charles-Meldhine Madi Mnemoi
+ * 
+ * @details This file contains the functions to manipulate CoordinatesQueue : a queue of Coordinates.
+*/
+
 #include "./include/CoordinatesQueue.h"
 
-/*
-* @brief Create a new queue of Coordinates.
-* @return A pointer to the newly created queue.
+/**
+ * @brief Create a new queue of Coordinates.
+ * @return A pointer to the newly created queue.
 */
 CoordinatesQueue* createQueue() {
     CoordinatesQueue* queue = (CoordinatesQueue*) malloc(sizeof(CoordinatesQueue));
@@ -11,19 +19,19 @@ CoordinatesQueue* createQueue() {
     return queue;
 }
 
-/*
-* @brief Check if a queue is empty.
-* @param queue The queue to check.
-* @return true if the queue is empty, false otherwise.
+/**
+ * @brief Check if a queue is empty.
+ * @param queue The queue to check.
+ * @return true if the queue is empty, false otherwise.
 */
 int isEmpty(CoordinatesQueue* queue) {
     return queue->head == NULL;
 }
 
-/*
-* @brief Add a Coordinate to the queue.
-* @param queue The queue.
-* @param coordinates The coordinates to add.
+/**
+ * @brief Add a Coordinate to the queue.
+ * @param queue The queue.
+ * @param coordinates The coordinates to add.
 */
 void addToQueue(CoordinatesQueue* queue, Coordinates coordinates) {
     QueueNode* node = (QueueNode*) malloc(sizeof(QueueNode));
@@ -39,10 +47,10 @@ void addToQueue(CoordinatesQueue* queue, Coordinates coordinates) {
     }
 }
 
-/*
-* @brief Remove a Coordinate from the queue.
-* @param queue The queue.
-* @return The coordinates removed from the queue.
+/**
+ * @brief Remove a Coordinate from the queue.
+ * @param queue The queue.
+ * @return The coordinates removed from the queue.
 */
 Coordinates removeFromQueue(CoordinatesQueue* queue) {
     if (isEmpty(queue)) {

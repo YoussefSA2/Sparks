@@ -1,16 +1,23 @@
 /**
-* File which handles the Map structure and functions.
+ * @brief File which handles the Map structure and functions.
+ * @authors Dean Bah, Charles-Meldhine Madi Mnemoi
 */
 
 #include "./include/Map.h"
 
-/*
-* Generates a mapSize x mapSize map.
+/**
+ * @brief Generates a mapSize x mapSize map.
+ * @param mapSize The size of the map.
+ * @param mapDifficulty The difficulty of the map.
+ * @return A pointer to the generated map.
+ * 
+ * This function allocates memory for a mapSize x mapSize map, 
+ * and fills it with obstacles and food according to the mapDifficulty.
 */
-int **generateMap(int mapSize, char mapDifficulty){
+int** generateMap(int mapSize, char mapDifficulty){
    
+    // Allocate memory for the map
     int** map = NULL;
-
     map=malloc(mapSize * sizeof(int*));
 
     for (int i=0; i< mapSize; i++)
@@ -26,6 +33,9 @@ int **generateMap(int mapSize, char mapDifficulty){
         } 
     } 
     
+    // Fill the map with obstacles and food
+
+    // The number of obstacles and food is calculated according to the mapDifficulty
     double foodRatio;
     double obstacleRatio;
 
@@ -51,6 +61,7 @@ int **generateMap(int mapSize, char mapDifficulty){
     int nbBonuses = (int) (NUMBER_OF_SQUARES * foodRatio);
     int nbMaluses = (int) (NUMBER_OF_SQUARES * obstacleRatio);
 
+    // We fill the map with obstacles and food
     do {
         
         for (int i = 0; i < nbMaluses; i++)
@@ -88,13 +99,16 @@ int **generateMap(int mapSize, char mapDifficulty){
         map[0][0] = TREE; 
         map[mapSize-1][mapSize-1] = EXIT;
 
-    } while (getShortestPathToExit(map, MAP_SIZE) == NULL);
+    } while (getShortestPathToExit(map, MAP_SIZE) == NULL); // as long as there is no path to the exit, we generate a new map
 
     return map;
 }
 
-/*
-* Displays the map.
+/**
+ * @brief Displays the map.
+ * @param map The map to display.
+ * @param mapSize The size of the map.
+ * @param player The player to display on the map.
 */
 void showMap(int **map, int mapSize, Player player)
 {   
@@ -130,10 +144,10 @@ void showMap(int **map, int mapSize, Player player)
     }
 }
 
-/*
-* @brief Frees the memory allocated for the map.
-* @param map The map to free.
-* @param mapSize The size of the map.
+/**
+ * @brief Frees the memory allocated for the map.
+ * @param map The map to free.
+ * @param mapSize The size of the map.
 */
 void freeMap(int** map, int mapSize) {
     for (int i = 0; i < mapSize; i++) {
@@ -142,8 +156,10 @@ void freeMap(int** map, int mapSize) {
     free(map);
 }
 
-/*
-* Function to get the opposite direction of the given direction.
+/**
+ * @brief Function to get the opposite direction of the given direction.
+ * @param direction The direction to get the opposite of.
+ * @return The opposite direction.
 */
 char getOppositeDirection(char direction){
     switch(direction){
@@ -166,56 +182,6 @@ char getOppositeDirection(char direction){
         default:
             return INVALID_DIRECTION_INPUT;
     }
-}
-
-/** 
- * @brief Function which saves the map in a file. It is used in the saveGame function.
- * @param map The map to save.
- * @param saveFileName The name of the file to save the map in.
-*/
-void saveMap(int** map, FILE* saveFile)
-{
-    // create a static map because you can't save a dynamic one
-    int mapToSave[MAP_SIZE][MAP_SIZE];
-
-    for (unsigned int i = 0; i < MAP_SIZE; i++)
-    {
-        for(unsigned int j = 0; j < MAP_SIZE; j++)
-        {
-            mapToSave[i][j] = map[i][j];
-        }
-    }
-
-    fwrite(mapToSave, sizeof(int), MAP_SIZE * MAP_SIZE, saveFile);
-}
-
-/** 
- * @brief Function which loads the map from a file. It is used in the loadGame function.
- * @param map The map to load.
- * @param saveFileName The name of the file to load the map from.
-*/
-void loadMap(int** map, FILE* saveFile)
-{
-    // load a static map
-    int loadMap[MAP_SIZE][MAP_SIZE];
-    fread(loadMap, sizeof(int), MAP_SIZE * MAP_SIZE, saveFile);
-
-    // free the map and allocate a new one
-    freeMap(map, MAP_SIZE);
-    map = malloc(MAP_SIZE * sizeof(int*));
-    for (unsigned int i = 0; i < MAP_SIZE; ++i){
-        map[i] = malloc(MAP_SIZE * sizeof(int));
-    }
-
-    // fill the dynamic map with the load data
-    for (unsigned int i = 0; i < MAP_SIZE; i++)
-    {
-        for(unsigned int j = 0; j < MAP_SIZE; j++)
-        {
-            map[i][j] = loadMap[i][j];
-        }
-    }
-
 }
 
 /**

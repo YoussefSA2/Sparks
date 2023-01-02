@@ -1,3 +1,11 @@
+/**
+ * @file Player.h
+ * @brief Functions prototypes to handle the player.
+ * @authors
+ * @file Coordinates.h
+ * @brief Coordinates structure and functions prototypes.
+ * @authors Sitursha Sivathevan, Charles-Meldhine Madi Mnemoi
+*/
 #ifndef _PLAYER_H
 #define _PLAYER_H
 
@@ -15,15 +23,15 @@ struct Player{
     cvector_vector_type(Coordinates) movesHistory;
 };
 
-Player initPlayer(int** map);
-
-char move(Player* player, char direction);
+int alreadyPassedOn(Player* player);
 int cancelMove(Player* player);
-void modifyEnergy(Player* player, int value);
-void savePlayer(Player* player, FILE* saveFile);
+Player initPlayer(int** map);
+int isPlayerInTheMap(Player* player, int mapSize);
 void loadPlayer(Player* player, FILE* saveFile);
+void modifyEnergy(Player* player, int value);
+char move(Player* player, char direction);
+void savePlayer(Player* player, FILE* saveFile);
 void showPlayerEnergy(Player player);
 void showPlayerPosition(Player player);
-int alreadyPassedOn(Player* player);
 
 #endif
