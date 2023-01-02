@@ -222,10 +222,10 @@ int showReplay(Player player, int** map, int replaySpeed, char saveSlot){
  * @brief Function which launches the game. It calls the loadGame function if the user wants to load a previous game.
  * @param playerInput The player input
  * @param player The player struct which might be loaded
- * @param mapPointer The pointer to the map which might be loaded
+ * @param map The pointer to the map which might be loaded
  * @return The player choice.
 */
-int launchGame(char playerInput, Player* player, int*** mapPointer){
+int launchGame(char playerInput, Player* player, int*** map){
     
     switch (playerInput)
     {
@@ -236,12 +236,12 @@ int launchGame(char playerInput, Player* player, int*** mapPointer){
             } while(difficulty == INVALID_DIFFICULTY_CHOICE);
             
             // need to pass the map with a pointer to be able to modify it
-            *mapPointer = generateMap(MAP_SIZE, difficulty);
+            *map = generateMap(MAP_SIZE, difficulty);
 
             printf("New game started.\n");
         break;
         case LOAD_GAME:
-            if(loadGame(player, *(mapPointer), chooseSaveSlot()) != GAME_LOAD_FAILED){
+            if(loadGame(player, *map, chooseSaveSlot()) != GAME_LOAD_FAILED){
                 if(isGameFinished(*player)){
                     printf("The game is already finished, you can resume it. Returning to main menu.\n\n");
                     return INVALID_LAUNCH_GAME_CHOICE;
@@ -249,7 +249,7 @@ int launchGame(char playerInput, Player* player, int*** mapPointer){
             }
             break;
         case REPLAY_GAME:
-            return showReplay(*player, *(mapPointer), chooseReplaySpeed(), chooseSaveSlot());
+            return showReplay(*player, *map, chooseReplaySpeed(), chooseSaveSlot());
         case EXIT_INPUT:
             printf("Bye bye!\n");
             exit(EXIT_SUCCESS);
