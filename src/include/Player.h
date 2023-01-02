@@ -15,7 +15,7 @@ struct Player{
     cvector_vector_type(Coordinates) movesHistory;
 };
 
-Player initPlayer();
+Player initPlayer(int** map);
 
 char move(Player* player, char direction);
 int cancelMove(Player* player);

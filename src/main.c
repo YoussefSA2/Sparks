@@ -12,15 +12,19 @@
 * Main function, contains the game loop.
 */
 int main(void)
-{
-    showMenu();
-    
+{    
     int gameIsFinished = false;
 
     int** map = generateMap(MAP_SIZE);
-    Player player = initPlayer();
-    
-    do{} while (launchGame(getPlayerInput(), &player, map) == INVALID_LAUNCH_GAME_CHOICE);
+    Player player = initPlayer(map);
+
+    mainMenu();
+    int launchGameResult = launchGame(getPlayerInput(), &player, map);
+    while (launchGameResult == INVALID_LAUNCH_GAME_CHOICE || launchGameResult == END_REPLAY)
+    {
+        mainMenu();
+        launchGameResult = launchGame(getPlayerInput(), &player, map);
+    }
     
     showMap(map, MAP_SIZE, player);
   

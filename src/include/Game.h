@@ -17,7 +17,7 @@ int killPlayer();
 int handlePlayerVictory();
 void displayAvailableCommands();
 int loadGame(Player* player, int** map);
-void showMenu();
+void mainMenu();
 int launchGame(char playerInput, Player* player, int** map);
 
 #endif
