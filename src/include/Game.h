@@ -14,6 +14,7 @@
 #include "./console.h"
 #include "./Constants.h"
 #include "./Map.h"
+#include "./Menus.h"
 #include "./Path.h"
 #include "./Player.h"
 #include "./Save.h"
@@ -24,7 +25,6 @@ int checkGameState(Player player, int lastPlayerAction, int** map);
 int killPlayer();
 int handlePlayerVictory(Player player, int** map);
 void displayAvailableCommands();
-void mainMenu();
 int launchGame(char playerInput, Player* player, int*** mapPointer);
 
 #endif
