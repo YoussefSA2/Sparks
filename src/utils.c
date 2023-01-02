@@ -1,3 +1,9 @@
+/**
+ * @file utils.c
+ * @brief File containing uncategorized functions.
+ * @author Charles-Meldhine Madi Mnemoi, Youssef Said
+*/
+
 #include "./include/utils.h"
 
 int kbhit(void)

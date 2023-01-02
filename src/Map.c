@@ -1,13 +1,20 @@
 /**
-* File which handles the Map structure and functions.
+ * @brief File which handles the Map structure and functions.
+ * @authors Dean Bah, Charles-Meldhine Madi Mnemoi
 */
 
 #include "./include/Map.h"
 
-/*
-* Generates a mapSize x mapSize map.
+/**
+ * @brief Generates a mapSize x mapSize map.
+ * @param mapSize The size of the map.
+ * @param mapDifficulty The difficulty of the map.
+ * @return A pointer to the generated map.
+ * 
+ * This function allocates memory for a mapSize x mapSize map, 
+ * and fills it with obstacles and food according to the mapDifficulty.
 */
-int **generateMap(int mapSize, char mapDifficulty){
+int** generateMap(int mapSize, char mapDifficulty){
    
     int** map = NULL;
 
@@ -93,8 +100,11 @@ int **generateMap(int mapSize, char mapDifficulty){
     return map;
 }
 
-/*
-* Displays the map.
+/**
+ * @brief Displays the map.
+ * @param map The map to display.
+ * @param mapSize The size of the map.
+ * @param player The player to display on the map.
 */
 void showMap(int **map, int mapSize, Player player)
 {   
@@ -130,10 +140,10 @@ void showMap(int **map, int mapSize, Player player)
     }
 }
 
-/*
-* @brief Frees the memory allocated for the map.
-* @param map The map to free.
-* @param mapSize The size of the map.
+/**
+ * @brief Frees the memory allocated for the map.
+ * @param map The map to free.
+ * @param mapSize The size of the map.
 */
 void freeMap(int** map, int mapSize) {
     for (int i = 0; i < mapSize; i++) {
@@ -142,8 +152,10 @@ void freeMap(int** map, int mapSize) {
     free(map);
 }
 
-/*
-* Function to get the opposite direction of the given direction.
+/**
+ * @brief Function to get the opposite direction of the given direction.
+ * @param direction The direction to get the opposite of.
+ * @return The opposite direction.
 */
 char getOppositeDirection(char direction){
     switch(direction){
