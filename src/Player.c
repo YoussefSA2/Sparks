@@ -1,13 +1,19 @@
 /**
-* File which handles the Player structure and functions.
+ * @file Player.c
+ * @brief File which handles the Player structure and functions.
+ * @authors Youssef Saidi, Sitursha Sivathevan, Charles-Meldhine Madi Mnemoi
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/Player.h"
 
-/*
-* Function which initializes the player.
-*
+/**
+ * @brief Initializes the player.
+ * @param map The map on which the player will play.
+ * @return The initialized player.
+ * 
+ * @details This function initializes the player, and returns it.
 */
 Player initPlayer(int** map){
     
@@ -28,12 +34,14 @@ Player initPlayer(int** map){
     return player;
 }
 
-/*
-* Function which moves the player.
-* It only changes the player position (the display will be handled in the showMap() function).
-* It returns the direction input given by the user (see the Player.h file for the constants).
+/**
+ * @brief Function which moves the player.
+ * It only changes the player position (the display will be handled in the showMap() function from Map.c).
+ * It returns the direction input given by the user (see the Player.h file for the constants).
+ * @param player The player.
+ * @param direction The direction in which the player wants to move.
+ * @return The direction input given by the user.
 */
-
 char move(Player* player, char direction){
     switch(direction){
         case MOVE_NORTH_INPUT:
@@ -92,7 +100,7 @@ int cancelMove(Player* player){
     Coordinates secondToLastPosition = player->movesHistory[cvector_size(player->movesHistory)-2];
     
     // revert coordinates because the map is displayed in a different way than the player moves
-    // TODO: find a better way to do this
+    
     Coordinates positionOnTheMap = {secondToLastPosition.y, secondToLastPosition.x};
 
     player->position = positionOnTheMap;
@@ -105,8 +113,13 @@ int cancelMove(Player* player){
     return CANCEL_MOVE_SUCCESS;
 }
 
-/*
-* Function which modifies the player energy.
+/**
+ * @brief Function which modifies the player energy.
+ * @param player The player.
+ * @param value The value to add to the player energy.
+ * 
+ * @details This function modifies the player energy, and returns it.
+ * It also updates the gainedEnergy and lostEnergy attributes of the player.
 */
 void modifyEnergy(Player* player, int value){
     if (value>0){
@@ -139,7 +152,7 @@ int alreadyPassedOn(Player* player){
 /**
  * @brief Function which saves the player in a file. It is used in the saveGame() function
  * @param player The player to save.
- * @param saveFileName The name of the file where the player will be saved.
+ * @param saveFile The file where the player will be saved.
 */
 void savePlayer(Player* player, FILE* saveFile){
     // save all informations one by one 
@@ -159,7 +172,7 @@ void savePlayer(Player* player, FILE* saveFile){
 /**
  * @brief Function which loads the player from a file. It is used in the loadGame() function
  * @param player The player to load.
- * @param saveFileName The name of the file where the player will be loaded.
+ * @param saveFile The file where the player will be loaded.
 */
 void loadPlayer(Player* player, FILE* saveFile){
     // loading infos one by one
@@ -179,9 +192,18 @@ void loadPlayer(Player* player, FILE* saveFile){
     }    
 }
 
+/**
+ * @brief Function which displays player energy.
+ * @param player The player.
+*/
 void showPlayerEnergy(Player player){
     printf(" Energy : %f \n", player.energy);
 }
+
+/**
+ * @brief Function which displays player position.
+ * @param player The player.
+*/
 void showPlayerPosition(Player player){
     printf(" Position : ");
     showCoordinates(player.position);

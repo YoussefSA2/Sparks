@@ -1,3 +1,9 @@
+/**
+ * @file Game.h
+ * @brief Functions prototypes to handle the game.
+ * @authors Sithursha Sivathevan, Marwa Tourabi, Charles-Meldhine Madi Mnemoi
+*/
+
 #ifndef _GAME_H
 #define _GAME_H
 

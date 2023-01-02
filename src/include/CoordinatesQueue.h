@@ -1,3 +1,9 @@
+/**
+ * @file CoordinatesQueue.h
+ * @brief CoordinatesQueue structure and functions prototypes.
+ * @authors Charles-Meldhine Madi Mnemoi
+*/
+
 #ifndef COORDINATESQUEUE_H
 #define COORDINATESQUEUE_H
 

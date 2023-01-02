@@ -1,15 +1,20 @@
-/*
-* File containing all the functions needed to handle the game in its main loop.
+/**
+ * @file Game.c
+ * @brief Main game loop functions.
+ * @authors Sithursha Sivathevan, Marwa Tourabi, Charles-Meldhine Madi Mnemoi
+ * 
+ * @details File containing all the functions needed to handle the game in its main loop.
 */
 
 #include "./include/Game.h"
 
 /**
-* @brief Function which saves the game.
+* @brief Function which saves the game to the "save{saveSlot}.sav" file.
 * It calls the saveMap and savePlayer functions.
 * @param player The player.
 * @param map The map.
-* @return PLAYER_SAVED.
+* @param saveFileSlot The save slot number where the game is saved.
+* @return PLAYER_SAVED if the game is saved, EXIT_FAILURE if an error occured.
 */
 int saveGame(Player* player, int** map, char saveSlot) {
     
@@ -39,10 +44,11 @@ int saveGame(Player* player, int** map, char saveSlot) {
 }
 
 /**
- * @brief Function which loads the game from the `saveFileName` file.
+ * @brief Function which loads the game from the "save{saveSlot}.sav" file.
  * @param player The player to load
  * @param map The map to load
- * @param saveFileName The name of the file where the game is saved
+ * @param saveSlot The save slot number where the game is saved.
+ * @return GAME_LOAD_SUCCESS if the game is loaded, GAME_LOAD_FAILED if an error occured.
 */
 int loadGame(Player* player, int** map, char saveSlot)
 {
@@ -169,7 +175,7 @@ int handlePlayerInput(char input, Player* player, int** map) {
 
 /**
  * @brief Function which prints the last action the player did.
- * @param gameState The last action the player did.
+ * @param gameState The result of the last action the player did.
 */
 void printLastAction(char gameState, Player player) {
     showPlayerEnergy(player);
@@ -258,10 +264,12 @@ int killPlayer()
     return PLAYER_LOST;
 }
 
-/*
-* Function wich shows statistics of the game
+/**
+ * @brief Function which shows statistics of the game if the player wins.
+ * @param player The player.
+ * @param map The map.
 */
-void showStatistics(Player player, int ** map){
+void showStatistics(Player player, int** map){
     printf("Energy left: %f     Energy gained: %f    Energy lost: %f \n", player.energy, player.gainedEnergy, player.lostEnergy);
     printf("\nMove history:\n");
 
@@ -288,9 +296,11 @@ void showStatistics(Player player, int ** map){
 
 /**
  * @brief Function which prints a message when the player wins.
+ * @param player The player.
+ * @param map The map.
  * @return PLAYER_WON
 */
-int handlePlayerVictory(Player player, int ** map) 
+int handlePlayerVictory(Player player, int** map) 
 {
     printf("You've reached the exit, you win!\n");
     showStatistics(player, map);
@@ -363,7 +373,8 @@ int chooseReplaySpeed(){
  * @param map The map.
  * @param replaySpeed The speed of the replay in seconds.
  * @param saveSlot The save slot number.
- * @return INVALID_LAUNCH_GAME_CHOICE if the game is not finished and END_REPLAY if the replay is launched successfully.
+ * @return INVALID_LAUNCH_GAME_CHOICE if the game is not finished,
+ * END_REPLAY if the replay is launched successfully.
 */
 int showReplay(Player player, int** map, int replaySpeed, char saveSlot){
     loadGame(&player, map, saveSlot);

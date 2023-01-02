@@ -1,3 +1,9 @@
+/**
+ * @file utils.h
+ * @brief Functions prototypes to handle the utils.
+ * @author Charles-Meldhine Madi Mnemoi, Youssef Saidi
+*/
+
 #ifndef UTILS_H
 #define UTILS_H
 

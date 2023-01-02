@@ -1,40 +1,46 @@
+/**
+ * @file Path.c
+ * @brief File containing the functions to handle the pathfinding algorithm.
+ * @author Charles-Meldhine Madi Mnemoi
+*/
+
 #include "./include/Path.h"
 
-/*
-* @brief Check if a position is the exitPosition.
-* @param position The coordinates of the position to check.
-* @return true if the position is the exitPosition, false otherwise.
+/**
+ * @brief Check if a position is the exitPosition.
+ * @param position The coordinates of the position to check.
+ * @return true if the position is the exitPosition, false otherwise.
 */
 int isExitPosition(Coordinates position, int mapSize) {
     Coordinates exitPosition = {mapSize -1, mapSize -1};
     return areEqual(position, exitPosition); // TODO: use the EXIT constant when the relevant PR is merged
 }
 
-/*
-* @brief Check if a position is the startPosition.
-* @param position The coordinates of the position to check.
-* @return true if the position is the startPosition, false otherwise.
+/**
+ * @brief Check if a position is the startPosition.
+ * @param position The coordinates of the position to check.
+ * @return true if the position is the startPosition, false otherwise.
 */
 int isStartPosition(Coordinates position) {
     Coordinates startPosition = {0, 0};
     return areEqual(position, startPosition);
 }
 
-/*
-* @brief Check if a position has not been visited yet.
-* @param position The coordinates of the position to check.
-* @return true if the position has not been visited yet, false otherwise.
+/**
+ * @brief Check if a position has not been visited yet.
+ * @param position The coordinates of the position to check.
+ * @return true if the position has not been visited yet, false otherwise.
 */
 int isUnvisitedPosition(Coordinates position) {
     Coordinates unvisitedPosition = {-1, -1};
     return areEqual(position, unvisitedPosition);
 }
 
-/*
-* @brief Check if a position is valid : inside the map and not an obstacle.
-* @param position The coordinates of the position to check.
-* @param map The map.
-* @return true if the position is valid, false otherwise.
+/**
+ * @brief Check if a position is valid : inside the map and not an obstacle.
+ * @param position The coordinates of the position to check.
+ * @param map The map.
+ * @return true if the position is valid, false otherwise.
 */
 int isValidPosition(Coordinates position, int** map, int mapSize) {
     return position.x >= 0 && position.x < mapSize 
@@ -42,10 +48,10 @@ int isValidPosition(Coordinates position, int** map, int mapSize) {
         && map[position.x][position.y] != OBSTACLE;
 }
 
-/*
-* @brief Get the eight neighbors of a position.
-* @param position The coordinates of the position.
-* @return An array of Coordinates containing the eight neighbors of the position. 
+/**
+ * @brief Get the eight neighbors of a position. They will be used in BFS algorithm.
+ * @param position The coordinates of the position.
+ * @return An array of Coordinates containing the eight neighbors of the position. 
 */
 Coordinates* getNeighbours(Coordinates position) {
     Coordinates* neighbours = malloc(sizeof(Coordinates) * 8);
@@ -68,12 +74,12 @@ Coordinates* getNeighbours(Coordinates position) {
     return neighbours;
 }
 
-/*
-* @brief Use the breadth-first search algorithm to recursively find the closest predecessor of each position.
-* The function stops when it finds the exitPosition.
-* See https://www.redblobgames.com/shortestPathfinding/a-star/introduction.html#breadth-first-search for more information.
-* @param map The map.
-* @return An array of Coordinates containing the closest predecessor of each position.
+/**
+ * @brief Use the breadth-first search algorithm to recursively find the closest predecessor of each position.
+ * The function stops when it finds the exitPosition.
+ * See https://www.redblobgames.com/shortestPathfinding/a-star/introduction.html#breadth-first-search for more information.
+ * @param map The map.
+ * @return An array of Coordinates containing the closest predecessor of each position.
 */
 Coordinates* breadthFirstSearchTheExit(int** map, int mapSize)
 {   
@@ -118,11 +124,11 @@ Coordinates* breadthFirstSearchTheExit(int** map, int mapSize)
     
 }
 
-/*
-* @brief Compute the shortest shortestPath to the exitPosition from the closest predecessor of each position.
-* @param map The map.
-* @return An array of Coordinates containing the shortest shortestPath to the exitPosition. 
-* If the exitPosition is not reachable, the function returns NULL.
+/**
+ * @brief Compute the shortest path to the exitPosition from the closest predecessor of each position.
+ * @param map The map.
+ * @return An array of Coordinates containing the shortest path to the exitPosition. 
+ * If the exitPosition is not reachable, the function returns NULL.
 */
 cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) {
     
@@ -167,7 +173,7 @@ cvector_vector_type(Coordinates) getShortestPathToExit(int ** map, int mapSize) 
         reversedShortestPath[i] = shortestPath[index - i - 1];
     }
 
-    // remove the positions that are not part of the shortest shortestPath
+    // remove the positions that are not part of the shortest path
     // (don't ask me why)
     cvector_vector_type(Coordinates) cleanShortestpath = NULL;
 

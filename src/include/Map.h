@@ -1,3 +1,9 @@
+/**
+ * @file Map.h
+ * @brief Functions prototypes to handle the map.
+ * @authors Charles-Meldhine Madi Mnemoi, Dean Bah
+*/
+
 #ifndef _MAP_H
 #define _MAP_H
 
