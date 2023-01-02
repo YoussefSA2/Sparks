@@ -1,11 +1,23 @@
 /**
- * @file utils.c
- * @brief File containing uncategorized functions.
+ * @file console.c
+ * @brief File containing functions to manipulate the user interactions with the console.
  * @author Charles-Meldhine Madi Mnemoi, Youssef Said
 */
 
-#include "./include/utils.h"
+#include "./include/console.h"
 
+/**
+ * @brief Function which clears the screen.
+ * It uses the system function to call the clear command.
+*/
+void clearScreen()
+{
+    system("clear");
+}
+
+/**
+ * @brief This function allows to wait for the user to enter a string without pressing enter.
+*/
 int kbhit(void)
 {
   struct termios oldt, newt;
@@ -31,19 +43,6 @@ int kbhit(void)
   }
 
   return 0;
-}
-
-/**
- * @brief Returns a random integer between min and max.
- * @param min The minimum value.
- * @param max The maximum value.
- * @return A random integer between min and max.
-*/
-unsigned int randomInteger(unsigned int min, unsigned int max)
-{
-    srand(time(NULL) + rand());
-    unsigned int value = rand() % (max - min + 1) + min;
-    return value;
 }
 
 /**

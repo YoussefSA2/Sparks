@@ -21,6 +21,7 @@ compile-tests:
 	gcc $(FLAGS) $(TEST_FLAGS) test/test_Player.c $(SOURCES_WITOUT_MAIN) -o tests_player; \
 	gcc $(FLAGS) $(TEST_FLAGS) test/test_Path.c $(SOURCES_WITOUT_MAIN) -o tests_path; \
 	gcc $(FLAGS) $(TEST_FLAGS) test/test_CoordinatesQueue.c $(SOURCES_WITOUT_MAIN) -o tests_coordinates_queue; \
+	gcc $(FLAGS) $(TEST_FLAGS) test/test_Save.c $(SOURCES_WITOUT_MAIN) -o tests_save
 
 run-game: compile-game
 	./game
@@ -31,6 +32,7 @@ run-tests: compile-tests
 	./tests_player
 	./tests_path
 	./tests_coordinates_queue
+	./tests_save
 
 run-debug: compile-game-debug
 	gdb game
