@@ -39,3 +39,14 @@ unsigned int randomInteger(unsigned int min, unsigned int max)
     unsigned int value = rand() % (max - min + 1) + min;
     return value;
 }
+
+/**
+* @brief Returns the player input.
+* @return The player input.
+*/
+char getPlayerInput() {
+    while (!kbhit()) {}
+    char input = getchar();
+    return input;
+    
+}

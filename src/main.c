@@ -37,6 +37,7 @@ int main(void)
     }
 
     printf("\nThanks for playing!\n");
+    saveGame(&player, map, chooseSaveSlot());
     freeMap(map, MAP_SIZE);
 
     return EXIT_SUCCESS;
