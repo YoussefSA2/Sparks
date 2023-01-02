@@ -2,13 +2,7 @@
 * File containing all the functions needed to handle the game in its main loop.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
 #include "./include/Game.h"
-#include "./include/Player.h"
-#include "./include/Path.h"
 
 /**
 * @brief Function which saves the game.
@@ -400,25 +394,74 @@ int showReplay(Player player, int** map, int replaySpeed){
 }
 
 /**
+ * @brief Function which displays the map difficulty menu.
+*/
+void mapDifficultyMenu(){
+    printf("Choose a difficulty:\n");
+    printf("1: Easy (a few obstacles)\n");
+    printf("2: Normal (an average amount of obstacles)\n");
+    printf("3: Hard (a lot of obstacles)\n");
+}
+
+/**
+ * @brief Function which handles the difficulty choice of the player.
+ * @return The difficulty chosen by the player.
+*/
+char chooseMapDifficulty(){
+    
+    mapDifficultyMenu();
+    char playerInput = getPlayerInput();
+
+    switch (playerInput)
+    {
+        case EASY:
+            printf("Easy difficulty chosen.\n");
+            return EASY;
+            break;
+        case NORMAL:
+            printf("Normal difficulty chosen.\n");
+            return NORMAL;
+            break;
+        case HARD:
+            printf("Hard difficulty chosen.\n");
+            return HARD;
+            break;
+        default:
+            printf("Invalid choice, try again.\n");
+            return INVALID_DIFFICULTY_CHOICE;
+            break;
+    }
+}
+
+/**
  * @brief Function which launches the game. It calls the loadGame function if the user wants to load a previous game.
  * @param playerInput The player input
  * @param player The player struct which might be loaded
- * @param map The map which might be loaded
+ * @param mapPointer The pointer to the map which might be loaded
+ * @return The player choice.
 */
-int launchGame(char playerInput, Player* player, int** map){
+int launchGame(char playerInput, Player* player, int*** mapPointer){
     
     switch (playerInput)
     {
+        char difficulty;
         case NEW_GAME:
+            do{
+                difficulty = chooseMapDifficulty();
+            } while(difficulty == INVALID_DIFFICULTY_CHOICE);
+            
+            // need to pass the map with a pointer to be able to modify it
+            *mapPointer = generateMap(MAP_SIZE, difficulty);
+
             printf("New game started.\n");
         break;
         case LOAD_GAME:
-            if(loadGame(player, map) != GAME_LOAD_FAILED){
+            if(loadGame(player, *(mapPointer)) != GAME_LOAD_FAILED){
                 printf("Previous game loaded.\n");
             }
             break;
         case REPLAY_GAME:
-            return showReplay(*player, map, chooseReplaySpeed());
+            return showReplay(*player, *(mapPointer), chooseReplaySpeed());
         case EXIT_INPUT:
             printf("Bye bye!\n");
             exit(EXIT_SUCCESS);
