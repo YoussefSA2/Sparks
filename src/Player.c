@@ -120,6 +120,23 @@ void modifyEnergy(Player* player, int value){
 }
 
 /**
+ * @brief Function which checks if the player already passed on a given position, 
+ * using the player moves history and player's current position.
+ * @param player The player.
+ * @return true if the player already passed on the given position, false otherwise.
+*/
+int alreadyPassedOn(Player* player){
+    unsigned int nbMoves = cvector_size(player->movesHistory);
+    for (unsigned int i = 0; i < nbMoves - 1; i++){
+       Coordinates move = {player->movesHistory[i].y, player->movesHistory[i].x};
+         if (areEqual(move, player->position)){
+              return true;
+         }
+    }
+    return false;
+}
+
+/**
  * @brief Function which saves the player in a file. It is used in the saveGame() function
  * @param player The player to save.
  * @param saveFileName The name of the file where the player will be saved.

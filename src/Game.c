@@ -180,7 +180,7 @@ int handlePlayerInput(char input, Player* player, int** map) {
 void printLastAction(char gameState, Player player) {
     showPlayerEnergy(player);
     showPlayerPosition(player);
-    
+
     switch (gameState) {
         case MOVE_SUCCESS:
             printf("You moved successfully.\n");
@@ -210,6 +210,11 @@ void printLastAction(char gameState, Player player) {
             printf("Invalid input.\n");
             break;
     }
+
+     if (alreadyPassedOn(&player)) {
+        printf("You already passed on this square, be careful!\n");
+    }
+    
 }
 
 /**
